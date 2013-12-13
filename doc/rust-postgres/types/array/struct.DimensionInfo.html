@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>rust-postgres::types::array::DimensionInfo - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Oswald:700|Inconsolata:400'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../../rust-postgres/main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        <p class='location'><a href='../../index.html'>rust-postgres</a>&#8203;::<a href='../index.html'>types</a>&#8203;::<a href='index.html'>array</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.ArrayBase.html'>ArrayBase</a><br/><a class='struct ' href='struct.ArraySlice.html'>ArraySlice</a><br/><a class='struct current' href='struct.DimensionInfo.html'>DimensionInfo</a><br/><a class='struct ' href='struct.MutArraySlice.html'>MutArraySlice</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.Array.html'>Array</a><br/><a class='trait ' href='trait.MutableArray.html'>MutableArray</a><br/></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <input class="search-input" name="search"
+                   autocomplete="off"
+                   placeholder="Search documentation..."
+                   type="search" />
+            <button class="do-search">Search</button>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct"><a class='source'
+                       href='../../../src/rust-postgres/types/array.rs.html#8-13'>[src]</a><h1 class='fqn'>Struct <a href='../../index.html'>rust-postgres</a>::<a href='../index.html'>types</a>::<a href='index.html'>array</a>::<a class='struct' href=''>DimensionInfo</a></h1><pre class='struct'>pub struct DimensionInfo {
+    len: uint,
+    lower_bound: int,
+}</pre><div class='docblock'><p>Information about a dimension of an array</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.len'><code>len</code></td><td><div class='docblock'><p>The size of the dimension</p>
+</div></td></tr><tr><td id='structfield.lower_bound'><code>lower_bound</code></td><td><div class='docblock'><p>The index of the first element of the dimension</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a> for <a class='struct' href='../../../rust-postgres/types/array/struct.DimensionInfo.html' title='rust-postgres::types::array::DimensionInfo'>DimensionInfo</a></code></h3><div class='docblock'><p>Automatically derived.</p>
+</div><div class='methods'><h4 id='method.eq' class='method'><code>fn <span class='fnname'>eq</span>(&amp;self, __arg_0: &amp;<a class='struct' href='../../../rust-postgres/types/array/struct.DimensionInfo.html' title='rust-postgres::types::array::DimensionInfo'>DimensionInfo</a>) -&gt; bool</code></h4>
+<h4 id='method.ne' class='method'><code>fn <span class='fnname'>ne</span>(&amp;self, __arg_0: &amp;<a class='struct' href='../../../rust-postgres/types/array/struct.DimensionInfo.html' title='rust-postgres::types::array::DimensionInfo'>DimensionInfo</a>) -&gt; bool</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='struct' href='../../../rust-postgres/types/array/struct.DimensionInfo.html' title='rust-postgres::types::array::DimensionInfo'>DimensionInfo</a></code></h3><div class='docblock'><p>Automatically derived.</p>
+</div><div class='methods'><h4 id='method.clone' class='method'><code>fn <span class='fnname'>clone</span>(&amp;self) -&gt; <a class='struct' href='../../../rust-postgres/types/array/struct.DimensionInfo.html' title='rust-postgres::types::array::DimensionInfo'>DimensionInfo</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <script>
+        var rootPath = "../../../";
+    </script>
+    <script src="../../../rust-postgres/jquery.js"></script>
+    <script src="../../../rust-postgres/search-index.js"></script>
+    <script src="../../../rust-postgres/main.js"></script>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+</body>
+</html>
