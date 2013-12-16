@@ -26,11 +26,13 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
@@ -1297,12 +1299,6 @@
 <span id='1261'>1261</span>
 <span id='1262'>1262</span>
 <span id='1263'>1263</span>
-<span id='1264'>1264</span>
-<span id='1265'>1265</span>
-<span id='1266'>1266</span>
-<span id='1267'>1267</span>
-<span id='1268'>1268</span>
-<span id='1269'>1269</span>
 </pre><pre class='rust'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
 exposes a high level interface in the vein of JDBC or Go&#39;s `database/sql`
@@ -1360,13 +1356,7 @@ fn main() {
 ```
  */
 
-#[desc=&quot;A native PostgreSQL driver&quot;];
-#[license=&quot;MIT&quot;];
-
-// Needed for rustdoc-ng
-#[link(name=&quot;rust-postgres&quot;, vers=&quot;0.1&quot;,
-       package_id=&quot;github.com/sfackler/rust-postgres&quot;)];
-
+#[pkgid=&quot;github.com/sfackler/rust-postgres&quot;];
 #[doc(html_root_url=&quot;http://sfackler.github.io/rust-postgres/doc/rust-postgres/&quot;)];
 
 #[warn(missing_doc)];

@@ -26,11 +26,13 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
@@ -44,7 +46,7 @@
     MissingPassword,
     UnsupportedAuthentication,
     NoSslSupport,
-    SslError(SslError),
+    SslError(<a class='enum' href='http://sfackler.github.io/rust-ssl/doc/rust-ssl/rust-ssl/error/enum.SslError.html' title='rust-ssl::error::SslError'>SslError</a>),
 }</pre><div class='docblock'><p>Reasons a new Postgres connection could fail</p>
 </div><h2 class='variants'>Variants</h2>
 <table><tr><td id='variant.InvalidUrl'><code>InvalidUrl</code></td><td><div class='docblock'><p>The provided URL could not be parsed</p>

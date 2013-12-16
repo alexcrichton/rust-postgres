@@ -26,11 +26,13 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
@@ -789,33 +791,6 @@
 <span id='753'>753</span>
 <span id='754'>754</span>
 <span id='755'>755</span>
-<span id='756'>756</span>
-<span id='757'>757</span>
-<span id='758'>758</span>
-<span id='759'>759</span>
-<span id='760'>760</span>
-<span id='761'>761</span>
-<span id='762'>762</span>
-<span id='763'>763</span>
-<span id='764'>764</span>
-<span id='765'>765</span>
-<span id='766'>766</span>
-<span id='767'>767</span>
-<span id='768'>768</span>
-<span id='769'>769</span>
-<span id='770'>770</span>
-<span id='771'>771</span>
-<span id='772'>772</span>
-<span id='773'>773</span>
-<span id='774'>774</span>
-<span id='775'>775</span>
-<span id='776'>776</span>
-<span id='777'>777</span>
-<span id='778'>778</span>
-<span id='779'>779</span>
-<span id='780'>780</span>
-<span id='781'>781</span>
-<span id='782'>782</span>
 </pre><pre class='rust'>//! Traits dealing with Postgres data types
 
 extern mod extra;
@@ -827,6 +802,7 @@ use extra::uuid::Uuid;
 use std::hashmap::HashMap;
 use std::io::Decorator;
 use std::io::mem::{MemWriter, BufReader};
+use std::io::util::LimitReader;
 use std::str;
 use std::vec;
 
@@ -1163,35 +1139,7 @@ from_range_impl!(PgTsRange | PgTstzRange, Timespec)
 
 impl RawFromSql for Json {
     fn raw_from_sql&lt;R: Reader&gt;(len: uint, raw: &amp;mut R) -&gt; Json {
-        struct LimitedReader&lt;&#39;a, R&gt; {
-            limit: uint,
-            reader: &amp;&#39;a mut R
-        }
-        impl&lt;&#39;a, R: Reader&gt; Reader for LimitedReader&lt;&#39;a, R&gt; {
-            fn read(&amp;mut self, buf: &amp;mut [u8]) -&gt; Option&lt;uint&gt; {
-                if self.limit == 0 {
-                    return None;
-                }
-
-                let buf = if self.limit &lt; buf.len() {
-                    buf.mut_slice_to(self.limit)
-                } else {
-                    buf
-                };
-                match self.reader.read(buf) {
-                    Some(len) =&gt; {
-                        self.limit -= len;
-                        Some(len)
-                    }
-                    None =&gt; None
-                }
-            }
-
-            fn eof(&amp;mut self) -&gt; bool {
-                self.limit == 0 || self.reader.eof()
-            }
-        }
-        let mut reader = LimitedReader { limit: len, reader: raw };
+        let mut reader = LimitReader::new(raw, len);
         json::from_reader(&amp;mut reader as &amp;mut Reader).unwrap()
     }
 }

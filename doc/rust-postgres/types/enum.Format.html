@@ -26,16 +26,18 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
     <section id='main' class="content enum"><a class='source'
-                       href='../../src/rust-postgres/types/mod.rs.html#213-218'>[src]</a><h1 class='fqn'>Enum <a href='../index.html'>rust-postgres</a>::<a href='index.html'>types</a>::<a class='enum' href=''>Format</a></h1><pre class='enum'>pub enum Format {
+                       href='../../src/rust-postgres/types/mod.rs.html#214-219'>[src]</a><h1 class='fqn'>Enum <a href='../index.html'>rust-postgres</a>::<a href='index.html'>types</a>::<a class='enum' href=''>Format</a></h1><pre class='enum'>pub enum Format {
     Text,
     Binary,
 }</pre><div class='docblock'><p>The wire format of a Postgres value</p>

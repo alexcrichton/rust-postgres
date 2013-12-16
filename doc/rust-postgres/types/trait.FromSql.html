@@ -26,16 +26,18 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
     <section id='main' class="content trait"><a class='source'
-                       href='../../src/rust-postgres/types/mod.rs.html#230-239'>[src]</a><h1 class='fqn'>Trait <a href='../index.html'>rust-postgres</a>::<a href='index.html'>types</a>::<a class='trait' href=''>FromSql</a></h1><pre class='trait'>pub trait FromSql {
+                       href='../../src/rust-postgres/types/mod.rs.html#231-240'>[src]</a><h1 class='fqn'>Trait <a href='../index.html'>rust-postgres</a>::<a href='index.html'>types</a>::<a class='trait' href=''>FromSql</a></h1><pre class='trait'>pub trait FromSql {
     fn <a href='#tymethod.from_sql'
                                     class='fnname'>from_sql</a>(ty: &amp;<a class='enum' href='../../rust-postgres/types/enum.PostgresType.html' title='rust-postgres::types::PostgresType'>PostgresType</a>, raw: &amp;<a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;~[u8]&gt;) -&gt; Self;
 }</pre><div class='docblock'><p>A trait for types that can be created from a Postgres value</p>

@@ -26,16 +26,18 @@
 
     <nav class="sub">
         <form class="search-form js-only">
-            <input class="search-input" name="search"
-                   autocomplete="off"
-                   placeholder="Search documentation..."
-                   type="search" />
             <button class="do-search">Search</button>
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search" />
+            </div>
         </form>
     </nav>
 
     <section id='main' class="content trait"><a class='source'
-                       href='../src/rust-postgres/lib.rs.html#854-905'>[src]</a><h1 class='fqn'>Trait <a href='index.html'>rust-postgres</a>::<a class='trait' href=''>PostgresStatement</a></h1><pre class='trait'>pub trait PostgresStatement {
+                       href='../src/rust-postgres/lib.rs.html#848-899'>[src]</a><h1 class='fqn'>Trait <a href='index.html'>rust-postgres</a>::<a class='trait' href=''>PostgresStatement</a></h1><pre class='trait'>pub trait PostgresStatement {
     fn <a href='#tymethod.param_types'
                                     class='fnname'>param_types</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a [<a class='enum' href='../rust-postgres/types/enum.PostgresType.html' title='rust-postgres::types::PostgresType'>PostgresType</a>];
     fn <a href='#tymethod.result_descriptions'
