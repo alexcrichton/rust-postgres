@@ -51,6 +51,8 @@ created.</p>
 </div><h4 id='method.new' class='method'><code>fn <span class='fnname'>new</span>(url: &amp;str, ssl: <a class='enum' href='../../rust-postgres/enum.SslMode.html' title='rust-postgres::SslMode'>SslMode</a>, pool_size: uint) -&gt; <a class='struct' href='../../rust-postgres/pool/struct.PostgresConnectionPool.html' title='rust-postgres::pool::PostgresConnectionPool'>PostgresConnectionPool</a></code></h4>
 <div class='docblock'><p>A convenience function wrapping <code>try_new</code>.</p>
 
+<h1>Failure</h1>
+
 <p>Fails if the pool cannot be created.</p>
 </div><h4 id='method.get_connection' class='method'><code>fn <span class='fnname'>get_connection</span>(&amp;self) -&gt; <a class='struct' href='../../rust-postgres/pool/struct.PooledPostgresConnection.html' title='rust-postgres::pool::PooledPostgresConnection'>PooledPostgresConnection</a></code></h4>
 <div class='docblock'><p>Retrieves a connection from the pool.</p>
