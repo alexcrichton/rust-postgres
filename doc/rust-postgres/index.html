@@ -75,8 +75,8 @@ fn main() {
     };
     conn.update(&quot;INSERT INTO person (name, time_created, data)
                     VALUES ($1, $2, $3)&quot;,
-                 [&amp;me.name as &amp;ToSql, &amp;me.time_created as &amp;ToSql,
-                  &amp;me.data as &amp;ToSql]);
+                [&amp;me.name as &amp;ToSql, &amp;me.time_created as &amp;ToSql,
+                 &amp;me.data as &amp;ToSql]);
 
     let stmt = conn.prepare(&quot;SELECT id, name, time_created, data FROM person&quot;);
     for row in stmt.query([]) {
