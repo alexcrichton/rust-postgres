@@ -524,7 +524,6 @@
 <span id='486'>486</span>
 <span id='487'>487</span>
 <span id='488'>488</span>
-<span id='489'>489</span>
 </pre><pre class='rust'>//! Postgres errors
 
 use std::hashmap::HashMap;
@@ -969,8 +968,7 @@ pub struct PostgresDbError {
 impl PostgresDbError {
     #[doc(hidden)]
     pub fn new(fields: ~[(u8, ~str)]) -&gt; PostgresDbError {
-        // move_rev_iter is more efficient than move_iter
-        let mut map: HashMap&lt;u8, ~str&gt; = fields.move_rev_iter().collect();
+        let mut map: HashMap&lt;u8, ~str&gt; = fields.move_iter().collect();
         PostgresDbError {
             severity: map.pop(&amp;(&#39;S&#39; as u8)).unwrap(),
             code: FromStr::from_str(map.pop(&amp;(&#39;C&#39; as u8)).unwrap()).unwrap(),
