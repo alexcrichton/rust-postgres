@@ -1299,6 +1299,7 @@
 <span id='1261'>1261</span>
 <span id='1262'>1262</span>
 <span id='1263'>1263</span>
+<span id='1264'>1264</span>
 </pre><pre class='rust'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
 exposes a high level interface in the vein of JDBC or Go&#39;s `database/sql`
@@ -1325,22 +1326,22 @@ fn main() {
     let conn = PostgresConnection::connect(&quot;postgres://postgres@localhost&quot;,
                                            &amp;NoSsl);
 
-    conn.update(&quot;CREATE TABLE person (
+    conn.execute(&quot;CREATE TABLE person (
                     id              SERIAL PRIMARY KEY,
                     name            VARCHAR NOT NULL,
                     time_created    TIMESTAMP NOT NULL,
                     data            BYTEA
-                 )&quot;, []);
+                  )&quot;, []);
     let me = Person {
         id: 0,
         name: ~&quot;Steven&quot;,
         time_created: time::get_time(),
         data: None
     };
-    conn.update(&quot;INSERT INTO person (name, time_created, data)
+    conn.execute(&quot;INSERT INTO person (name, time_created, data)
                     VALUES ($1, $2, $3)&quot;,
-                [&amp;me.name as &amp;ToSql, &amp;me.time_created as &amp;ToSql,
-                 &amp;me.data as &amp;ToSql]);
+                 [&amp;me.name as &amp;ToSql, &amp;me.time_created as &amp;ToSql,
+                  &amp;me.data as &amp;ToSql]);
 
     let stmt = conn.prepare(&quot;SELECT id, name, time_created, data FROM person&quot;);
     for row in stmt.query([]) {
@@ -1357,6 +1358,7 @@ fn main() {
  */
 
 #[crate_id=&quot;github.com/sfackler/rust-postgres&quot;];
+#[crate_type=&quot;lib&quot;];
 #[doc(html_root_url=&quot;http://sfackler.github.io/rust-postgres/doc/&quot;)];
 
 #[warn(missing_doc)];
@@ -1997,26 +1999,26 @@ impl PostgresConnection {
         }
     }
 
-    /// A convenience function for update queries that are only run once.
+    /// A convenience function for queries that are only run once.
     ///
     /// If an error is returned, it could have come from either the preparation
     /// or execution of the statement.
     ///
     /// On success, returns the number of rows modified or 0 if not applicable.
-    pub fn try_update(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql])
+    pub fn try_execute(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql])
             -&gt; Result&lt;uint, PostgresDbError&gt; {
-        self.try_prepare(query).and_then(|stmt| stmt.try_update(params))
+        self.try_prepare(query).and_then(|stmt| stmt.try_execute(params))
     }
 
-    /// A convenience wrapper around `try_update`.
+    /// A convenience wrapper around `try_execute`.
     ///
     /// # Failure
     ///
     /// Fails if there was an error preparing or executing the statement.
-    pub fn update(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql]) -&gt; uint {
-        match self.try_update(query, params) {
+    pub fn execute(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql]) -&gt; uint {
+        match self.try_execute(query, params) {
             Ok(res) =&gt; res,
-            Err(err) =&gt; fail!(&quot;Error running update:\n{}&quot;,
+            Err(err) =&gt; fail!(&quot;Error running query:\n{}&quot;,
                                err.pretty_error(query))
         }
     }
@@ -2103,15 +2105,15 @@ impl&lt;&#39;conn&gt; PostgresTransaction&lt;&#39;conn&gt; {
         }
     }
 
-    /// Like `PostgresConnection::try_update`.
-    pub fn try_update(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql])
+    /// Like `PostgresConnection::try_execute`.
+    pub fn try_execute(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql])
             -&gt; Result&lt;uint, PostgresDbError&gt; {
-        self.conn.try_update(query, params)
+        self.conn.try_execute(query, params)
     }
 
-    /// Like `PostgresConnection::update`.
-    pub fn update(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql]) -&gt; uint {
-        self.conn.update(query, params)
+    /// Like `PostgresConnection::execute`.
+    pub fn execute(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql]) -&gt; uint {
+        self.conn.execute(query, params)
     }
 
     /// Like `PostgresConnection::transaction`.
@@ -2162,17 +2164,17 @@ pub trait PostgresStatement {
     ///
     /// Fails if the number or types of the provided parameters do not match
     /// the parameters of the statement.
-    fn try_update(&amp;self, params: &amp;[&amp;ToSql]) -&gt; Result&lt;uint, PostgresDbError&gt;;
+    fn try_execute(&amp;self, params: &amp;[&amp;ToSql]) -&gt; Result&lt;uint, PostgresDbError&gt;;
 
-    /// A convenience function wrapping `try_update`.
+    /// A convenience function wrapping `try_execute`.
     ///
     /// # Failure
     ///
     /// Fails if there was an error executing the statement.
-    fn update(&amp;self, params: &amp;[&amp;ToSql]) -&gt; uint {
-        match self.try_update(params) {
+    fn execute(&amp;self, params: &amp;[&amp;ToSql]) -&gt; uint {
+        match self.try_execute(params) {
             Ok(count) =&gt; count,
-            Err(err) =&gt; fail!(&quot;Error running update\n{}&quot;, err.to_str())
+            Err(err) =&gt; fail!(&quot;Error running query\n{}&quot;, err.to_str())
         }
     }
 
@@ -2302,7 +2304,7 @@ impl&lt;&#39;conn&gt; PostgresStatement for NormalPostgresStatement&lt;&#39;conn
         self.result_desc.as_slice()
     }
 
-    fn try_update(&amp;self, params: &amp;[&amp;ToSql])
+    fn try_execute(&amp;self, params: &amp;[&amp;ToSql])
                       -&gt; Result&lt;uint, PostgresDbError&gt; {
         match self.execute(&quot;&quot;, 0, params) {
             Some(err) =&gt; return Err(err),
@@ -2380,8 +2382,8 @@ impl&lt;&#39;conn&gt; PostgresStatement for TransactionalPostgresStatement&lt;&#
         self.stmt.result_descriptions()
     }
 
-    fn try_update(&amp;self, params: &amp;[&amp;ToSql]) -&gt; Result&lt;uint, PostgresDbError&gt; {
-        self.stmt.try_update(params)
+    fn try_execute(&amp;self, params: &amp;[&amp;ToSql]) -&gt; Result&lt;uint, PostgresDbError&gt; {
+        self.stmt.try_execute(params)
     }
 
     fn try_query&lt;&#39;a&gt;(&amp;&#39;a self, params: &amp;[&amp;ToSql])

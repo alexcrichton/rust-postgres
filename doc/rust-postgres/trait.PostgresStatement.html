@@ -37,18 +37,18 @@
     </nav>
 
     <section id='main' class="content trait"><a class='source'
-                       href='../src/rust-postgres/lib.rs.html#848-899'>[src]</a><h1 class='fqn'>Trait <a href='index.html'>rust-postgres</a>::<a class='trait' href=''>PostgresStatement</a></h1><pre class='trait'>pub trait PostgresStatement {
+                       href='../src/rust-postgres/lib.rs.html#849-900'>[src]</a><h1 class='fqn'>Trait <a href='index.html'>rust-postgres</a>::<a class='trait' href=''>PostgresStatement</a></h1><pre class='trait'>pub trait PostgresStatement {
     fn <a href='#tymethod.param_types'
                                     class='fnname'>param_types</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a [<a class='enum' href='../rust-postgres/types/enum.PostgresType.html' title='rust-postgres::types::PostgresType'>PostgresType</a>];
     fn <a href='#tymethod.result_descriptions'
                                     class='fnname'>result_descriptions</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a [<a class='struct' href='../rust-postgres/struct.ResultDescription.html' title='rust-postgres::ResultDescription'>ResultDescription</a>];
-    fn <a href='#tymethod.try_update'
-                                    class='fnname'>try_update</a>(&amp;self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;uint, <a class='struct' href='../rust-postgres/error/struct.PostgresDbError.html' title='rust-postgres::error::PostgresDbError'>PostgresDbError</a>&gt;;
+    fn <a href='#tymethod.try_execute'
+                                    class='fnname'>try_execute</a>(&amp;self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;uint, <a class='struct' href='../rust-postgres/error/struct.PostgresDbError.html' title='rust-postgres::error::PostgresDbError'>PostgresDbError</a>&gt;;
     fn <a href='#tymethod.try_query'
                                     class='fnname'>try_query</a>&lt;'a&gt;(&amp;'a self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a class='struct' href='../rust-postgres/struct.PostgresResult.html' title='rust-postgres::PostgresResult'>PostgresResult</a>&lt;'a&gt;, <a class='struct' href='../rust-postgres/error/struct.PostgresDbError.html' title='rust-postgres::error::PostgresDbError'>PostgresDbError</a>&gt;;
 
-    fn <a href='#method.update'
-                                    class='fnname'>update</a>(&amp;self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; uint { ... }
+    fn <a href='#method.execute'
+                                    class='fnname'>execute</a>(&amp;self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; uint { ... }
     fn <a href='#method.query'
                                     class='fnname'>query</a>&lt;'a&gt;(&amp;'a self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='struct' href='../rust-postgres/struct.PostgresResult.html' title='rust-postgres::PostgresResult'>PostgresResult</a>&lt;'a&gt; { ... }
 }</pre><div class='docblock'><p>A trait containing methods that can be called on a prepared statement.</p>
@@ -57,7 +57,7 @@
             <div class='methods'>
         <h3 id='tymethod.param_types' class='method'><code>fn <span class='fnname'>param_types</span>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a [<a class='enum' href='../rust-postgres/types/enum.PostgresType.html' title='rust-postgres::types::PostgresType'>PostgresType</a>]</code></h3><div class='docblock'><p>Returns a slice containing the expected parameter types.</p>
 </div><h3 id='tymethod.result_descriptions' class='method'><code>fn <span class='fnname'>result_descriptions</span>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a [<a class='struct' href='../rust-postgres/struct.ResultDescription.html' title='rust-postgres::ResultDescription'>ResultDescription</a>]</code></h3><div class='docblock'><p>Returns a slice describing the columns of the result of the query.</p>
-</div><h3 id='tymethod.try_update' class='method'><code>fn <span class='fnname'>try_update</span>(&amp;self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;uint, <a class='struct' href='../rust-postgres/error/struct.PostgresDbError.html' title='rust-postgres::error::PostgresDbError'>PostgresDbError</a>&gt;</code></h3><div class='docblock'><p>Attempts to execute the prepared statement, returning the number of
+</div><h3 id='tymethod.try_execute' class='method'><code>fn <span class='fnname'>try_execute</span>(&amp;self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;uint, <a class='struct' href='../rust-postgres/error/struct.PostgresDbError.html' title='rust-postgres::error::PostgresDbError'>PostgresDbError</a>&gt;</code></h3><div class='docblock'><p>Attempts to execute the prepared statement, returning the number of
 rows modified.</p>
 
 <p>If the statement does not modify any rows (e.g. SELECT), 0 is returned.</p>
@@ -76,7 +76,7 @@ the parameters of the statement.</p>
 </div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.update' class='method'><code>fn <span class='fnname'>update</span>(&amp;self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; uint</code></h3><div class='docblock'><p>A convenience function wrapping <code>try_update</code>.</p>
+        <h3 id='method.execute' class='method'><code>fn <span class='fnname'>execute</span>(&amp;self, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; uint</code></h3><div class='docblock'><p>A convenience function wrapping <code>try_execute</code>.</p>
 
 <h1>Failure</h1>
 

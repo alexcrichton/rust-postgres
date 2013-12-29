@@ -37,7 +37,7 @@
     </nav>
 
     <section id='main' class="content struct"><a class='source'
-                       href='../src/rust-postgres/lib.rs.html#604-606'>[src]</a><h1 class='fqn'>Struct <a href='index.html'>rust-postgres</a>::<a class='struct' href=''>PostgresConnection</a></h1><pre class='struct'>pub struct PostgresConnection {
+                       href='../src/rust-postgres/lib.rs.html#605-607'>[src]</a><h1 class='fqn'>Struct <a href='index.html'>rust-postgres</a>::<a class='struct' href=''>PostgresConnection</a></h1><pre class='struct'>pub struct PostgresConnection {
     // some fields omitted
 }</pre><div class='docblock'><p>A connection to a Postgres database.</p>
 </div><h2 class='fields'>Fields</h2>
@@ -86,15 +86,15 @@ the connection for the duration of the transaction. The transaction
 is active until the <code>PostgresTransaction</code> object falls out of scope.
 A transaction will commit by default unless the task fails or the
 transaction is set to roll back.</p>
-</div><h4 id='method.try_update' class='method'><code>fn <span class='fnname'>try_update</span>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;uint, <a class='struct' href='../rust-postgres/error/struct.PostgresDbError.html' title='rust-postgres::error::PostgresDbError'>PostgresDbError</a>&gt;</code></h4>
-<div class='docblock'><p>A convenience function for update queries that are only run once.</p>
+</div><h4 id='method.try_execute' class='method'><code>fn <span class='fnname'>try_execute</span>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;uint, <a class='struct' href='../rust-postgres/error/struct.PostgresDbError.html' title='rust-postgres::error::PostgresDbError'>PostgresDbError</a>&gt;</code></h4>
+<div class='docblock'><p>A convenience function for queries that are only run once.</p>
 
 <p>If an error is returned, it could have come from either the preparation
 or execution of the statement.</p>
 
 <p>On success, returns the number of rows modified or 0 if not applicable.</p>
-</div><h4 id='method.update' class='method'><code>fn <span class='fnname'>update</span>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; uint</code></h4>
-<div class='docblock'><p>A convenience wrapper around <code>try_update</code>.</p>
+</div><h4 id='method.execute' class='method'><code>fn <span class='fnname'>execute</span>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../rust-postgres/types/trait.ToSql.html' title='rust-postgres::types::ToSql'>ToSql</a>]) -&gt; uint</code></h4>
+<div class='docblock'><p>A convenience wrapper around <code>try_execute</code>.</p>
 
 <h1>Failure</h1>
 

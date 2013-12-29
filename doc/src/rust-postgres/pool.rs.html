@@ -326,15 +326,15 @@ impl PooledPostgresConnection {
         self.conn.get_ref().prepare(query)
     }
 
-    /// Like `PostgresConnection::try_update`.
-    pub fn try_update(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql])
+    /// Like `PostgresConnection::try_execute`.
+    pub fn try_execute(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql])
             -&gt; Result&lt;uint, PostgresDbError&gt; {
-        self.conn.get_ref().try_update(query, params)
+        self.conn.get_ref().try_execute(query, params)
     }
 
-    /// Like `PostgresConnection::update`.
-    pub fn update(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql]) -&gt; uint {
-        self.conn.get_ref().update(query, params)
+    /// Like `PostgresConnection::execute`.
+    pub fn execute(&amp;self, query: &amp;str, params: &amp;[&amp;ToSql]) -&gt; uint {
+        self.conn.get_ref().execute(query, params)
     }
 
     /// Like `PostgresConnection::transaction`.
