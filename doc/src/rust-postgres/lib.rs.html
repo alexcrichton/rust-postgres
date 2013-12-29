@@ -1356,7 +1356,7 @@ fn main() {
 ```
  */
 
-#[pkgid=&quot;github.com/sfackler/rust-postgres&quot;];
+#[crate_id=&quot;github.com/sfackler/rust-postgres&quot;];
 #[doc(html_root_url=&quot;http://sfackler.github.io/rust-postgres/doc/&quot;)];
 
 #[warn(missing_doc)];
@@ -1364,12 +1364,12 @@ fn main() {
 #[feature(macro_rules, struct_variant, globs)];
 
 extern mod extra;
-extern mod ssl = &quot;github.com/sfackler/rust-ssl&quot;;
+extern mod openssl = &quot;github.com/sfackler/rust-openssl&quot;;
 
 use extra::container::Deque;
 use extra::ringbuf::RingBuf;
 use extra::url::{UserInfo, Url};
-use ssl::{SslStream, SslContext};
+use openssl::ssl::{SslStream, SslContext};
 use std::cell::RefCell;
 use std::io::io_error;
 use std::io::buffered::BufferedStream;
@@ -1642,7 +1642,7 @@ impl InnerPostgresConnection {
             host,
             port,
             user,
-            path: mut path,
+            mut path,
             query: mut args,
             ..
         }: Url = match FromStr::from_str(url) {
