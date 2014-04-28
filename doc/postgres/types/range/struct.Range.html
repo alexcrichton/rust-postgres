@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The postgres library documentation.">
+
+    <title>postgres::types::range::Range - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        <p class='location'><a href='../../index.html'>postgres</a>&#8203;::<a href='../index.html'>types</a>&#8203;::<a href='index.html'>range</a></p><div class='block struct'><h2>Structs</h2><a class='struct current' href='struct.Range.html'>Range</a><br/><a class='struct ' href='struct.RangeBound.html'>RangeBound</a><br/></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.BoundType.html'>BoundType</a><br/><a class='enum ' href='enum.LowerBound.html'>LowerBound</a><br/><a class='enum ' href='enum.UpperBound.html'>UpperBound</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.Normalizable.html'>Normalizable</a><br/></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'>Struct <a href='../../index.html'>postgres</a>::<a href='../index.html'>types</a>::<a href='index.html'>range</a>::<a class='struct' href=''>Range</a><a class='source' href='../../../src/postgres/src/types/range.rs.html#259-261'>[src]</a></h1>
+<pre class='rust struct'>pub struct Range&lt;T&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>Represents a range of values.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;T: <a class='trait' href='http://static.rust-lang.org/doc/master/std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a> + <a class='trait' href='../../../postgres/types/range/trait.Normalizable.html' title='postgres::types::range::Normalizable'>Normalizable</a>&gt; <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h3><div class='methods'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(lower: <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='../../../postgres/types/range/struct.RangeBound.html' title='postgres::types::range::RangeBound'>RangeBound</a>&lt;<a class='enum' href='../../../postgres/types/range/enum.LowerBound.html' title='postgres::types::range::LowerBound'>LowerBound</a>, T&gt;&gt;, upper: <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='../../../postgres/types/range/struct.RangeBound.html' title='postgres::types::range::RangeBound'>RangeBound</a>&lt;<a class='enum' href='../../../postgres/types/range/enum.UpperBound.html' title='postgres::types::range::UpperBound'>UpperBound</a>, T&gt;&gt;) -&gt; <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Creates a new range.</p>
+
+<p>If a bound is <code>None</code>, the range is unbounded in that direction.</p>
+</div><h4 id='method.empty' class='method'><code>fn <a href='#method.empty' class='fnname'>empty</a>() -&gt; <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Creates a new empty range.</p>
+</div><h4 id='method.is_empty' class='method'><code>fn <a href='#method.is_empty' class='fnname'>is_empty</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>Determines if this range is the empty range.</p>
+</div><h4 id='method.lower' class='method'><code>fn <a href='#method.lower' class='fnname'>lower</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;'a <a class='struct' href='../../../postgres/types/range/struct.RangeBound.html' title='postgres::types::range::RangeBound'>RangeBound</a>&lt;<a class='enum' href='../../../postgres/types/range/enum.LowerBound.html' title='postgres::types::range::LowerBound'>LowerBound</a>, T&gt;&gt;</code></h4>
+<div class='docblock'><p>Returns the lower bound if it exists.</p>
+</div><h4 id='method.upper' class='method'><code>fn <a href='#method.upper' class='fnname'>upper</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;&amp;'a <a class='struct' href='../../../postgres/types/range/struct.RangeBound.html' title='postgres::types::range::RangeBound'>RangeBound</a>&lt;<a class='enum' href='../../../postgres/types/range/enum.UpperBound.html' title='postgres::types::range::UpperBound'>UpperBound</a>, T&gt;&gt;</code></h4>
+<div class='docblock'><p>Returns the upper bound if it exists.</p>
+</div><h4 id='method.contains' class='method'><code>fn <a href='#method.contains' class='fnname'>contains</a>(&amp;self, value: &amp;T) -&gt; bool</code></h4>
+<div class='docblock'><p>Determines if a value lies within this range.</p>
+</div><h4 id='method.contains_range' class='method'><code>fn <a href='#method.contains_range' class='fnname'>contains_range</a>(&amp;self, other: &amp;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;) -&gt; bool</code></h4>
+<div class='docblock'><p>Determines if a range lies completely within this range.</p>
+</div></div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='http://static.rust-lang.org/doc/master/std/cmp/trait.Ord.html' title='std::cmp::Ord'>Ord</a> + <a class='trait' href='../../../postgres/types/range/trait.Normalizable.html' title='postgres::types::range::Normalizable'>Normalizable</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a>&gt; <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h3><div class='methods'><h4 id='method.intersect' class='method'><code>fn <a href='#method.intersect' class='fnname'>intersect</a>(&amp;self, other: &amp;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;) -&gt; <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h4>
+<div class='docblock'><p>Returns the intersection of this range with another</p>
+</div><h4 id='method.union' class='method'><code>fn <a href='#method.union' class='fnname'>union</a>(&amp;self, other: &amp;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;&gt;</code></h4>
+<div class='docblock'><p>Returns the union of this range with another if it is contiguous</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;T: <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a>&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='http://static.rust-lang.org/doc/master/std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/fmt/enum.Result.html' title='std::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../../postgres/types/trait.FromSql.html' title='postgres::types::FromSql'>FromSql</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;i32&gt;</code></h3><div class='methods'><h4 id='method.from_sql' class='method'><code>fn <a href='#method.from_sql' class='fnname'>from_sql</a>(ty: &amp;<a class='enum' href='../../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>, raw: &amp;<a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;u8&gt;&gt;) -&gt; <a class='typedef' href='../../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;i32&gt;&gt;</code></h4>
+<div class='docblock'><p>Creates a new value of this type from a buffer of Postgres data.</p>
+
+<p>If the value was <code>NULL</code>, the buffer will be <code>None</code>.</p>
+</div></div><h3 class='impl'><code>impl <a class='trait' href='../../../postgres/types/trait.FromSql.html' title='postgres::types::FromSql'>FromSql</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;i64&gt;</code></h3><div class='methods'><h4 id='method.from_sql' class='method'><code>fn <a href='#method.from_sql' class='fnname'>from_sql</a>(ty: &amp;<a class='enum' href='../../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>, raw: &amp;<a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;u8&gt;&gt;) -&gt; <a class='typedef' href='../../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;i64&gt;&gt;</code></h4>
+<div class='docblock'><p>Creates a new value of this type from a buffer of Postgres data.</p>
+
+<p>If the value was <code>NULL</code>, the buffer will be <code>None</code>.</p>
+</div></div><h3 class='impl'><code>impl <a class='trait' href='../../../postgres/types/trait.FromSql.html' title='postgres::types::FromSql'>FromSql</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/time/struct.Timespec.html' title='time::Timespec'>Timespec</a>&gt;</code></h3><div class='methods'><h4 id='method.from_sql' class='method'><code>fn <a href='#method.from_sql' class='fnname'>from_sql</a>(ty: &amp;<a class='enum' href='../../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>, raw: &amp;<a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;u8&gt;&gt;) -&gt; <a class='typedef' href='../../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/time/struct.Timespec.html' title='time::Timespec'>Timespec</a>&gt;&gt;</code></h4>
+<div class='docblock'><p>Creates a new value of this type from a buffer of Postgres data.</p>
+
+<p>If the value was <code>NULL</code>, the buffer will be <code>None</code>.</p>
+</div></div><h3 class='impl'><code>impl <a class='trait' href='../../../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;i32&gt;</code></h3><div class='methods'><h4 id='method.to_sql' class='method'><code>fn <a href='#method.to_sql' class='fnname'>to_sql</a>(&amp;self, ty: &amp;<a class='enum' href='../../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>) -&gt; <a class='typedef' href='../../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;(<a class='enum' href='../../../postgres/types/enum.Format.html' title='postgres::types::Format'>Format</a>, <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;u8&gt;&gt;)&gt;</code></h4>
+<div class='docblock'><p>Converts the value of <code>self</code> into a format appropriate for the Postgres
+backend.</p>
+</div></div><h3 class='impl'><code>impl <a class='trait' href='../../../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;i64&gt;</code></h3><div class='methods'><h4 id='method.to_sql' class='method'><code>fn <a href='#method.to_sql' class='fnname'>to_sql</a>(&amp;self, ty: &amp;<a class='enum' href='../../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>) -&gt; <a class='typedef' href='../../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;(<a class='enum' href='../../../postgres/types/enum.Format.html' title='postgres::types::Format'>Format</a>, <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;u8&gt;&gt;)&gt;</code></h4>
+<div class='docblock'><p>Converts the value of <code>self</code> into a format appropriate for the Postgres
+backend.</p>
+</div></div><h3 class='impl'><code>impl <a class='trait' href='../../../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/time/struct.Timespec.html' title='time::Timespec'>Timespec</a>&gt;</code></h3><div class='methods'><h4 id='method.to_sql' class='method'><code>fn <a href='#method.to_sql' class='fnname'>to_sql</a>(&amp;self, ty: &amp;<a class='enum' href='../../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>) -&gt; <a class='typedef' href='../../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;(<a class='enum' href='../../../postgres/types/enum.Format.html' title='postgres::types::Format'>Format</a>, <a class='enum' href='http://static.rust-lang.org/doc/master/std/option/enum.Option.html' title='std::option::Option'>Option</a>&lt;<a class='struct' href='http://static.rust-lang.org/doc/master/std/vec/struct.Vec.html' title='std::vec::Vec'>Vec</a>&lt;u8&gt;&gt;)&gt;</code></h4>
+<div class='docblock'><p>Converts the value of <code>self</code> into a format appropriate for the Postgres
+backend.</p>
+</div></div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl&lt;T: <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a>&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h3><div class='methods'><h4 id='method.clone' class='method'><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h4>
+</div><h3 class='impl'><code>impl&lt;T: <a class='trait' href='http://static.rust-lang.org/doc/master/std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a>&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a> for <a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;</code></h3><div class='methods'><h4 id='method.eq' class='method'><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;) -&gt; bool</code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../../postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;) -&gt; bool</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var rootPath = "../../../";
+        var currentCrate = "postgres";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

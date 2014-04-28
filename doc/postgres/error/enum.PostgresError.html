@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The postgres library documentation.">
+
+    <title>postgres::error::PostgresError - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        <p class='location'><a href='../index.html'>postgres</a>&#8203;::<a href='index.html'>error</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.PostgresDbError.html'>PostgresDbError</a><br/></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.PostgresConnectError.html'>PostgresConnectError</a><br/><a class='enum current' href='enum.PostgresError.html'>PostgresError</a><br/><a class='enum ' href='enum.PostgresErrorPosition.html'>PostgresErrorPosition</a><br/><a class='enum ' href='enum.PostgresSqlState.html'>PostgresSqlState</a><br/></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'>Enum <a href='../index.html'>postgres</a>::<a href='index.html'>error</a>::<a class='enum' href=''>PostgresError</a><a class='source' href='../../src/postgres/src/error.rs.html#517-541'>[src]</a></h1>
+<pre class='rust enum'>pub enum PostgresError {
+    PgDbError(<a class='struct' href='../../postgres/error/struct.PostgresDbError.html' title='postgres::error::PostgresDbError'>PostgresDbError</a>),
+    PgStreamError(<a class='struct' href='http://static.rust-lang.org/doc/master/std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
+    PgStreamDesynchronized,
+    PgWrongConnection,
+    PgWrongParamCount {
+        pub expected: uint,
+        pub actual: uint,
+    },
+    PgWrongType(<a class='enum' href='../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>),
+    PgInvalidColumn,
+    PgWasNull,
+}</pre><div class='docblock'><p>An error encountered when communicating with the Postgres server</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.PgDbError'><code>PgDbError</code></td><td><div class='docblock'><p>An error reported by the Postgres server</p>
+</div></td></tr><tr><td id='variant.PgStreamError'><code>PgStreamError</code></td><td><div class='docblock'><p>An error communicating with the Postgres server</p>
+</div></td></tr><tr><td id='variant.PgStreamDesynchronized'><code>PgStreamDesynchronized</code></td><td><div class='docblock'><p>The communication channel with the Postgres server has desynchronized
+due to an earlier communications error.</p>
+</div></td></tr><tr><td id='variant.PgWrongConnection'><code>PgWrongConnection</code></td><td><div class='docblock'><p>A prepared statement was executed on a connection it does not belong to</p>
+</div></td></tr><tr><td id='variant.PgWrongParamCount'><code>PgWrongParamCount</code></td><td><div class='docblock'><p>An incorrect number of parameters were bound to a statement</p>
+</div><h3 class='fields'>Fields</h3>
+
+                                              <table><tr><td id='variant.PgWrongParamCount.field.expected'><code>expected</code></td><td><div class='docblock'><p>The expected number of parameters</p>
+</div></td></tr><tr><td id='variant.PgWrongParamCount.field.actual'><code>actual</code></td><td><div class='docblock'><p>The actual number of parameters</p>
+</div></td></tr></table></td></tr><tr><td id='variant.PgWrongType'><code>PgWrongType</code></td><td><div class='docblock'><p>An attempt was made to convert between incompatible Rust and Postgres
+types</p>
+</div></td></tr><tr><td id='variant.PgInvalidColumn'><code>PgInvalidColumn</code></td><td><div class='docblock'><p>An attempt was made to read from a column that does not exist</p>
+</div></td></tr><tr><td id='variant.PgWasNull'><code>PgWasNull</code></td><td><div class='docblock'><p>A value was NULL but converted to a non-nullable Rust type</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a> for <a class='enum' href='../../postgres/error/enum.PostgresError.html' title='postgres::error::PostgresError'>PostgresError</a></code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='http://static.rust-lang.org/doc/master/std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/fmt/enum.Result.html' title='std::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var rootPath = "../../";
+        var currentCrate = "postgres";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

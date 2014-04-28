@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The postgres library documentation.">
+
+    <title>postgres::error::PostgresConnectError - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        <p class='location'><a href='../index.html'>postgres</a>&#8203;::<a href='index.html'>error</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.PostgresDbError.html'>PostgresDbError</a><br/></div><div class='block enum'><h2>Enums</h2><a class='enum current' href='enum.PostgresConnectError.html'>PostgresConnectError</a><br/><a class='enum ' href='enum.PostgresError.html'>PostgresError</a><br/><a class='enum ' href='enum.PostgresErrorPosition.html'>PostgresErrorPosition</a><br/><a class='enum ' href='enum.PostgresSqlState.html'>PostgresSqlState</a><br/></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'>Enum <a href='../index.html'>postgres</a>::<a href='index.html'>error</a>::<a class='enum' href=''>PostgresConnectError</a><a class='source' href='../../src/postgres/src/error.rs.html#360-382'>[src]</a></h1>
+<pre class='rust enum'>pub enum PostgresConnectError {
+    InvalidUrl,
+    MissingUser,
+    DnsError(<a class='struct' href='http://static.rust-lang.org/doc/master/std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
+    SocketError(<a class='struct' href='http://static.rust-lang.org/doc/master/std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
+    PgConnectDbError(<a class='struct' href='../../postgres/error/struct.PostgresDbError.html' title='postgres::error::PostgresDbError'>PostgresDbError</a>),
+    MissingPassword,
+    UnsupportedAuthentication,
+    NoSslSupport,
+    SslError(<a class='enum' href='http://www.rust-ci.org/sfackler/rust-openssl/doc/openssl/ssl/error/enum.SslError.html' title='openssl::ssl::error::SslError'>SslError</a>),
+    PgConnectStreamError(<a class='struct' href='http://static.rust-lang.org/doc/master/std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
+}</pre><div class='docblock'><p>Reasons a new Postgres connection could fail</p>
+</div><h2 class='variants'>Variants</h2>
+<table><tr><td id='variant.InvalidUrl'><code>InvalidUrl</code></td><td><div class='docblock'><p>The provided URL could not be parsed</p>
+</div></td></tr><tr><td id='variant.MissingUser'><code>MissingUser</code></td><td><div class='docblock'><p>The URL was missing a user</p>
+</div></td></tr><tr><td id='variant.DnsError'><code>DnsError</code></td><td><div class='docblock'><p>DNS lookup failed</p>
+</div></td></tr><tr><td id='variant.SocketError'><code>SocketError</code></td><td><div class='docblock'><p>There was an error opening a socket to the server</p>
+</div></td></tr><tr><td id='variant.PgConnectDbError'><code>PgConnectDbError</code></td><td><div class='docblock'><p>An error from the Postgres server itself</p>
+</div></td></tr><tr><td id='variant.MissingPassword'><code>MissingPassword</code></td><td><div class='docblock'><p>A password was required but not provided in the URL</p>
+</div></td></tr><tr><td id='variant.UnsupportedAuthentication'><code>UnsupportedAuthentication</code></td><td><div class='docblock'><p>The Postgres server requested an authentication method not supported
+by the driver</p>
+</div></td></tr><tr><td id='variant.NoSslSupport'><code>NoSslSupport</code></td><td><div class='docblock'><p>The Postgres server does not support SSL encryption</p>
+</div></td></tr><tr><td id='variant.SslError'><code>SslError</code></td><td><div class='docblock'><p>There was an error initializing the SSL session</p>
+</div></td></tr><tr><td id='variant.PgConnectStreamError'><code>PgConnectStreamError</code></td><td><div class='docblock'><p>There was an error communicating with the server</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a> for <a class='enum' href='../../postgres/error/enum.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a></code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='http://static.rust-lang.org/doc/master/std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/fmt/enum.Result.html' title='std::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var rootPath = "../../";
+        var currentCrate = "postgres";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script async src="../../search-index.js"></script>
+</body>
+</html>

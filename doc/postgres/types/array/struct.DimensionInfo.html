@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The postgres library documentation.">
+
+    <title>postgres::types::array::DimensionInfo - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        <p class='location'><a href='../../index.html'>postgres</a>&#8203;::<a href='../index.html'>types</a>&#8203;::<a href='index.html'>array</a></p><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.ArrayBase.html'>ArrayBase</a><br/><a class='struct ' href='struct.ArraySlice.html'>ArraySlice</a><br/><a class='struct current' href='struct.DimensionInfo.html'>DimensionInfo</a><br/><a class='struct ' href='struct.MutArraySlice.html'>MutArraySlice</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.Array.html'>Array</a><br/><a class='trait ' href='trait.MutableArray.html'>MutableArray</a><br/></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'>Struct <a href='../../index.html'>postgres</a>::<a href='../index.html'>types</a>::<a href='index.html'>array</a>::<a class='struct' href=''>DimensionInfo</a><a class='source' href='../../../src/postgres/src/types/array.rs.html#8-13'>[src]</a></h1>
+<pre class='rust struct'>pub struct DimensionInfo {
+    pub len: uint,
+    pub lower_bound: int,
+}</pre><div class='docblock'><p>Information about a dimension of an array</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr><td id='structfield.len'><code>len</code></td><td><div class='docblock'><p>The size of the dimension</p>
+</div></td></tr><tr><td id='structfield.lower_bound'><code>lower_bound</code></td><td><div class='docblock'><p>The index of the first element of the dimension</p>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a> for <a class='struct' href='../../../postgres/types/array/struct.DimensionInfo.html' title='postgres::types::array::DimensionInfo'>DimensionInfo</a></code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://static.rust-lang.org/doc/master/std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/fmt/enum.Result.html' title='std::fmt::Result'>Result</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='struct' href='../../../postgres/types/array/struct.DimensionInfo.html' title='postgres::types::array::DimensionInfo'>DimensionInfo</a></code></h3><div class='methods'><h4 id='method.clone' class='method'><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../../postgres/types/array/struct.DimensionInfo.html' title='postgres::types::array::DimensionInfo'>DimensionInfo</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a> for <a class='struct' href='../../../postgres/types/array/struct.DimensionInfo.html' title='postgres::types::array::DimensionInfo'>DimensionInfo</a></code></h3><div class='methods'><h4 id='method.eq' class='method'><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../../postgres/types/array/struct.DimensionInfo.html' title='postgres::types::array::DimensionInfo'>DimensionInfo</a>) -&gt; bool</code></h4>
+<h4 id='method.ne' class='method'><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../../postgres/types/array/struct.DimensionInfo.html' title='postgres::types::array::DimensionInfo'>DimensionInfo</a>) -&gt; bool</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var rootPath = "../../../";
+        var currentCrate = "postgres";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    <script async src="../../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The postgres library documentation.">
+
+    <title>postgres::PostgresTransaction - Rust</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+</head>
+<body>
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    <section class="sidebar">
+        
+
+        <p class='location'><a href='index.html'>postgres</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='error/index.html'>error</a><br/><a class='mod ' href='pool/index.html'>pool</a><br/><a class='mod ' href='types/index.html'>types</a><br/></div><div class='block struct'><h2>Structs</h2><a class='struct ' href='struct.DefaultNoticeHandler.html'>DefaultNoticeHandler</a><br/><a class='struct ' href='struct.PostgresCancelData.html'>PostgresCancelData</a><br/><a class='struct ' href='struct.PostgresConnectParams.html'>PostgresConnectParams</a><br/><a class='struct ' href='struct.PostgresConnection.html'>PostgresConnection</a><br/><a class='struct ' href='struct.PostgresLazyRows.html'>PostgresLazyRows</a><br/><a class='struct ' href='struct.PostgresNotification.html'>PostgresNotification</a><br/><a class='struct ' href='struct.PostgresNotifications.html'>PostgresNotifications</a><br/><a class='struct ' href='struct.PostgresRow.html'>PostgresRow</a><br/><a class='struct ' href='struct.PostgresRows.html'>PostgresRows</a><br/><a class='struct ' href='struct.PostgresStatement.html'>PostgresStatement</a><br/><a class='struct current' href='struct.PostgresTransaction.html'>PostgresTransaction</a><br/><a class='struct ' href='struct.ResultDescription.html'>ResultDescription</a><br/></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.PostgresConnectTarget.html'>PostgresConnectTarget</a><br/><a class='enum ' href='enum.SslMode.html'>SslMode</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.IntoConnectParams.html'>IntoConnectParams</a><br/><a class='trait ' href='trait.PostgresNoticeHandler.html'>PostgresNoticeHandler</a><br/><a class='trait ' href='trait.RowIndex.html'>RowIndex</a><br/></div><div class='block fn'><h2>Functions</h2><a class='fn ' href='fn.cancel_query.html'>cancel_query</a><br/></div>
+    </section>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Search documentation..."
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresTransaction</a><a class='source' href='../src/postgres/src/lib.rs.html#1047-1052'>[src]</a></h1>
+<pre class='rust struct'>pub struct PostgresTransaction&lt;'conn&gt; {
+    // some fields omitted
+}</pre><div class='docblock'><p>Represents a transaction on a database connection</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'conn&gt; <a class='struct' href='../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'conn&gt;</code></h3><div class='methods'><h4 id='method.prepare' class='method'><code>fn <a href='#method.prepare' class='fnname'>prepare</a>&lt;'a&gt;(&amp;'a self, query: &amp;str) -&gt; <a class='typedef' href='../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'a&gt;&gt;</code></h4>
+<div class='docblock'><p>Like <code>PostgresConnection::prepare</code>.</p>
+</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='typedef' href='../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;uint&gt;</code></h4>
+<div class='docblock'><p>Like <code>PostgresConnection::execute</code>.</p>
+</div><h4 id='method.transaction' class='method'><code>fn <a href='#method.transaction' class='fnname'>transaction</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='typedef' href='../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'a&gt;&gt;</code></h4>
+<div class='docblock'><p>Like <code>PostgresConnection::transaction</code>.</p>
+</div><h4 id='method.notifications' class='method'><code>fn <a href='#method.notifications' class='fnname'>notifications</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../postgres/struct.PostgresNotifications.html' title='postgres::PostgresNotifications'>PostgresNotifications</a>&lt;'a&gt;</code></h4>
+<div class='docblock'><p>Like <code>PostgresConnection::notifications</code>.</p>
+</div><h4 id='method.is_desynchronized' class='method'><code>fn <a href='#method.is_desynchronized' class='fnname'>is_desynchronized</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>Like <code>PostgresConnection::is_desynchronized</code>.</p>
+</div><h4 id='method.will_commit' class='method'><code>fn <a href='#method.will_commit' class='fnname'>will_commit</a>(&amp;self) -&gt; bool</code></h4>
+<div class='docblock'><p>Determines if the transaction is currently set to commit or roll back.</p>
+</div><h4 id='method.set_commit' class='method'><code>fn <a href='#method.set_commit' class='fnname'>set_commit</a>(&amp;self)</code></h4>
+<div class='docblock'><p>Sets the transaction to commit at its completion.</p>
+</div><h4 id='method.set_rollback' class='method'><code>fn <a href='#method.set_rollback' class='fnname'>set_rollback</a>(&amp;self)</code></h4>
+<div class='docblock'><p>Sets the transaction to roll back at its completion.</p>
+</div><h4 id='method.finish' class='method'><code>fn <a href='#method.finish' class='fnname'>finish</a>(self) -&gt; <a class='typedef' href='../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;()&gt;</code></h4>
+<div class='docblock'><p>Consumes the transaction, commiting or rolling it back as appropriate.</p>
+
+<p>Functionally equivalent to the <code>Drop</code> implementation of
+<code>PostgresTransaction</code> except that it returns any error to the caller.</p>
+</div><h4 id='method.lazy_query' class='method'><code>fn <a href='#method.lazy_query' class='fnname'>lazy_query</a>&lt;'trans, 'stmt&gt;(&amp;'trans self, stmt: &amp;'stmt <a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>, params: &amp;[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>], row_limit: uint) -&gt; <a class='typedef' href='../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresLazyRows.html' title='postgres::PostgresLazyRows'>PostgresLazyRows</a>&lt;'trans, 'stmt&gt;&gt;</code></h4>
+<div class='docblock'><p>Executes a prepared statement, returning a lazily loaded iterator over
+the resulting rows.</p>
+
+<p>No more than <code>row_limit</code> rows will be stored in memory at a time. Rows
+will be pulled from the database in batches of <code>row_limit</code> as needed.
+If <code>row_limit</code> is 0, <code>lazy_query</code> is equivalent to <code>query</code>.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'conn&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/std/ops/trait.Drop.html' title='std::ops::Drop'>Drop</a> for <a class='struct' href='../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'conn&gt;</code></h3><div class='methods'><h4 id='method.drop' class='method'><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <div id="help" class="hidden">
+        <div class="shortcuts">
+            <h1>Keyboard shortcuts</h1>
+            <dl>
+                <dt>?</dt>
+                <dd>Show this help dialog</dd>
+                <dt>S</dt>
+                <dd>Focus the search field</dd>
+                <dt>&uarr;</dt>
+                <dd>Move up in search results</dd>
+                <dt>&darr;</dt>
+                <dd>Move down in search results</dd>
+                <dt>&#9166;</dt>
+                <dd>Go to active search result</dd>
+            </dl>
+        </div>
+        <div class="infos">
+            <h1>Search tricks</h1>
+            <p>
+                Prefix searches with a type followed by a colon (e.g.
+                <code>fn:</code>) to restrict the search to a given type.
+            </p>
+            <p>
+                Accepted types are: <code>fn</code>, <code>mod</code>,
+                <code>struct</code> (or <code>str</code>), <code>enum</code>,
+                <code>trait</code>, <code>typedef</code> (or
+                <code>tdef</code>).
+            </p>
+        </div>
+    </div>
+
+    <script>
+        var rootPath = "../";
+        var currentCrate = "postgres";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script async src="../search-index.js"></script>
+</body>
+</html>
