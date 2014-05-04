@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content fn">
-<h1 class='fqn'>Function <a href='index.html'>postgres</a>::<a class='fn' href=''>cancel_query</a><a class='source' href='../src/postgres/src/lib.rs.html#388-406'>[src]</a></h1>
+<h1 class='fqn'>Function <a href='index.html'>postgres</a>::<a class='fn' href=''>cancel_query</a><a class='source' href='../src/postgres/src/lib.rs.html#382-400'>[src]</a></h1>
 <pre class='rust fn'>pub fn cancel_query&lt;T: <a class='trait' href='../postgres/trait.IntoConnectParams.html' title='postgres::IntoConnectParams'>IntoConnectParams</a>&gt;(params: T, ssl: &amp;<a class='enum' href='../postgres/enum.SslMode.html' title='postgres::SslMode'>SslMode</a>, data: <a class='struct' href='../postgres/struct.PostgresCancelData.html' title='postgres::PostgresCancelData'>PostgresCancelData</a>) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;(), <a class='enum' href='../postgres/error/enum.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a>&gt;</pre><div class='docblock'><p>Attempts to cancel an in-progress query.</p>
 
 <p>The backend provides no information about whether a cancellation attempt
