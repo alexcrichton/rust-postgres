@@ -1661,6 +1661,7 @@
 <span id='1621'>1621</span>
 <span id='1622'>1622</span>
 <span id='1623'>1623</span>
+<span id='1624'>1624</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
@@ -1746,6 +1747,7 @@ fn main() {
 <span class='kw'>use</span> <span class='ident'>openssl</span>::<span class='ident'>crypto</span>::<span class='ident'>hash</span>::{<span class='ident'>MD5</span>, <span class='ident'>Hasher</span>};
 <span class='kw'>use</span> <span class='ident'>openssl</span>::<span class='ident'>ssl</span>::{<span class='ident'>SslStream</span>, <span class='ident'>SslContext</span>};
 <span class='kw'>use</span> <span class='ident'>serialize</span>::<span class='ident'>hex</span>::<span class='ident'>ToHex</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>owned</span>::<span class='ident'>Box</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cell</span>::{<span class='ident'>Cell</span>, <span class='ident'>RefCell</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>from_str</span>::<span class='ident'>FromStr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='ident'>Stream</span>, <span class='ident'>BufferedStream</span>, <span class='ident'>IoResult</span>};
@@ -2200,7 +2202,7 @@ fn main() {
 <span class='kw'>struct</span> <span class='ident'>InnerPostgresConnection</span> {
     <span class='ident'>stream</span>: <span class='ident'>BufferedStream</span><span class='op'>&lt;</span><span class='ident'>MaybeSslStream</span><span class='op'>&lt;</span><span class='ident'>InternalStream</span><span class='op'>&gt;&gt;</span>,
     <span class='ident'>next_stmt_id</span>: <span class='ident'>uint</span>,
-    <span class='ident'>notice_handler</span>: <span class='kw-2'>~</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span>,
+    <span class='ident'>notice_handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span>,
     <span class='ident'>notifications</span>: <span class='ident'>RingBuf</span><span class='op'>&lt;</span><span class='ident'>PostgresNotification</span><span class='op'>&gt;</span>,
     <span class='ident'>cancel_data</span>: <span class='ident'>PostgresCancelData</span>,
     <span class='ident'>unknown_types</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>Oid</span>, <span class='kw-2'>~</span><span class='ident'>str</span><span class='op'>&gt;</span>,
@@ -2358,8 +2360,8 @@ fn main() {
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>handler</span>: <span class='kw-2'>~</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span>)
-            <span class='op'>-&gt;</span> <span class='kw-2'>~</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span> {
+    <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span>)
+            <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span> {
         <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>notice_handler</span>, <span class='ident'>handler</span>)
     }
 
@@ -2560,8 +2562,8 @@ fn main() {
     }
 
     <span class='doccomment'>/// Sets the notice handler for the connection, returning the old handler.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>handler</span>: <span class='kw-2'>~</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span>)
-            <span class='op'>-&gt;</span> <span class='kw-2'>~</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span> {
+</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span>)
+            <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>().<span class='ident'>set_notice_handler</span>(<span class='ident'>handler</span>)
     }
 

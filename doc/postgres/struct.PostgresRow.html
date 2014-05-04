@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresRow</a><a class='source' href='../src/postgres/src/lib.rs.html#1496-1499'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresRow</a><a class='source' href='../src/postgres/src/lib.rs.html#1497-1500'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresRow&lt;'stmt&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>A single result row of a query.</p>
@@ -58,12 +58,12 @@ the return type is not compatible with the Postgres type.</p>
 <p>A field can be accessed by the name or index of its column, though
 access by index is more efficient. Rows are 1-indexed.</p>
 
-<h1 id="failure" class='section-link'><a
+<h1 id="failure" class='section-header'><a
                            href="#failure">Failure</a></h1>
 <p>Fails if the index does not reference a column or the return type is
 not compatible with the Postgres type.</p>
 
-<h1 id="example" class='section-link'><a
+<h1 id="example" class='section-header'><a
                            href="#example">Example</a></h1><pre class='rust '>
 <span class='kw'>let</span> <span class='ident'>foo</span>: <span class='ident'>i32</span> <span class='op'>=</span> <span class='ident'>row</span>[<span class='number'>1</span>];
 <span class='kw'>let</span> <span class='ident'>bar</span>: <span class='kw-2'>~</span><span class='ident'>str</span> <span class='op'>=</span> <span class='ident'>row</span>[<span class='string'>&quot;bar&quot;</span>];
