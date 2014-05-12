@@ -46,11 +46,11 @@
 
 <p>It will be returned to the pool when it falls out of scope, even due to
 task failure.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../postgres/pool/struct.PooledPostgresConnection.html' title='postgres::pool::PooledPostgresConnection'>PooledPostgresConnection</a></code></h3><div class='methods'><h4 id='method.prepare' class='method'><code>fn <a href='#method.prepare' class='fnname'>prepare</a>&lt;'a&gt;(&amp;'a self, query: &amp;str) -&gt; <a class='typedef' href='../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'a&gt;&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../postgres/pool/struct.PooledPostgresConnection.html' title='postgres::pool::PooledPostgresConnection'>PooledPostgresConnection</a></code></h3><div class='methods'><h4 id='method.prepare' class='method'><code>fn <a href='#method.prepare' class='fnname'>prepare</a>&lt;'a&gt;(&amp;'a self, query: &amp;str) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::prepare</code>.</p>
-</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='typedef' href='../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;uint&gt;</code></h4>
+</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;uint&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::execute</code>.</p>
-</div><h4 id='method.transaction' class='method'><code>fn <a href='#method.transaction' class='fnname'>transaction</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='typedef' href='../../postgres/typedef.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'a&gt;&gt;</code></h4>
+</div><h4 id='method.transaction' class='method'><code>fn <a href='#method.transaction' class='fnname'>transaction</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::transaction</code>.</p>
 </div><h4 id='method.notifications' class='method'><code>fn <a href='#method.notifications' class='fnname'>notifications</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../postgres/struct.PostgresNotifications.html' title='postgres::PostgresNotifications'>PostgresNotifications</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::notifications</code>.</p>
@@ -58,8 +58,7 @@ task failure.</p>
 <div class='docblock'><p>Like <code>PostgresConnection::cancel_data</code>.</p>
 </div><h4 id='method.is_desynchronized' class='method'><code>fn <a href='#method.is_desynchronized' class='fnname'>is_desynchronized</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::is_desynchronized</code>.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/ops/trait.Drop.html' title='std::ops::Drop'>Drop</a> for <a class='struct' href='../../postgres/pool/struct.PooledPostgresConnection.html' title='postgres::pool::PooledPostgresConnection'>PooledPostgresConnection</a></code></h3><div class='methods'><h4 id='method.drop' class='method'><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
-</div></section>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

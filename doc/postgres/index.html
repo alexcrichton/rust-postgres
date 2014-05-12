@@ -54,7 +54,7 @@ package.</p>
 
 <span class='kw'>struct</span> <span class='ident'>Person</span> {
     <span class='ident'>id</span>: <span class='ident'>i32</span>,
-    <span class='ident'>name</span>: <span class='kw-2'>~</span><span class='ident'>str</span>,
+    <span class='ident'>name</span>: <span class='ident'>StrBuf</span>,
     <span class='ident'>time_created</span>: <span class='ident'>Timespec</span>,
     <span class='ident'>data</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;&gt;</span>
 }
@@ -71,13 +71,13 @@ package.</p>
                   )&quot;</span>, []).<span class='ident'>unwrap</span>();
     <span class='kw'>let</span> <span class='ident'>me</span> <span class='op'>=</span> <span class='ident'>Person</span> {
         <span class='ident'>id</span>: <span class='number'>0</span>,
-        <span class='ident'>name</span>: <span class='string'>&quot;Steven&quot;</span>.<span class='ident'>to_owned</span>(),
+        <span class='ident'>name</span>: <span class='string'>&quot;Steven&quot;</span>.<span class='ident'>into_strbuf</span>(),
         <span class='ident'>time_created</span>: <span class='ident'>time</span>::<span class='ident'>get_time</span>(),
         <span class='ident'>data</span>: <span class='prelude-val'>None</span>
     };
     <span class='ident'>conn</span>.<span class='ident'>execute</span>(<span class='string'>&quot;INSERT INTO person (name, time_created, data)
                     VALUES ($1, $2, $3)&quot;</span>,
-                 [<span class='kw-2'>&amp;</span><span class='ident'>me</span>.<span class='ident'>name</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>, <span class='kw-2'>&amp;</span><span class='ident'>me</span>.<span class='ident'>time_created</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>,
+                 [<span class='kw-2'>&amp;</span><span class='ident'>me</span>.<span class='ident'>name</span>.<span class='ident'>as_slice</span>() <span class='kw'>as</span> <span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>, <span class='kw-2'>&amp;</span><span class='ident'>me</span>.<span class='ident'>time_created</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>,
                   <span class='kw-2'>&amp;</span><span class='ident'>me</span>.<span class='ident'>data</span> <span class='kw'>as</span> <span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>]).<span class='ident'>unwrap</span>();
 
     <span class='kw'>let</span> <span class='ident'>stmt</span> <span class='op'>=</span> <span class='ident'>conn</span>.<span class='ident'>prepare</span>(<span class='string'>&quot;SELECT id, name, time_created, data FROM person&quot;</span>)
@@ -203,14 +203,14 @@ package.</p>
                 </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
                     <tr>
-                        <td><a class='enum' href='enum.PostgresConnectTarget.html'
+                        <td><a class='type' href='type.PostgresConnectTarget.html'
                                title='postgres::PostgresConnectTarget'>PostgresConnectTarget</a></td>
                         <td class='docblock short'><p>Specifies the target server to connect to.</p>
 </td>
                     </tr>
                 
                     <tr>
-                        <td><a class='enum' href='enum.SslMode.html'
+                        <td><a class='type' href='type.SslMode.html'
                                title='postgres::SslMode'>SslMode</a></td>
                         <td class='docblock short'><p>Specifies the SSL support requested for a new connection</p>
 </td>
@@ -249,7 +249,7 @@ package.</p>
                 </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>
                     <tr>
-                        <td><a class='typedef' href='typedef.PostgresResult.html'
+                        <td><a class='type' href='type.PostgresResult.html'
                                title='postgres::PostgresResult'>PostgresResult</a></td>
                         <td class='docblock short'><p>A typedef of the result returned by many methods.</p>
 </td>

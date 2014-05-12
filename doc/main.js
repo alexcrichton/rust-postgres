@@ -386,12 +386,16 @@
             });
         }
 
+        function escape(content) {
+            return $('<h1/>').text(content).html();
+        }
+
         function showResults(results) {
             var output, shown, query = getQuery();
 
             currentResults = query.id;
-            output = '<h1>Results for ' + query.query +
-                    (query.type ? ' (type: ' + query.type + ')' : '') + '</h1>';
+            output = '<h1>Results for ' + escape(query.query) +
+                (query.type ? ' (type: ' + escape(query.type) + ')' : '') + '</h1>';
             output += '<table class="search-results">';
 
             if (results.length > 0) {
@@ -510,9 +514,9 @@
         // `rustdoc::html::item_type::ItemType` type in Rust.
         var itemTypes = ["mod",
                          "struct",
-                         "enum",
+                         "type",
                          "fn",
-                         "typedef",
+                         "type",
                          "static",
                          "trait",
                          "impl",
@@ -650,4 +654,3 @@
 
     window.initSearch = initSearch;
 }());
-

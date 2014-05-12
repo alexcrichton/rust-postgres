@@ -1540,7 +1540,7 @@ use postgres::types::ToSql;
 
 struct Person {
     id: i32,
-    name: ~str,
+    name: StrBuf,
     time_created: Timespec,
     data: Option&lt;Vec&lt;u8&gt;&gt;
 }
@@ -1557,13 +1557,13 @@ fn main() {
                   )&quot;, []).unwrap();
     let me = Person {
         id: 0,
-        name: &quot;Steven&quot;.to_owned(),
+        name: &quot;Steven&quot;.into_strbuf(),
         time_created: time::get_time(),
         data: None
     };
     conn.execute(&quot;INSERT INTO person (name, time_created, data)
                     VALUES ($1, $2, $3)&quot;,
-                 [&amp;me.name as &amp;ToSql, &amp;me.time_created as &amp;ToSql,
+                 [&amp;me.name.as_slice() as &amp;ToSql, &amp;me.time_created as &amp;ToSql,
                   &amp;me.data as &amp;ToSql]).unwrap();
 
     let stmt = conn.prepare(&quot;SELECT id, name, time_created, data FROM person&quot;)

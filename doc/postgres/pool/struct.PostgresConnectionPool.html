@@ -58,7 +58,7 @@
     });
 }
 </pre>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../postgres/pool/struct.PostgresConnectionPool.html' title='postgres::pool::PostgresConnectionPool'>PostgresConnectionPool</a></code></h3><div class='methods'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;T: <a class='trait' href='../../postgres/trait.IntoConnectParams.html' title='postgres::IntoConnectParams'>IntoConnectParams</a>&gt;(params: T, ssl: <a class='enum' href='../../postgres/enum.SslMode.html' title='postgres::SslMode'>SslMode</a>, pool_size: uint) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/result/enum.Result.html' title='std::result::Result'>Result</a>&lt;<a class='struct' href='../../postgres/pool/struct.PostgresConnectionPool.html' title='postgres::pool::PostgresConnectionPool'>PostgresConnectionPool</a>, <a class='enum' href='../../postgres/error/enum.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a>&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../postgres/pool/struct.PostgresConnectionPool.html' title='postgres::pool::PostgresConnectionPool'>PostgresConnectionPool</a></code></h3><div class='methods'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;T: <a class='trait' href='../../postgres/trait.IntoConnectParams.html' title='postgres::IntoConnectParams'>IntoConnectParams</a>&gt;(params: T, ssl: <a class='type' href='../../postgres/type.SslMode.html' title='postgres::SslMode'>SslMode</a>, pool_size: uint) -&gt; <a class='type' href='http://static.rust-lang.org/doc/master/core/result/type.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../postgres/pool/struct.PostgresConnectionPool.html' title='postgres::pool::PostgresConnectionPool'>PostgresConnectionPool</a>, <a class='type' href='../../postgres/error/type.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a>&gt;</code></h4>
 <div class='docblock'><p>Creates a new pool with the specified number of connections.</p>
 
 <p>Returns an error if the specified number of connections cannot be
@@ -67,8 +67,7 @@ created.</p>
 <div class='docblock'><p>Retrieves a connection from the pool.</p>
 
 <p>If all connections are in use, blocks until one becomes available.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='struct' href='../../postgres/pool/struct.PostgresConnectionPool.html' title='postgres::pool::PostgresConnectionPool'>PostgresConnectionPool</a></code></h3><div class='methods'><h4 id='method.clone' class='method'><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../postgres/pool/struct.PostgresConnectionPool.html' title='postgres::pool::PostgresConnectionPool'>PostgresConnectionPool</a></code></h4>
-</div></section>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

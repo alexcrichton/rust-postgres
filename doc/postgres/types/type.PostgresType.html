@@ -24,7 +24,7 @@
     <section class="sidebar">
         
 
-        <p class='location'><a href='../index.html'>postgres</a>&#8203;::<a href='index.html'>types</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='array/index.html'>array</a><br/><a class='mod ' href='range/index.html'>range</a><br/></div><div class='block enum'><h2>Enums</h2><a class='enum ' href='enum.Format.html'>Format</a><br/><a class='enum current' href='enum.PostgresType.html'>PostgresType</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.FromSql.html'>FromSql</a><br/><a class='trait ' href='trait.ToSql.html'>ToSql</a><br/></div>
+        <p class='location'><a href='../index.html'>postgres</a>&#8203;::<a href='index.html'>types</a></p><div class='block mod'><h2>Modules</h2><a class='mod ' href='array/index.html'>array</a><br/><a class='mod ' href='range/index.html'>range</a><br/></div><div class='block trait'><h2>Traits</h2><a class='trait ' href='trait.FromSql.html'>FromSql</a><br/><a class='trait ' href='trait.ToSql.html'>ToSql</a><br/></div>
     </section>
 
     <nav class="sub">
@@ -38,8 +38,8 @@
         </form>
     </nav>
 
-    <section id='main' class="content enum">
-<h1 class='fqn'>Enum <a href='../index.html'>postgres</a>::<a href='index.html'>types</a>::<a class='enum' href=''>PostgresType</a><a class='source' href='../../src/postgres/src/types/mod.rs.html#81-93'>[src]</a></h1>
+    <section id='main' class="content type">
+<h1 class='fqn'>Enum <a href='../index.html'>postgres</a>::<a href='index.html'>types</a>::<a class='type' href=''>PostgresType</a><a class='source' href='../../src/postgres/src/types/mod.rs.html#81-93'>[src]</a></h1>
 <pre class='rust enum'>pub enum PostgresType {
     PgBool,
     PgByteA,
@@ -83,7 +83,7 @@
     PgInt8RangeArray,
     PgUnknownType {
         pub name: ~str,
-        pub oid: <a class='typedef' href='../../postgres/types/typedef.Oid.html' title='postgres::types::Oid'>Oid</a>,
+        pub oid: <a class='type' href='../../postgres/types/type.Oid.html' title='postgres::types::Oid'>Oid</a>,
     },
 }</pre><div class='docblock'><p>A Postgres type</p>
 </div><h2 class='variants'>Variants</h2>
@@ -132,13 +132,9 @@
 
                                               <table><tr><td id='variant.PgUnknownType.field.name'><code>name</code></td><td><div class='docblock'><p>The name of the type</p>
 </div></td></tr><tr><td id='variant.PgUnknownType.field.oid'><code>oid</code></td><td><div class='docblock'><p>The OID of the type</p>
-</div></td></tr></table></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='enum' href='../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a></code></h3><div class='methods'><h4 id='method.result_format' class='method'><code>fn <a href='#method.result_format' class='fnname'>result_format</a>(&amp;self) -&gt; <a class='enum' href='../../postgres/types/enum.Format.html' title='postgres::types::Format'>Format</a></code></h4>
+</div></td></tr></table></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='type' href='../../postgres/types/type.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a></code></h3><div class='methods'><h4 id='method.result_format' class='method'><code>fn <a href='#method.result_format' class='fnname'>result_format</a>(&amp;self) -&gt; <a class='type' href='../../postgres/types/type.Format.html' title='postgres::types::Format'>Format</a></code></h4>
 <div class='docblock'><p>Returns the wire format needed for the value of <code>self</code>.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a> for <a class='enum' href='../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a></code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='http://static.rust-lang.org/doc/master/std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='http://static.rust-lang.org/doc/master/std/fmt/enum.Result.html' title='std::fmt::Result'>Result</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/clone/trait.Clone.html' title='std::clone::Clone'>Clone</a> for <a class='enum' href='../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a></code></h3><div class='methods'><h4 id='method.clone' class='method'><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a></code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/cmp/trait.Eq.html' title='std::cmp::Eq'>Eq</a> for <a class='enum' href='../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a></code></h3><div class='methods'><h4 id='method.eq' class='method'><code>fn <a href='#method.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>) -&gt; bool</code></h4>
-<h4 id='method.ne' class='method'><code>fn <a href='#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../../postgres/types/enum.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>) -&gt; bool</code></h4>
-</div></section>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
