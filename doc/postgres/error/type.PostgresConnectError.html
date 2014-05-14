@@ -39,11 +39,10 @@
     </nav>
 
     <section id='main' class="content type">
-<h1 class='fqn'>Enum <a href='../index.html'>postgres</a>::<a href='index.html'>error</a>::<a class='type' href=''>PostgresConnectError</a><a class='source' href='../../src/postgres/src/error.rs.html#360-382'>[src]</a></h1>
+<h1 class='fqn'>Enum <a href='../index.html'>postgres</a>::<a href='index.html'>error</a>::<a class='type' href=''>PostgresConnectError</a><a class='source' href='../../src/postgres/src/error.rs.html#360-380'>[src]</a></h1>
 <pre class='rust enum'>pub enum PostgresConnectError {
     InvalidUrl(~str),
     MissingUser,
-    DnsError(<a class='struct' href='http://static.rust-lang.org/doc/master/std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
     SocketError(<a class='struct' href='http://static.rust-lang.org/doc/master/std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
     PgConnectDbError(<a class='struct' href='../../postgres/error/struct.PostgresDbError.html' title='postgres::error::PostgresDbError'>PostgresDbError</a>),
     MissingPassword,
@@ -55,7 +54,6 @@
 </div><h2 class='variants'>Variants</h2>
 <table><tr><td id='variant.InvalidUrl'><code>InvalidUrl</code></td><td><div class='docblock'><p>The provided URL could not be parsed</p>
 </div></td></tr><tr><td id='variant.MissingUser'><code>MissingUser</code></td><td><div class='docblock'><p>The URL was missing a user</p>
-</div></td></tr><tr><td id='variant.DnsError'><code>DnsError</code></td><td><div class='docblock'><p>DNS lookup failed</p>
 </div></td></tr><tr><td id='variant.SocketError'><code>SocketError</code></td><td><div class='docblock'><p>There was an error opening a socket to the server</p>
 </div></td></tr><tr><td id='variant.PgConnectDbError'><code>PgConnectDbError</code></td><td><div class='docblock'><p>An error from the Postgres server itself</p>
 </div></td></tr><tr><td id='variant.MissingPassword'><code>MissingPassword</code></td><td><div class='docblock'><p>A password was required but not provided in the URL</p>
@@ -64,7 +62,8 @@ by the driver</p>
 </div></td></tr><tr><td id='variant.NoSslSupport'><code>NoSslSupport</code></td><td><div class='docblock'><p>The Postgres server does not support SSL encryption</p>
 </div></td></tr><tr><td id='variant.SslError'><code>SslError</code></td><td><div class='docblock'><p>There was an error initializing the SSL session</p>
 </div></td></tr><tr><td id='variant.PgConnectStreamError'><code>PgConnectStreamError</code></td><td><div class='docblock'><p>There was an error communicating with the server</p>
-</div></td></tr></table></section>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a> for <a class='type' href='../../postgres/error/type.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a></code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='http://static.rust-lang.org/doc/master/std/fmt/struct.Formatter.html' title='std::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://static.rust-lang.org/doc/master/std/fmt/type.Result.html' title='std::fmt::Result'>Result</a></code></h4>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

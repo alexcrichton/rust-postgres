@@ -39,13 +39,15 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresLazyRows</a><a class='source' href='../src/postgres/src/lib.rs.html#1461-1464'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresLazyRows</a><a class='source' href='../src/postgres/src/lib.rs.html#1458-1461'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresLazyRows&lt;'trans, 'stmt&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>A lazily-loaded iterator over the resulting rows of a query</p>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'trans, 'stmt&gt; <a class='struct' href='../postgres/struct.PostgresLazyRows.html' title='postgres::PostgresLazyRows'>PostgresLazyRows</a>&lt;'trans, 'stmt&gt;</code></h3><div class='methods'><h4 id='method.finish' class='method'><code>fn <a href='#method.finish' class='fnname'>finish</a>(self) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;()&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresRows::finish</code>.</p>
-</div></div></section>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'trans, 'stmt&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/core/iter/trait.Iterator.html' title='core::iter::Iterator'>Iterator</a>&lt;<a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresRow.html' title='postgres::PostgresRow'>PostgresRow</a>&lt;'stmt&gt;&gt;&gt; for <a class='struct' href='../postgres/struct.PostgresLazyRows.html' title='postgres::PostgresLazyRows'>PostgresLazyRows</a>&lt;'trans, 'stmt&gt;</code></h3><div class='methods'><h4 id='method.next' class='method'><code>fn <a href='#method.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class='type' href='http://static.rust-lang.org/doc/master/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresRow.html' title='postgres::PostgresRow'>PostgresRow</a>&lt;'stmt&gt;&gt;&gt;</code></h4>
+<h4 id='method.size_hint' class='method'><code>fn <a href='#method.size_hint' class='fnname'>size_hint</a>(&amp;self) -&gt; (uint, <a class='type' href='http://static.rust-lang.org/doc/master/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;uint&gt;)</code></h4>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>

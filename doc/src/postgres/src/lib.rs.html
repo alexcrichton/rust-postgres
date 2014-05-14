@@ -1520,9 +1520,6 @@
 <span id='1480'>1480</span>
 <span id='1481'>1481</span>
 <span id='1482'>1482</span>
-<span id='1483'>1483</span>
-<span id='1484'>1484</span>
-<span id='1485'>1485</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
@@ -1849,9 +1846,9 @@ fn main() {
     <span class='doccomment'>/// The process ID of the notifying backend process
 </span>    <span class='kw'>pub</span> <span class='ident'>pid</span>: <span class='ident'>i32</span>,
     <span class='doccomment'>/// The name of the channel that the notify has been raised on
-</span>    <span class='kw'>pub</span> <span class='ident'>channel</span>: <span class='kw-2'>~</span><span class='ident'>str</span>,
+</span>    <span class='kw'>pub</span> <span class='ident'>channel</span>: <span class='ident'>StrBuf</span>,
     <span class='doccomment'>/// The &quot;payload&quot; string passed from the notifying process
-</span>    <span class='kw'>pub</span> <span class='ident'>payload</span>: <span class='kw-2'>~</span><span class='ident'>str</span>,
+</span>    <span class='kw'>pub</span> <span class='ident'>payload</span>: <span class='ident'>StrBuf</span>,
 }
 
 <span class='doccomment'>/// An iterator over asynchronous notifications
@@ -2700,11 +2697,8 @@ fn main() {
                     <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>PgDbError</span>(<span class='ident'>PostgresDbError</span>::<span class='ident'>new</span>(<span class='ident'>fields</span>)));
                 }
                 <span class='ident'>CommandComplete</span> { <span class='ident'>tag</span> } <span class='op'>=&gt;</span> {
-                    <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>tag</span>.<span class='ident'>split</span>(<span class='string'>&#39; &#39;</span>).<span class='ident'>last</span>().<span class='ident'>unwrap</span>();
-                    <span class='ident'>num</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='ident'>s</span>) {
-                        <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='number'>0</span>,
-                        <span class='prelude-val'>Some</span>(<span class='ident'>n</span>) <span class='op'>=&gt;</span> <span class='ident'>n</span>
-                    };
+                    <span class='kw'>let</span> <span class='ident'>s</span> <span class='op'>=</span> <span class='ident'>tag</span>.<span class='ident'>as_slice</span>().<span class='ident'>split</span>(<span class='string'>&#39; &#39;</span>).<span class='ident'>last</span>().<span class='ident'>unwrap</span>();
+                    <span class='ident'>num</span> <span class='op'>=</span> <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='ident'>s</span>).<span class='ident'>unwrap_or</span>(<span class='number'>0</span>);
                     <span class='kw'>break</span>;
                 }
                 <span class='ident'>EmptyQueryResponse</span> <span class='op'>=&gt;</span> {
@@ -2759,7 +2753,7 @@ fn main() {
 </span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Eq</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ResultDescription</span> {
     <span class='doccomment'>/// The name of the column
-</span>    <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='kw-2'>~</span><span class='ident'>str</span>,
+</span>    <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>StrBuf</span>,
     <span class='doccomment'>/// The type of the data in the column
 </span>    <span class='kw'>pub</span> <span class='ident'>ty</span>: <span class='ident'>PostgresType</span>
 }
