@@ -959,7 +959,7 @@
 <span class='doccomment'>/// Reasons a new Postgres connection could fail
 </span><span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>PostgresConnectError</span> {
     <span class='doccomment'>/// The provided URL could not be parsed
-</span>    <span class='ident'>InvalidUrl</span>(<span class='kw-2'>~</span><span class='ident'>str</span>),
+</span>    <span class='ident'>InvalidUrl</span>(<span class='ident'>StrBuf</span>),
     <span class='doccomment'>/// The URL was missing a user
 </span>    <span class='ident'>MissingUser</span>,
     <span class='doccomment'>/// There was an error opening a socket to the server
