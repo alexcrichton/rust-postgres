@@ -982,23 +982,23 @@
 <span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Show</span> <span class='kw'>for</span> <span class='ident'>PostgresConnectError</span> {
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>fmt</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
         <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='ident'>InvalidUrl</span>(<span class='kw-2'>ref</span> <span class='ident'>err</span>) <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;Invalid URL: {}&quot;</span>, <span class='ident'>err</span>),
-            <span class='ident'>MissingUser</span> <span class='op'>=&gt;</span> <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(<span class='string'>&quot;User missing in URL&quot;</span>),
+            <span class='ident'>InvalidUrl</span>(<span class='kw-2'>ref</span> <span class='ident'>err</span>) <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Invalid URL: {}&quot;</span>, <span class='ident'>err</span>),
+            <span class='ident'>MissingUser</span> <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;User missing in URL&quot;</span>),
             <span class='ident'>SocketError</span>(<span class='kw-2'>ref</span> <span class='ident'>err</span>) <span class='op'>=&gt;</span>
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;Unable to open connection to server: {}&quot;</span>, <span class='ident'>err</span>),
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Unable to open connection to server: {}&quot;</span>, <span class='ident'>err</span>),
             <span class='ident'>PgConnectDbError</span>(<span class='kw-2'>ref</span> <span class='ident'>err</span>) <span class='op'>=&gt;</span> <span class='ident'>err</span>.<span class='ident'>fmt</span>(<span class='ident'>fmt</span>),
             <span class='ident'>MissingPassword</span> <span class='op'>=&gt;</span>
-                <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(<span class='string'>&quot;The server requested a password but none \
-                                   was provided&quot;</span>),
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;The server requested a password but none was \
+                             provided&quot;</span>),
             <span class='ident'>UnsupportedAuthentication</span> <span class='op'>=&gt;</span>
-                <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(<span class='string'>&quot;The server requested an unsupporeted \
-                                   authentication method&quot;</span>),
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;The server requested an unsupported \
+                             authentication method&quot;</span>),
             <span class='ident'>NoSslSupport</span> <span class='op'>=&gt;</span>
-                <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(<span class='string'>&quot;The server does not support SSL&quot;</span>),
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;The server does not support SSL&quot;</span>),
             <span class='ident'>SslError</span>(<span class='kw-2'>ref</span> <span class='ident'>err</span>) <span class='op'>=&gt;</span>
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;Error initiating SSL session: {}&quot;</span>, <span class='ident'>err</span>),
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Error initiating SSL session: {}&quot;</span>, <span class='ident'>err</span>),
             <span class='ident'>PgConnectStreamError</span>(<span class='kw-2'>ref</span> <span class='ident'>err</span>) <span class='op'>=&gt;</span>
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;Error communicating with server: {}&quot;</span>, <span class='ident'>err</span>),
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Error communicating with server: {}&quot;</span>, <span class='ident'>err</span>),
         }
     }
 }
@@ -1106,7 +1106,7 @@
 
 <span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Show</span> <span class='kw'>for</span> <span class='ident'>PostgresDbError</span> {
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>fmt</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;{}: {}&quot;</span>, <span class='self'>self</span>.<span class='ident'>severity</span>, <span class='self'>self</span>.<span class='ident'>message</span>)
+        <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;{}: {}&quot;</span>, <span class='self'>self</span>.<span class='ident'>severity</span>, <span class='self'>self</span>.<span class='ident'>message</span>)
     }
 }
 
@@ -1142,18 +1142,18 @@
         <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
             <span class='ident'>PgDbError</span>(<span class='kw-2'>ref</span> <span class='ident'>err</span>) <span class='op'>=&gt;</span> <span class='ident'>err</span>.<span class='ident'>fmt</span>(<span class='ident'>fmt</span>),
             <span class='ident'>PgStreamError</span>(<span class='kw-2'>ref</span> <span class='ident'>err</span>) <span class='op'>=&gt;</span> <span class='ident'>err</span>.<span class='ident'>fmt</span>(<span class='ident'>fmt</span>),
-            <span class='ident'>PgStreamDesynchronized</span> <span class='op'>=&gt;</span> <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(
-                <span class='string'>&quot;Communication with the server has desynchronized due to an \
-                 earlier IO error&quot;</span>),
-            <span class='ident'>PgWrongConnection</span> <span class='op'>=&gt;</span> <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(
-                <span class='string'>&quot;A statement was executed with a connection it was not \
-                 prepared with&quot;</span>),
+            <span class='ident'>PgStreamDesynchronized</span> <span class='op'>=&gt;</span>
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Communication with the server has desynchronized \
+                             due to an earlier IO error&quot;</span>),
+            <span class='ident'>PgWrongConnection</span> <span class='op'>=&gt;</span>
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;A statement was executed with a connection it was \
+                             not prepared with&quot;</span>),
             <span class='ident'>PgWrongParamCount</span> { <span class='ident'>expected</span>, <span class='ident'>actual</span> } <span class='op'>=&gt;</span>
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;Expected {} parameters but got {}&quot;</span>, <span class='ident'>expected</span>,
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Expected {} parameters but got {}&quot;</span>, <span class='ident'>expected</span>,
                        <span class='ident'>actual</span>),
-            <span class='ident'>PgWrongType</span>(<span class='kw-2'>ref</span> <span class='ident'>ty</span>) <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;Unexpected type {}&quot;</span>, <span class='ident'>ty</span>),
-            <span class='ident'>PgInvalidColumn</span> <span class='op'>=&gt;</span> <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(<span class='string'>&quot;Invalid column&quot;</span>),
-            <span class='ident'>PgWasNull</span> <span class='op'>=&gt;</span> <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(<span class='string'>&quot;The value was NULL&quot;</span>)
+            <span class='ident'>PgWrongType</span>(<span class='kw-2'>ref</span> <span class='ident'>ty</span>) <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Unexpected type {}&quot;</span>, <span class='ident'>ty</span>),
+            <span class='ident'>PgInvalidColumn</span> <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Invalid column&quot;</span>),
+            <span class='ident'>PgWasNull</span> <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;The value was NULL&quot;</span>),
         }
     }
 }

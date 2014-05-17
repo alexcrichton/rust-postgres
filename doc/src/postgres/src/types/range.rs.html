@@ -872,10 +872,10 @@
 
         <span class='kw'>match</span> <span class='ident'>BoundSided</span>::<span class='ident'>side</span>(<span class='prelude-val'>None</span>::<span class='op'>&lt;</span><span class='ident'>S</span><span class='op'>&gt;</span>) {
             <span class='ident'>Lower</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;{}{}&quot;</span>, <span class='ident'>chars</span>[<span class='number'>0</span>], <span class='self'>self</span>.<span class='ident'>value</span>)
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;{}{}&quot;</span>, <span class='ident'>chars</span>[<span class='number'>0</span>], <span class='self'>self</span>.<span class='ident'>value</span>)
             }
             <span class='ident'>Upper</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>, <span class='string'>&quot;{}{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>value</span>, <span class='ident'>chars</span>[<span class='number'>1</span>])
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;{}{}&quot;</span>, <span class='self'>self</span>.<span class='ident'>value</span>, <span class='ident'>chars</span>[<span class='number'>1</span>])
             }
         }
     }
@@ -950,16 +950,16 @@
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>fmt</span>::<span class='ident'>Show</span><span class='op'>&gt;</span> <span class='ident'>fmt</span>::<span class='ident'>Show</span> <span class='kw'>for</span> <span class='ident'>Range</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
     <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>fmt</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>inner</span> {
-            <span class='ident'>Empty</span> <span class='op'>=&gt;</span> <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_str</span>(<span class='string'>&quot;empty&quot;</span>),
+            <span class='ident'>Empty</span> <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;empty&quot;</span>),
             <span class='ident'>Normal</span>(<span class='kw-2'>ref</span> <span class='ident'>lower</span>, <span class='kw-2'>ref</span> <span class='ident'>upper</span>) <span class='op'>=&gt;</span> {
                 <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>lower</span> {
                     <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>bound</span>) <span class='op'>=&gt;</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>bound</span>.<span class='ident'>fmt</span>(<span class='ident'>fmt</span>)),
-                    <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_char</span>(<span class='string'>&#39;(&#39;</span>)),
+                    <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;(&quot;</span>)),
                 }
-                <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_char</span>(<span class='string'>&#39;,&#39;</span>));
+                <span class='macro'>try</span><span class='macro'>!</span>(<span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;,&quot;</span>));
                 <span class='kw'>match</span> <span class='op'>*</span><span class='ident'>upper</span> {
                     <span class='prelude-val'>Some</span>(<span class='kw-2'>ref</span> <span class='ident'>bound</span>) <span class='op'>=&gt;</span> <span class='ident'>bound</span>.<span class='ident'>fmt</span>(<span class='ident'>fmt</span>),
-                    <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>fmt</span>.<span class='ident'>buf</span>.<span class='ident'>write_char</span>(<span class='string'>&#39;)&#39;</span>),
+                    <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;)&quot;</span>),
                 }
             }
         }

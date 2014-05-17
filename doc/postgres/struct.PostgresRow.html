@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresRow</a><a class='source' href='../src/postgres/src/lib.rs.html#1355-1358'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresRow</a><a class='source' href='../src/postgres/src/lib.rs.html#1362-1365'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresRow&lt;'stmt&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>A single result row of a query.</p>
@@ -52,7 +52,7 @@ access by index is more efficient. Rows are 1-indexed.</p>
 <p>Returns an <code>Error</code> value if the index does not reference a column or
 the return type is not compatible with the Postgres type.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'stmt&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/core/container/trait.Container.html' title='core::container::Container'>Container</a> for <a class='struct' href='../postgres/struct.PostgresRow.html' title='postgres::PostgresRow'>PostgresRow</a>&lt;'stmt&gt;</code></h3><div class='methods'><h4 id='method.len' class='method'><code>fn <a href='#method.len' class='fnname'>len</a>(&amp;self) -&gt; uint</code></h4>
-</div><h3 class='impl'><code>impl&lt;'stmt, I: <a class='trait' href='../postgres/trait.RowIndex.html' title='postgres::RowIndex'>RowIndex</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/std/fmt/trait.Show.html' title='std::fmt::Show'>Show</a>, T: <a class='trait' href='../postgres/types/trait.FromSql.html' title='postgres::types::FromSql'>FromSql</a>&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;I, T&gt; for <a class='struct' href='../postgres/struct.PostgresRow.html' title='postgres::PostgresRow'>PostgresRow</a>&lt;'stmt&gt;</code></h3><div class='methods'><h4 id='method.index' class='method'><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, idx: &amp;I) -&gt; T</code></h4>
+</div><h3 class='impl'><code>impl&lt;'stmt, I: <a class='trait' href='../postgres/trait.RowIndex.html' title='postgres::RowIndex'>RowIndex</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> + <a class='trait' href='http://static.rust-lang.org/doc/master/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a>, T: <a class='trait' href='../postgres/types/trait.FromSql.html' title='postgres::types::FromSql'>FromSql</a>&gt; <a class='trait' href='http://static.rust-lang.org/doc/master/core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;I, T&gt; for <a class='struct' href='../postgres/struct.PostgresRow.html' title='postgres::PostgresRow'>PostgresRow</a>&lt;'stmt&gt;</code></h3><div class='methods'><h4 id='method.index' class='method'><code>fn <a href='#method.index' class='fnname'>index</a>(&amp;self, idx: &amp;I) -&gt; T</code></h4>
 <div class='docblock'><p>Retreives the contents of a field of the row.</p>
 
 <p>A field can be accessed by the name or index of its column, though
