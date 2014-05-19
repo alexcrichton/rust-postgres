@@ -1528,6 +1528,8 @@
 <span id='1488'>1488</span>
 <span id='1489'>1489</span>
 <span id='1490'>1490</span>
+<span id='1491'>1491</span>
+<span id='1492'>1492</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
@@ -2459,7 +2461,9 @@ fn main() {
 </span>    <span class='ident'>RequireSsl</span>(<span class='ident'>SslContext</span>)
 }
 
-<span class='doccomment'>/// Represents a transaction on a database connection
+<span class='doccomment'>/// Represents a transaction on a database connection.
+</span><span class='doccomment'>///
+</span><span class='doccomment'>/// The transaction will commit by default.
 </span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> {
     <span class='ident'>conn</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;conn</span> <span class='ident'>PostgresConnection</span>,
     <span class='ident'>commit</span>: <span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span>,

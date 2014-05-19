@@ -39,10 +39,12 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresTransaction</a><a class='source' href='../src/postgres/src/lib.rs.html#932-937'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresTransaction</a><a class='source' href='../src/postgres/src/lib.rs.html#934-939'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresTransaction&lt;'conn&gt; {
     // some fields omitted
-}</pre><div class='docblock'><p>Represents a transaction on a database connection</p>
+}</pre><div class='docblock'><p>Represents a transaction on a database connection.</p>
+
+<p>The transaction will commit by default.</p>
 </div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'conn&gt; <a class='struct' href='../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'conn&gt;</code></h3><div class='methods'><h4 id='method.prepare' class='method'><code>fn <a href='#method.prepare' class='fnname'>prepare</a>&lt;'a&gt;(&amp;'a self, query: &amp;str) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::prepare</code>.</p>
 </div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;uint&gt;</code></h4>
