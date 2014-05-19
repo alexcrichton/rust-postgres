@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresTransaction</a><a class='source' href='../src/postgres/src/lib.rs.html#920-925'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresTransaction</a><a class='source' href='../src/postgres/src/lib.rs.html#932-937'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresTransaction&lt;'conn&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>Represents a transaction on a database connection</p>
@@ -49,10 +49,6 @@
 <div class='docblock'><p>Like <code>PostgresConnection::execute</code>.</p>
 </div><h4 id='method.transaction' class='method'><code>fn <a href='#method.transaction' class='fnname'>transaction</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::transaction</code>.</p>
-</div><h4 id='method.notifications' class='method'><code>fn <a href='#method.notifications' class='fnname'>notifications</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../postgres/struct.PostgresNotifications.html' title='postgres::PostgresNotifications'>PostgresNotifications</a>&lt;'a&gt;</code></h4>
-<div class='docblock'><p>Like <code>PostgresConnection::notifications</code>.</p>
-</div><h4 id='method.is_desynchronized' class='method'><code>fn <a href='#method.is_desynchronized' class='fnname'>is_desynchronized</a>(&amp;self) -&gt; bool</code></h4>
-<div class='docblock'><p>Like <code>PostgresConnection::is_desynchronized</code>.</p>
 </div><h4 id='method.will_commit' class='method'><code>fn <a href='#method.will_commit' class='fnname'>will_commit</a>(&amp;self) -&gt; bool</code></h4>
 <div class='docblock'><p>Determines if the transaction is currently set to commit or roll back.</p>
 </div><h4 id='method.set_commit' class='method'><code>fn <a href='#method.set_commit' class='fnname'>set_commit</a>(&amp;self)</code></h4>

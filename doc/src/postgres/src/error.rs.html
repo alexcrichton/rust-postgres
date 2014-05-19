@@ -597,6 +597,13 @@
 <span id='557'>557</span>
 <span id='558'>558</span>
 <span id='559'>559</span>
+<span id='560'>560</span>
+<span id='561'>561</span>
+<span id='562'>562</span>
+<span id='563'>563</span>
+<span id='564'>564</span>
+<span id='565'>565</span>
+<span id='566'>566</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Postgres errors
 </span>
@@ -1135,6 +1142,9 @@
 </span>    <span class='ident'>PgInvalidColumn</span>,
     <span class='doccomment'>/// A value was NULL but converted to a non-nullable Rust type
 </span>    <span class='ident'>PgWasNull</span>,
+    <span class='doccomment'>/// An attempt was made to prepare a statement or start a transaction on an
+</span>    <span class='doccomment'>/// object other than the active transaction
+</span>    <span class='ident'>PgWrongTransaction</span>,
 }
 
 <span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Show</span> <span class='kw'>for</span> <span class='ident'>PostgresError</span> {
@@ -1154,6 +1164,10 @@
             <span class='ident'>PgWrongType</span>(<span class='kw-2'>ref</span> <span class='ident'>ty</span>) <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Unexpected type {}&quot;</span>, <span class='ident'>ty</span>),
             <span class='ident'>PgInvalidColumn</span> <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;Invalid column&quot;</span>),
             <span class='ident'>PgWasNull</span> <span class='op'>=&gt;</span> <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;The value was NULL&quot;</span>),
+            <span class='ident'>PgWrongTransaction</span> <span class='op'>=&gt;</span>
+                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>fmt</span>, <span class='string'>&quot;An attempt was made to prepare a statement or \
+                             start a transaction on an object other than the \
+                             active transaction&quot;</span>),
         }
     }
 }

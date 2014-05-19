@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresConnection</a><a class='source' href='../src/postgres/src/lib.rs.html#708-710'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresConnection</a><a class='source' href='../src/postgres/src/lib.rs.html#712-714'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresConnection {
     // some fields omitted
 }</pre><div class='docblock'><p>A connection to a Postgres database.</p>
@@ -85,7 +85,7 @@ support SSL over Unix sockets.</p>
 };
 <span class='kw'>let</span> <span class='ident'>maybe_conn</span> <span class='op'>=</span> <span class='ident'>PostgresConnection</span>::<span class='ident'>connect</span>(<span class='ident'>params</span>, <span class='kw-2'>&amp;</span><span class='ident'>NoSsl</span>);
 </pre>
-</div><h4 id='method.set_notice_handler' class='method'><code>fn <a href='#method.set_notice_handler' class='fnname'>set_notice_handler</a>(&amp;self, handler: <a class='struct' href='http://static.rust-lang.org/doc/master/std/owned/struct.Box.html' title='std::owned::Box'>Box</a>&lt;<a class='trait' href='../postgres/trait.PostgresNoticeHandler.html' title='postgres::PostgresNoticeHandler'>PostgresNoticeHandler</a>:<a class='trait' href='http://static.rust-lang.org/doc/master/core/kinds/trait.Send.html' title='core::kinds::Send'>Send</a>&gt;) -&gt; <a class='struct' href='http://static.rust-lang.org/doc/master/std/owned/struct.Box.html' title='std::owned::Box'>Box</a>&lt;<a class='trait' href='../postgres/trait.PostgresNoticeHandler.html' title='postgres::PostgresNoticeHandler'>PostgresNoticeHandler</a>:<a class='trait' href='http://static.rust-lang.org/doc/master/core/kinds/trait.Send.html' title='core::kinds::Send'>Send</a>&gt;</code></h4>
+</div><h4 id='method.set_notice_handler' class='method'><code>fn <a href='#method.set_notice_handler' class='fnname'>set_notice_handler</a>(&amp;self, handler: <a class='struct' href='http://static.rust-lang.org/doc/master/alloc/owned/struct.Box.html' title='alloc::owned::Box'>Box</a>&lt;<a class='trait' href='../postgres/trait.PostgresNoticeHandler.html' title='postgres::PostgresNoticeHandler'>PostgresNoticeHandler</a>:<a class='trait' href='http://static.rust-lang.org/doc/master/core/kinds/trait.Send.html' title='core::kinds::Send'>Send</a>&gt;) -&gt; <a class='struct' href='http://static.rust-lang.org/doc/master/alloc/owned/struct.Box.html' title='alloc::owned::Box'>Box</a>&lt;<a class='trait' href='../postgres/trait.PostgresNoticeHandler.html' title='postgres::PostgresNoticeHandler'>PostgresNoticeHandler</a>:<a class='trait' href='http://static.rust-lang.org/doc/master/core/kinds/trait.Send.html' title='core::kinds::Send'>Send</a>&gt;</code></h4>
 <div class='docblock'><p>Sets the notice handler for the connection, returning the old handler.</p>
 </div><h4 id='method.notifications' class='method'><code>fn <a href='#method.notifications' class='fnname'>notifications</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../postgres/struct.PostgresNotifications.html' title='postgres::PostgresNotifications'>PostgresNotifications</a>&lt;'a&gt;</code></h4>
 <div class='docblock'><p>Returns an iterator over asynchronous notification messages.</p>
