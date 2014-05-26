@@ -39,17 +39,17 @@
     </nav>
 
     <section id='main' class="content type">
-<h1 class='fqn'>Enum <a href='../index.html'>postgres</a>::<a href='index.html'>error</a>::<a class='type' href=''>PostgresConnectError</a><a class='source' href='../../src/postgres/src/error.rs.html#360-380'>[src]</a></h1>
+<h1 class='fqn'>Enum <a href='../index.html'>postgres</a>::<a href='index.html'>error</a>::<a class='type' href=''>PostgresConnectError</a><a class='source' id='src-5495' href='../../src/postgres/src/error.rs.html#360-380'>[src]</a></h1>
 <pre class='rust enum'>pub enum PostgresConnectError {
-    InvalidUrl(<a class='struct' href='http://doc.rust-lang.org/std/strbuf/struct.StrBuf.html' title='std::strbuf::StrBuf'>StrBuf</a>),
+    InvalidUrl(<a class='struct' href='../../std/string/struct.String.html' title='std::string::String'>String</a>),
     MissingUser,
-    SocketError(<a class='struct' href='http://doc.rust-lang.org/std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
+    SocketError(<a class='struct' href='../../std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
     PgConnectDbError(<a class='struct' href='../../postgres/error/struct.PostgresDbError.html' title='postgres::error::PostgresDbError'>PostgresDbError</a>),
     MissingPassword,
     UnsupportedAuthentication,
     NoSslSupport,
-    SslError(<a class='type' href='http://sfackler.github.io/rust-openssl/doc/openssl/ssl/error/type.SslError.html' title='openssl::ssl::error::SslError'>SslError</a>),
-    PgConnectStreamError(<a class='struct' href='http://doc.rust-lang.org/std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
+    SslError(<a class='type' href='../../openssl/ssl/error/type.SslError.html' title='openssl::ssl::error::SslError'>SslError</a>),
+    PgConnectStreamError(<a class='struct' href='../../std/io/struct.IoError.html' title='std::io::IoError'>IoError</a>),
 }</pre><div class='docblock'><p>Reasons a new Postgres connection could fail</p>
 </div><h2 class='variants'>Variants</h2>
 <table><tr><td id='variant.InvalidUrl'><code>InvalidUrl</code></td><td><div class='docblock'><p>The provided URL could not be parsed</p>
@@ -62,7 +62,7 @@ by the driver</p>
 </div></td></tr><tr><td id='variant.NoSslSupport'><code>NoSslSupport</code></td><td><div class='docblock'><p>The Postgres server does not support SSL encryption</p>
 </div></td></tr><tr><td id='variant.SslError'><code>SslError</code></td><td><div class='docblock'><p>There was an error initializing the SSL session</p>
 </div></td></tr><tr><td id='variant.PgConnectStreamError'><code>PgConnectStreamError</code></td><td><div class='docblock'><p>There was an error communicating with the server</p>
-</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='type' href='../../postgres/error/type.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a></code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='http://doc.rust-lang.org/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='http://doc.rust-lang.org/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='type' href='../../postgres/error/type.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a></code></h3><div class='methods'><h4 id='method.fmt' class='method'><code>fn <a href='#method.fmt' class='fnname'>fmt</a>(&amp;self, fmt: &amp;mut <a class='struct' href='../../core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='../../core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
