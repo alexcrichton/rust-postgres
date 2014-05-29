@@ -182,6 +182,9 @@
 <span id='142'>142</span>
 <span id='143'>143</span>
 <span id='144'>144</span>
+<span id='145'>145</span>
+<span id='146'>146</span>
+<span id='147'>147</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! A simple connection pool
 </span>
@@ -246,7 +249,7 @@
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>pool</span> <span class='op'>=</span> <span class='ident'>InnerConnectionPool</span> {
             <span class='ident'>params</span>: <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>params</span>.<span class='ident'>into_connect_params</span>()),
             <span class='ident'>ssl</span>: <span class='ident'>ssl</span>,
-            <span class='ident'>pool</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
+            <span class='ident'>pool</span>: <span class='macro'>vec</span><span class='macro'>!</span>[],
         };
 
         <span class='kw'>for</span> _ <span class='kw'>in</span> <span class='ident'>range</span>(<span class='number'>0</span>, <span class='ident'>pool_size</span>) {
@@ -264,13 +267,16 @@
 </span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_connection</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PooledPostgresConnection</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>pool</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>pool</span>.<span class='ident'>lock</span>();
 
-        <span class='kw'>while</span> <span class='ident'>pool</span>.<span class='ident'>pool</span>.<span class='ident'>is_empty</span>() {
-            <span class='ident'>pool</span>.<span class='ident'>cond</span>.<span class='ident'>wait</span>();
-        }
-
-        <span class='ident'>PooledPostgresConnection</span> {
-            <span class='ident'>pool</span>: <span class='self'>self</span>.<span class='ident'>clone</span>(),
-            <span class='ident'>conn</span>: <span class='prelude-val'>Some</span>(<span class='ident'>pool</span>.<span class='ident'>pool</span>.<span class='ident'>pop</span>().<span class='ident'>unwrap</span>())
+        <span class='kw'>loop</span> {
+            <span class='kw'>match</span> <span class='ident'>pool</span>.<span class='ident'>pool</span>.<span class='ident'>pop</span>() {
+                <span class='prelude-val'>Some</span>(<span class='ident'>conn</span>) <span class='op'>=&gt;</span> {
+                    <span class='kw'>return</span> <span class='ident'>PooledPostgresConnection</span> {
+                        <span class='ident'>pool</span>: <span class='self'>self</span>.<span class='ident'>clone</span>(),
+                        <span class='ident'>conn</span>: <span class='prelude-val'>Some</span>(<span class='ident'>conn</span>),
+                    };
+                }
+                <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='ident'>pool</span>.<span class='ident'>cond</span>.<span class='ident'>wait</span>()
+            }
         }
     }
 }

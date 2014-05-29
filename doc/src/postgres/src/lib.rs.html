@@ -1529,7 +1529,6 @@
 <span id='1489'>1489</span>
 <span id='1490'>1490</span>
 <span id='1491'>1491</span>
-<span id='1492'>1492</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
@@ -1564,13 +1563,13 @@ fn main() {
                   )&quot;, []).unwrap();
     let me = Person {
         id: 0,
-        name: &quot;Steven&quot;.to_owned(),
+        name: &quot;Steven&quot;.to_string(),
         time_created: time::get_time(),
         data: None
     };
     conn.execute(&quot;INSERT INTO person (name, time_created, data)
                     VALUES ($1, $2, $3)&quot;,
-                 [&amp;me.name.as_slice() as &amp;ToSql, &amp;me.time_created as &amp;ToSql,
+                 [&amp;me.name as &amp;ToSql, &amp;me.time_created as &amp;ToSql,
                   &amp;me.data as &amp;ToSql]).unwrap();
 
     let stmt = conn.prepare(&quot;SELECT id, name, time_created, data FROM person&quot;)
@@ -1620,7 +1619,6 @@ fn main() {
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='ident'>BufferedStream</span>, <span class='ident'>IoResult</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>net</span>::<span class='ident'>ip</span>::<span class='ident'>Port</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>owned</span>::<span class='ident'>Box</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>task</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 
@@ -1640,8 +1638,7 @@ fn main() {
             <span class='ident'>UnsupportedAuthentication</span>,
             <span class='ident'>PgWrongConnection</span>,
             <span class='ident'>PgWrongTransaction</span>};
-<span class='kw'>use</span> <span class='ident'>io</span>::{<span class='ident'>MaybeSslStream</span>,
-         <span class='ident'>InternalStream</span>};
+<span class='kw'>use</span> <span class='ident'>io</span>::{<span class='ident'>MaybeSslStream</span>, <span class='ident'>InternalStream</span>};
 <span class='kw'>use</span> <span class='ident'>message</span>::{<span class='ident'>AuthenticationCleartextPassword</span>,
               <span class='ident'>AuthenticationGSS</span>,
               <span class='ident'>AuthenticationKerberosV5</span>,
@@ -1818,7 +1815,7 @@ fn main() {
         <span class='kw'>let</span> <span class='ident'>port</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>port</span> {
             <span class='prelude-val'>Some</span>(<span class='ident'>port</span>) <span class='op'>=&gt;</span> <span class='kw'>match</span> <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='ident'>port</span>.<span class='ident'>as_slice</span>()) {
                 <span class='prelude-val'>Some</span>(<span class='ident'>port</span>) <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>port</span>),
-                <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>InvalidUrl</span>(<span class='string'>&quot;invalid port&quot;</span>.<span class='ident'>to_owned</span>())),
+                <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>InvalidUrl</span>(<span class='string'>&quot;invalid port&quot;</span>.<span class='ident'>to_string</span>())),
             },
             <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>None</span>,
         };
@@ -1826,7 +1823,7 @@ fn main() {
         <span class='kw'>let</span> <span class='ident'>database</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ident'>path</span>.<span class='ident'>is_empty</span>() {<span class='comment'>
             // path contains the leading /
             </span><span class='kw'>let</span> (_, <span class='ident'>path</span>) <span class='op'>=</span> <span class='ident'>path</span>.<span class='ident'>as_slice</span>().<span class='ident'>slice_shift_char</span>();
-            <span class='prelude-val'>Some</span>(<span class='ident'>path</span>.<span class='ident'>to_owned</span>())
+            <span class='prelude-val'>Some</span>(<span class='ident'>path</span>.<span class='ident'>to_string</span>())
         } <span class='kw'>else</span> {
             <span class='prelude-val'>None</span>
         };
@@ -1860,7 +1857,8 @@ fn main() {
 }
 
 <span class='doccomment'>/// An asynchronous notification
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresNotification</span> {
+</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Show</span>)]</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresNotification</span> {
     <span class='doccomment'>/// The process ID of the notifying backend process
 </span>    <span class='kw'>pub</span> <span class='ident'>pid</span>: <span class='ident'>i32</span>,
     <span class='doccomment'>/// The name of the channel that the notify has been raised on
@@ -1968,19 +1966,6 @@ fn main() {
         <span class='kw'>let</span> <span class='ident'>params</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>params</span>.<span class='ident'>into_connect_params</span>());
         <span class='kw'>let</span> <span class='ident'>stream</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>io</span>::<span class='ident'>initialize_stream</span>(<span class='kw-2'>&amp;</span><span class='ident'>params</span>, <span class='ident'>ssl</span>));
 
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>conn</span> <span class='op'>=</span> <span class='ident'>InnerPostgresConnection</span> {
-            <span class='ident'>stream</span>: <span class='ident'>BufferedStream</span>::<span class='ident'>new</span>(<span class='ident'>stream</span>),
-            <span class='ident'>next_stmt_id</span>: <span class='number'>0</span>,
-            <span class='ident'>notice_handler</span>: <span class='kw'>box</span> <span class='ident'>DefaultNoticeHandler</span>,
-            <span class='ident'>notifications</span>: <span class='ident'>RingBuf</span>::<span class='ident'>new</span>(),
-            <span class='ident'>cancel_data</span>: <span class='ident'>PostgresCancelData</span> { <span class='ident'>process_id</span>: <span class='number'>0</span>, <span class='ident'>secret_key</span>: <span class='number'>0</span> },
-            <span class='ident'>unknown_types</span>: <span class='ident'>HashMap</span>::<span class='ident'>new</span>(),
-            <span class='ident'>desynchronized</span>: <span class='boolval'>false</span>,
-            <span class='ident'>finished</span>: <span class='boolval'>false</span>,
-            <span class='ident'>trans_depth</span>: <span class='number'>0</span>,
-            <span class='ident'>canary</span>: <span class='ident'>CANARY</span>,
-        };
-
         <span class='kw'>let</span> <span class='ident'>PostgresConnectParams</span> {
             <span class='ident'>user</span>,
             <span class='ident'>password</span>,
@@ -1994,14 +1979,27 @@ fn main() {
             <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>MissingUser</span>),
         };
 
-        <span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;client_encoding&quot;</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;UTF8&quot;</span>.<span class='ident'>to_owned</span>()));<span class='comment'>
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>conn</span> <span class='op'>=</span> <span class='ident'>InnerPostgresConnection</span> {
+            <span class='ident'>stream</span>: <span class='ident'>BufferedStream</span>::<span class='ident'>new</span>(<span class='ident'>stream</span>),
+            <span class='ident'>next_stmt_id</span>: <span class='number'>0</span>,
+            <span class='ident'>notice_handler</span>: <span class='kw'>box</span> <span class='ident'>DefaultNoticeHandler</span>,
+            <span class='ident'>notifications</span>: <span class='ident'>RingBuf</span>::<span class='ident'>new</span>(),
+            <span class='ident'>cancel_data</span>: <span class='ident'>PostgresCancelData</span> { <span class='ident'>process_id</span>: <span class='number'>0</span>, <span class='ident'>secret_key</span>: <span class='number'>0</span> },
+            <span class='ident'>unknown_types</span>: <span class='ident'>HashMap</span>::<span class='ident'>new</span>(),
+            <span class='ident'>desynchronized</span>: <span class='boolval'>false</span>,
+            <span class='ident'>finished</span>: <span class='boolval'>false</span>,
+            <span class='ident'>trans_depth</span>: <span class='number'>0</span>,
+            <span class='ident'>canary</span>: <span class='ident'>CANARY</span>,
+        };
+
+        <span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;client_encoding&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;UTF8&quot;</span>.<span class='ident'>to_string</span>()));<span class='comment'>
         // Postgres uses the value of TimeZone as the time zone for TIMESTAMP
         // WITH TIME ZONE values. Timespec converts to GMT internally.
-        </span><span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;TimeZone&quot;</span>.<span class='ident'>to_owned</span>(), <span class='string'>&quot;GMT&quot;</span>.<span class='ident'>to_owned</span>()));<span class='comment'>
+        </span><span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;TimeZone&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;GMT&quot;</span>.<span class='ident'>to_string</span>()));<span class='comment'>
         // We have to clone here since we need the user again for auth
-        </span><span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;user&quot;</span>.<span class='ident'>to_owned</span>(), <span class='ident'>user</span>.<span class='ident'>clone</span>()));
+        </span><span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;user&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>user</span>.<span class='ident'>clone</span>()));
         <span class='kw'>match</span> <span class='ident'>database</span> {
-            <span class='prelude-val'>Some</span>(<span class='ident'>database</span>) <span class='op'>=&gt;</span> <span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;database&quot;</span>.<span class='ident'>to_owned</span>(), <span class='ident'>database</span>)),
+            <span class='prelude-val'>Some</span>(<span class='ident'>database</span>) <span class='op'>=&gt;</span> <span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;database&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>database</span>)),
             <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> {}
         }
 
@@ -2150,7 +2148,7 @@ fn main() {
                         <span class='ident'>ty</span>: <span class='ident'>PostgresType</span>::<span class='ident'>from_oid</span>(<span class='ident'>type_oid</span>)
                     }
                 }).<span class='ident'>collect</span>(),
-            <span class='ident'>NoData</span> <span class='op'>=&gt;</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>(),
+            <span class='ident'>NoData</span> <span class='op'>=&gt;</span> <span class='macro'>vec</span><span class='macro'>!</span>[],
             _ <span class='op'>=&gt;</span> <span class='macro'>unreachable</span><span class='macro'>!</span>()
         };
 
@@ -2214,7 +2212,7 @@ fn main() {
         <span class='macro'>check_desync</span><span class='macro'>!</span>(<span class='self'>self</span>);
         <span class='macro'>try_pg</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>write_messages</span>([<span class='ident'>Query</span> { <span class='ident'>query</span>: <span class='ident'>query</span> }]));
 
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>result</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
         <span class='kw'>loop</span> {
             <span class='kw'>match</span> <span class='macro'>try_pg</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>read_message</span>()) {
                 <span class='ident'>ReadyForQuery</span> { .. } <span class='op'>=&gt;</span> <span class='kw'>break</span>,
@@ -2290,10 +2288,10 @@ fn main() {
 </span>    <span class='doccomment'>/// let params = PostgresConnectParams {
 </span>    <span class='doccomment'>///     target: TargetUnix(some_crazy_path),
 </span>    <span class='doccomment'>///     port: None,
-</span>    <span class='doccomment'>///     user: Some(&quot;postgres&quot;.to_owned()),
+</span>    <span class='doccomment'>///     user: Some(&quot;postgres&quot;.to_string()),
 </span>    <span class='doccomment'>///     password: None,
 </span>    <span class='doccomment'>///     database: None,
-</span>    <span class='doccomment'>///     options: Vec::new(),
+</span>    <span class='doccomment'>///     options: vec![],
 </span>    <span class='doccomment'>/// };
 </span>    <span class='doccomment'>/// let maybe_conn = PostgresConnection::connect(params, &amp;NoSsl);
 </span>    <span class='doccomment'>/// ```
@@ -2624,8 +2622,8 @@ fn main() {
                 <span class='ident'>actual</span>: <span class='ident'>params</span>.<span class='ident'>len</span>(),
             });
         }
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>formats</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>values</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='ident'>new</span>();
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>formats</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>values</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
         <span class='kw'>for</span> (<span class='kw-2'>&amp;</span><span class='ident'>param</span>, <span class='ident'>ty</span>) <span class='kw'>in</span> <span class='ident'>params</span>.<span class='ident'>iter</span>().<span class='ident'>zip</span>(<span class='self'>self</span>.<span class='ident'>param_types</span>.<span class='ident'>iter</span>()) {
             <span class='kw'>let</span> (<span class='ident'>format</span>, <span class='ident'>value</span>) <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>param</span>.<span class='ident'>to_sql</span>(<span class='ident'>ty</span>));
             <span class='ident'>formats</span>.<span class='ident'>push</span>(<span class='ident'>format</span> <span class='kw'>as</span> <span class='ident'>i16</span>);
@@ -2982,10 +2980,10 @@ fn main() {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>idx</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>stmt</span>: <span class='kw-2'>&amp;</span><span class='ident'>PostgresStatement</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span> {
         <span class='kw'>if</span> <span class='op'>*</span><span class='self'>self</span> <span class='op'>&lt;</span> <span class='number'>0</span> {
-            <span class='kw'>return</span> <span class='prelude-val'>None</span>;
+            <span class='prelude-val'>None</span>
+        } <span class='kw'>else</span> {
+            (<span class='op'>*</span><span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>uint</span>).<span class='ident'>idx</span>(<span class='ident'>stmt</span>)
         }
-
-        (<span class='op'>*</span><span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>uint</span>).<span class='ident'>idx</span>(<span class='ident'>stmt</span>)
     }
 }
 

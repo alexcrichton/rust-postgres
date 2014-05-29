@@ -967,7 +967,7 @@
                 <span class='kw'>match</span> <span class='ident'>oid</span> {
                     $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>oid</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>variant</span>,)<span class='op'>+</span><span class='comment'>
                     // We have to load an empty string now, it&#39;ll get filled in later
-                    </span><span class='ident'>oid</span> <span class='op'>=&gt;</span> <span class='ident'>PgUnknownType</span> { <span class='ident'>name</span>: <span class='string'>&quot;&quot;</span>.<span class='ident'>to_owned</span>(), <span class='ident'>oid</span>: <span class='ident'>oid</span> }
+                    </span><span class='ident'>oid</span> <span class='op'>=&gt;</span> <span class='ident'>PgUnknownType</span> { <span class='ident'>name</span>: <span class='string'>&quot;&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>oid</span>: <span class='ident'>oid</span> }
                 }
             }
 
