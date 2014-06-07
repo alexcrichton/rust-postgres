@@ -39,15 +39,15 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresStatement</a><a class='source' id='src-40586' href='../src/postgres/src/lib.rs.html#1045-1052'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresStatement</a><a class='source' id='src-42083' href='../src/postgres/src/lib.rs.html#1046-1053'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresStatement&lt;'conn&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>A prepared statement</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'conn&gt; <a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'conn&gt;</code></h3><div class='methods'><h4 id='method.param_types' class='method'><code>fn <a href='#method.param_types' class='fnname'>param_types</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a [<a class='type' href='../postgres/types/type.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>]</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'conn&gt; <a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'conn&gt;</code></h3><div class='methods'><h4 id='method.param_types' class='method'><code>fn <a href='#method.param_types' class='fnname'>param_types</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a href='http://doc.rust-lang.org/std/primitive.slice.html'>[<a class='type' href='../postgres/types/type.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>]</a></code></h4>
 <div class='docblock'><p>Returns a slice containing the expected parameter types.</p>
-</div><h4 id='method.result_descriptions' class='method'><code>fn <a href='#method.result_descriptions' class='fnname'>result_descriptions</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a [<a class='struct' href='../postgres/struct.ResultDescription.html' title='postgres::ResultDescription'>ResultDescription</a>]</code></h4>
+</div><h4 id='method.result_descriptions' class='method'><code>fn <a href='#method.result_descriptions' class='fnname'>result_descriptions</a>&lt;'a&gt;(&amp;'a self) -&gt; &amp;'a <a href='http://doc.rust-lang.org/std/primitive.slice.html'>[<a class='struct' href='../postgres/struct.ResultDescription.html' title='postgres::ResultDescription'>ResultDescription</a>]</a></code></h4>
 <div class='docblock'><p>Returns a slice describing the columns of the result of the query.</p>
-</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, params: &amp;[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;uint&gt;</code></h4>
+</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, params: &amp;<a href='http://doc.rust-lang.org/std/primitive.slice.html'>[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]</a>) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.uint.html'>uint</a>&gt;</code></h4>
 <div class='docblock'><p>Executes the prepared statement, returning the number of rows modified.</p>
 
 <p>If the statement does not modify any rows (e.g. SELECT), 0 is returned.</p>
@@ -60,7 +60,7 @@
     <span class='prelude-val'>Err</span>(<span class='ident'>err</span>) <span class='op'>=&gt;</span> <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Error executing query: {}&quot;</span>, <span class='ident'>err</span>)
 }
 </pre>
-</div><h4 id='method.query' class='method'><code>fn <a href='#method.query' class='fnname'>query</a>&lt;'a&gt;(&amp;'a self, params: &amp;[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresRows.html' title='postgres::PostgresRows'>PostgresRows</a>&lt;'a&gt;&gt;</code></h4>
+</div><h4 id='method.query' class='method'><code>fn <a href='#method.query' class='fnname'>query</a>&lt;'a&gt;(&amp;'a self, params: &amp;<a href='http://doc.rust-lang.org/std/primitive.slice.html'>[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]</a>) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresRows.html' title='postgres::PostgresRows'>PostgresRows</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Executes the prepared statement, returning an iterator over the
 resulting rows.</p>
 

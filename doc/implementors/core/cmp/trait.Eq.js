@@ -1,10 +1,10 @@
 (function() {var implementors = {};
-implementors['postgres'] = {ResultDescription:"postgres/struct.ResultDescription.html",PostgresType:"postgres/types/type.PostgresType.html",Range:"postgres/types/range/struct.Range.html",RangeBound:"postgres/types/range/struct.RangeBound.html",BoundType:"postgres/types/range/type.BoundType.html",ArrayBase:"postgres/types/array/struct.ArrayBase.html",DimensionInfo:"postgres/types/array/struct.DimensionInfo.html",PostgresSqlState:"postgres/error/type.PostgresSqlState.html",};
+implementors['postgres'] = ["impl <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='type' href='postgres/error/type.PostgresSqlState.html' title='postgres::error::PostgresSqlState'>PostgresSqlState</a>","impl <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='postgres/types/array/struct.DimensionInfo.html' title='postgres::types::array::DimensionInfo'>DimensionInfo</a>","impl&lt;T: <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a>&gt; <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='postgres/types/array/struct.ArrayBase.html' title='postgres::types::array::ArrayBase'>ArrayBase</a>&lt;T&gt;","impl <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='type' href='postgres/types/range/type.BoundType.html' title='postgres::types::range::BoundType'>BoundType</a>","impl&lt;S: BoundSided, T: <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a>&gt; <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='postgres/types/range/struct.RangeBound.html' title='postgres::types::range::RangeBound'>RangeBound</a>&lt;S, T&gt;","impl&lt;T: <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a>&gt; <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;","impl <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='type' href='postgres/types/type.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>","impl <a class='trait' href='http://doc.rust-lang.org/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='postgres/struct.ResultDescription.html' title='postgres::ResultDescription'>ResultDescription</a>",];
 
-                if (window.register_implementors) {
-                    window.register_implementors(implementors);
-                } else {
-                    window.pending_implementors = implementors;
-                }
-            
+            if (window.register_implementors) {
+                window.register_implementors(implementors);
+            } else {
+                window.pending_implementors = implementors;
+            }
+        
 })()

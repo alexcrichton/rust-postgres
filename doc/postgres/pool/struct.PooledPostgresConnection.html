@@ -39,16 +39,16 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='../index.html'>postgres</a>::<a href='index.html'>pool</a>::<a class='struct' href=''>PooledPostgresConnection</a><a class='source' id='src-7429' href='../../src/postgres/src/pool.rs.html#100-104'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='../index.html'>postgres</a>::<a href='index.html'>pool</a>::<a class='struct' href=''>PooledPostgresConnection</a><a class='source' id='src-8147' href='../../src/postgres/src/pool.rs.html#100-104'>[src]</a></h1>
 <pre class='rust struct'>pub struct PooledPostgresConnection {
     // some fields omitted
 }</pre><div class='docblock'><p>A Postgres connection pulled from a connection pool.</p>
 
 <p>It will be returned to the pool when it falls out of scope, even due to
 task failure.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../postgres/pool/struct.PooledPostgresConnection.html' title='postgres::pool::PooledPostgresConnection'>PooledPostgresConnection</a></code></h3><div class='methods'><h4 id='method.prepare' class='method'><code>fn <a href='#method.prepare' class='fnname'>prepare</a>&lt;'a&gt;(&amp;'a self, query: &amp;str) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'a&gt;&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../postgres/pool/struct.PooledPostgresConnection.html' title='postgres::pool::PooledPostgresConnection'>PooledPostgresConnection</a></code></h3><div class='methods'><h4 id='method.prepare' class='method'><code>fn <a href='#method.prepare' class='fnname'>prepare</a>&lt;'a&gt;(&amp;'a self, query: &amp;<a href='http://doc.rust-lang.org/std/primitive.str.html'>str</a>) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::prepare</code>.</p>
-</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;uint&gt;</code></h4>
+</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;<a href='http://doc.rust-lang.org/std/primitive.str.html'>str</a>, params: &amp;<a href='http://doc.rust-lang.org/std/primitive.slice.html'>[&amp;<a class='trait' href='../../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]</a>) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.uint.html'>uint</a>&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::execute</code>.</p>
 </div><h4 id='method.transaction' class='method'><code>fn <a href='#method.transaction' class='fnname'>transaction</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::transaction</code>.</p>
@@ -56,7 +56,7 @@ task failure.</p>
 <div class='docblock'><p>Like <code>PostgresConnection::notifications</code>.</p>
 </div><h4 id='method.cancel_data' class='method'><code>fn <a href='#method.cancel_data' class='fnname'>cancel_data</a>(&amp;self) -&gt; <a class='struct' href='../../postgres/struct.PostgresCancelData.html' title='postgres::PostgresCancelData'>PostgresCancelData</a></code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::cancel_data</code>.</p>
-</div><h4 id='method.is_desynchronized' class='method'><code>fn <a href='#method.is_desynchronized' class='fnname'>is_desynchronized</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.is_desynchronized' class='method'><code>fn <a href='#method.is_desynchronized' class='fnname'>is_desynchronized</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::is_desynchronized</code>.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../postgres/pool/struct.PooledPostgresConnection.html' title='postgres::pool::PooledPostgresConnection'>PooledPostgresConnection</a></code></h3><div class='methods'><h4 id='method.drop' class='method'><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 </div></section>

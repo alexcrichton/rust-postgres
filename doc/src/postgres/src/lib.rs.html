@@ -1529,6 +1529,7 @@
 <span id='1489'>1489</span>
 <span id='1490'>1490</span>
 <span id='1491'>1491</span>
+<span id='1492'>1492</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
@@ -1563,7 +1564,7 @@ fn main() {
                   )&quot;, []).unwrap();
     let me = Person {
         id: 0,
-        name: &quot;Steven&quot;.to_string(),
+        name: &quot;Steven&quot;.to_str(),
         time_created: time::get_time(),
         data: None
     };
@@ -1609,12 +1610,13 @@ fn main() {
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>log</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>uuid</span>;
 
-<span class='kw'>use</span> <span class='ident'>collections</span>::{<span class='ident'>Deque</span>, <span class='ident'>HashMap</span>, <span class='ident'>RingBuf</span>};
+<span class='kw'>use</span> <span class='ident'>collections</span>::{<span class='ident'>Deque</span>, <span class='ident'>RingBuf</span>};
 <span class='kw'>use</span> <span class='ident'>url</span>::{<span class='ident'>UserInfo</span>, <span class='ident'>Url</span>};
 <span class='kw'>use</span> <span class='ident'>openssl</span>::<span class='ident'>crypto</span>::<span class='ident'>hash</span>::{<span class='ident'>MD5</span>, <span class='ident'>Hasher</span>};
 <span class='kw'>use</span> <span class='ident'>openssl</span>::<span class='ident'>ssl</span>::<span class='ident'>SslContext</span>;
 <span class='kw'>use</span> <span class='ident'>serialize</span>::<span class='ident'>hex</span>::<span class='ident'>ToHex</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>cell</span>::{<span class='ident'>Cell</span>, <span class='ident'>RefCell</span>};
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>from_str</span>::<span class='ident'>FromStr</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='ident'>BufferedStream</span>, <span class='ident'>IoResult</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>net</span>::<span class='ident'>ip</span>::<span class='ident'>Port</span>;
@@ -1815,7 +1817,7 @@ fn main() {
         <span class='kw'>let</span> <span class='ident'>port</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>port</span> {
             <span class='prelude-val'>Some</span>(<span class='ident'>port</span>) <span class='op'>=&gt;</span> <span class='kw'>match</span> <span class='ident'>FromStr</span>::<span class='ident'>from_str</span>(<span class='ident'>port</span>.<span class='ident'>as_slice</span>()) {
                 <span class='prelude-val'>Some</span>(<span class='ident'>port</span>) <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>port</span>),
-                <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>InvalidUrl</span>(<span class='string'>&quot;invalid port&quot;</span>.<span class='ident'>to_string</span>())),
+                <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>InvalidUrl</span>(<span class='string'>&quot;invalid port&quot;</span>.<span class='ident'>to_str</span>())),
             },
             <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='prelude-val'>None</span>,
         };
@@ -1823,7 +1825,7 @@ fn main() {
         <span class='kw'>let</span> <span class='ident'>database</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='op'>!</span><span class='ident'>path</span>.<span class='ident'>is_empty</span>() {<span class='comment'>
             // path contains the leading /
             </span><span class='kw'>let</span> (_, <span class='ident'>path</span>) <span class='op'>=</span> <span class='ident'>path</span>.<span class='ident'>as_slice</span>().<span class='ident'>slice_shift_char</span>();
-            <span class='prelude-val'>Some</span>(<span class='ident'>path</span>.<span class='ident'>to_string</span>())
+            <span class='prelude-val'>Some</span>(<span class='ident'>path</span>.<span class='ident'>to_str</span>())
         } <span class='kw'>else</span> {
             <span class='prelude-val'>None</span>
         };
@@ -1992,14 +1994,14 @@ fn main() {
             <span class='ident'>canary</span>: <span class='ident'>CANARY</span>,
         };
 
-        <span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;client_encoding&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;UTF8&quot;</span>.<span class='ident'>to_string</span>()));<span class='comment'>
+        <span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;client_encoding&quot;</span>.<span class='ident'>to_str</span>(), <span class='string'>&quot;UTF8&quot;</span>.<span class='ident'>to_str</span>()));<span class='comment'>
         // Postgres uses the value of TimeZone as the time zone for TIMESTAMP
         // WITH TIME ZONE values. Timespec converts to GMT internally.
-        </span><span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;TimeZone&quot;</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;GMT&quot;</span>.<span class='ident'>to_string</span>()));<span class='comment'>
+        </span><span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;TimeZone&quot;</span>.<span class='ident'>to_str</span>(), <span class='string'>&quot;GMT&quot;</span>.<span class='ident'>to_str</span>()));<span class='comment'>
         // We have to clone here since we need the user again for auth
-        </span><span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;user&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>user</span>.<span class='ident'>clone</span>()));
+        </span><span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;user&quot;</span>.<span class='ident'>to_str</span>(), <span class='ident'>user</span>.<span class='ident'>clone</span>()));
         <span class='kw'>match</span> <span class='ident'>database</span> {
-            <span class='prelude-val'>Some</span>(<span class='ident'>database</span>) <span class='op'>=&gt;</span> <span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;database&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>database</span>)),
+            <span class='prelude-val'>Some</span>(<span class='ident'>database</span>) <span class='op'>=&gt;</span> <span class='ident'>options</span>.<span class='ident'>push</span>((<span class='string'>&quot;database&quot;</span>.<span class='ident'>to_str</span>(), <span class='ident'>database</span>)),
             <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> {}
         }
 
@@ -2288,7 +2290,7 @@ fn main() {
 </span>    <span class='doccomment'>/// let params = PostgresConnectParams {
 </span>    <span class='doccomment'>///     target: TargetUnix(some_crazy_path),
 </span>    <span class='doccomment'>///     port: None,
-</span>    <span class='doccomment'>///     user: Some(&quot;postgres&quot;.to_string()),
+</span>    <span class='doccomment'>///     user: Some(&quot;postgres&quot;.to_str()),
 </span>    <span class='doccomment'>///     password: None,
 </span>    <span class='doccomment'>///     database: None,
 </span>    <span class='doccomment'>///     options: vec![],
@@ -2772,7 +2774,7 @@ fn main() {
 }
 
 <span class='doccomment'>/// Information about a column of the result of a query.
-</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Eq</span>)]</span>
+</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ResultDescription</span> {
     <span class='doccomment'>/// The name of the column
 </span>    <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>String</span>,

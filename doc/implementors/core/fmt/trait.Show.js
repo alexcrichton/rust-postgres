@@ -1,10 +1,10 @@
 (function() {var implementors = {};
-implementors['postgres'] = {PostgresNotification:"postgres/struct.PostgresNotification.html",PostgresType:"postgres/types/type.PostgresType.html",Range:"postgres/types/range/struct.Range.html",RangeBound:"postgres/types/range/struct.RangeBound.html",DimensionInfo:"postgres/types/array/struct.DimensionInfo.html",PostgresError:"postgres/error/type.PostgresError.html",PostgresDbError:"postgres/error/struct.PostgresDbError.html",PostgresConnectError:"postgres/error/type.PostgresConnectError.html",};
+implementors['postgres'] = ["impl <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='type' href='postgres/error/type.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a>","impl <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='struct' href='postgres/error/struct.PostgresDbError.html' title='postgres::error::PostgresDbError'>PostgresDbError</a>","impl <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='type' href='postgres/error/type.PostgresError.html' title='postgres::error::PostgresError'>PostgresError</a>","impl <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='struct' href='postgres/types/array/struct.DimensionInfo.html' title='postgres::types::array::DimensionInfo'>DimensionInfo</a>","impl&lt;S: BoundSided, T: <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a>&gt; <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='struct' href='postgres/types/range/struct.RangeBound.html' title='postgres::types::range::RangeBound'>RangeBound</a>&lt;S, T&gt;","impl&lt;T: <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a>&gt; <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='struct' href='postgres/types/range/struct.Range.html' title='postgres::types::range::Range'>Range</a>&lt;T&gt;","impl <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='type' href='postgres/types/type.PostgresType.html' title='postgres::types::PostgresType'>PostgresType</a>","impl <a class='trait' href='http://doc.rust-lang.org/core/fmt/trait.Show.html' title='core::fmt::Show'>Show</a> for <a class='struct' href='postgres/struct.PostgresNotification.html' title='postgres::PostgresNotification'>PostgresNotification</a>",];
 
-                if (window.register_implementors) {
-                    window.register_implementors(implementors);
-                } else {
-                    window.pending_implementors = implementors;
-                }
-            
+            if (window.register_implementors) {
+                window.register_implementors(implementors);
+            } else {
+                window.pending_implementors = implementors;
+            }
+        
 })()

@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresConnection</a><a class='source' id='src-39706' href='../src/postgres/src/lib.rs.html#711-713'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresConnection</a><a class='source' id='src-41203' href='../src/postgres/src/lib.rs.html#712-714'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresConnection {
     // some fields omitted
 }</pre><div class='docblock'><p>A connection to a Postgres database.</p>
@@ -78,7 +78,7 @@ support SSL over Unix sockets.</p>
 <span class='kw'>let</span> <span class='ident'>params</span> <span class='op'>=</span> <span class='ident'>PostgresConnectParams</span> {
     <span class='ident'>target</span>: <span class='ident'>TargetUnix</span>(<span class='ident'>some_crazy_path</span>),
     <span class='ident'>port</span>: <span class='prelude-val'>None</span>,
-    <span class='ident'>user</span>: <span class='prelude-val'>Some</span>(<span class='string'>&quot;postgres&quot;</span>.<span class='ident'>to_string</span>()),
+    <span class='ident'>user</span>: <span class='prelude-val'>Some</span>(<span class='string'>&quot;postgres&quot;</span>.<span class='ident'>to_str</span>()),
     <span class='ident'>password</span>: <span class='prelude-val'>None</span>,
     <span class='ident'>database</span>: <span class='prelude-val'>None</span>,
     <span class='ident'>options</span>: <span class='macro'>vec</span><span class='macro'>!</span>[],
@@ -91,7 +91,7 @@ support SSL over Unix sockets.</p>
 <div class='docblock'><p>Returns an iterator over asynchronous notification messages.</p>
 
 <p>Use the <code>LISTEN</code> command to register this connection for notifications.</p>
-</div><h4 id='method.prepare' class='method'><code>fn <a href='#method.prepare' class='fnname'>prepare</a>&lt;'a&gt;(&amp;'a self, query: &amp;str) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'a&gt;&gt;</code></h4>
+</div><h4 id='method.prepare' class='method'><code>fn <a href='#method.prepare' class='fnname'>prepare</a>&lt;'a&gt;(&amp;'a self, query: &amp;<a href='http://doc.rust-lang.org/std/primitive.str.html'>str</a>) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Creates a new prepared statement.</p>
 
 <p>A statement may contain parameters, specified by <code>$n</code> where <code>n</code> is the
@@ -129,7 +129,7 @@ transaction is set to roll back.</p>
 
 <span class='ident'>drop</span>(<span class='ident'>trans</span>);
 </pre>
-</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;str, params: &amp;[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;uint&gt;</code></h4>
+</div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;<a href='http://doc.rust-lang.org/std/primitive.str.html'>str</a>, params: &amp;<a href='http://doc.rust-lang.org/std/primitive.slice.html'>[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]</a>) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.uint.html'>uint</a>&gt;</code></h4>
 <div class='docblock'><p>A convenience function for queries that are only run once.</p>
 
 <p>If an error is returned, it could have come from either the preparation
@@ -141,7 +141,7 @@ or execution of the statement.</p>
 
 <p>Used with the <code>cancel_query</code> function. The object returned can be used
 to cancel any query executed by the connection it was created from.</p>
-</div><h4 id='method.is_desynchronized' class='method'><code>fn <a href='#method.is_desynchronized' class='fnname'>is_desynchronized</a>(&amp;self) -&gt; bool</code></h4>
+</div><h4 id='method.is_desynchronized' class='method'><code>fn <a href='#method.is_desynchronized' class='fnname'>is_desynchronized</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
 <div class='docblock'><p>Returns whether or not the stream has been desynchronized due to an
 error in the communication channel with the server.</p>
 

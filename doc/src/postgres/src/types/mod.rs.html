@@ -870,10 +870,10 @@
 <span class='doccomment'>//! Traits dealing with Postgres data types
 </span><span class='attribute'>#<span class='op'>!</span>[<span class='ident'>macro_escape</span>]</span>
 
-<span class='kw'>use</span> <span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>uuid</span>::<span class='ident'>Uuid</span>;
 <span class='kw'>use</span> <span class='ident'>serialize</span>::<span class='ident'>json</span>;
 <span class='kw'>use</span> <span class='ident'>serialize</span>::<span class='ident'>json</span>::<span class='ident'>Json</span>;
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::{<span class='ident'>MemWriter</span>, <span class='ident'>BufReader</span>};
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>io</span>::<span class='ident'>util</span>::<span class='ident'>LimitReader</span>;
 <span class='kw'>use</span> <span class='ident'>time</span>::<span class='ident'>Timespec</span>;
@@ -946,7 +946,7 @@
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>make_postgres_type</span>(
     ($(<span class='attribute'>#[<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>doc</span>:<span class='ident'>meta</span>]</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>oid</span>:<span class='ident'>ident</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>variant</span>:<span class='ident'>ident</span> $(<span class='ident'>member</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>member</span>:<span class='ident'>ident</span>)<span class='op'>*</span>),<span class='op'>+</span>) <span class='op'>=&gt;</span> (
         <span class='doccomment'>/// A Postgres type
-</span>        <span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Eq</span>, <span class='ident'>Clone</span>, <span class='ident'>Show</span>)]</span>
+</span>        <span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Clone</span>, <span class='ident'>Show</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>PostgresType</span> {
             $(
                 <span class='attribute'>#[<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>doc</span>]</span>
@@ -967,7 +967,7 @@
                 <span class='kw'>match</span> <span class='ident'>oid</span> {
                     $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>oid</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>variant</span>,)<span class='op'>+</span><span class='comment'>
                     // We have to load an empty string now, it&#39;ll get filled in later
-                    </span><span class='ident'>oid</span> <span class='op'>=&gt;</span> <span class='ident'>PgUnknownType</span> { <span class='ident'>name</span>: <span class='string'>&quot;&quot;</span>.<span class='ident'>to_string</span>(), <span class='ident'>oid</span>: <span class='ident'>oid</span> }
+                    </span><span class='ident'>oid</span> <span class='op'>=&gt;</span> <span class='ident'>PgUnknownType</span> { <span class='ident'>name</span>: <span class='string'>&quot;&quot;</span>.<span class='ident'>to_str</span>(), <span class='ident'>oid</span>: <span class='ident'>oid</span> }
                 }
             }
 
