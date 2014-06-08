@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresConnectParams</a><a class='source' id='src-38678' href='../src/postgres/src/lib.rs.html#215-233'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresConnectParams</a><a class='source' id='src-38696' href='../src/postgres/src/lib.rs.html#215-233'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresConnectParams {
     pub target: <a class='type' href='../postgres/type.PostgresConnectTarget.html' title='postgres::PostgresConnectTarget'>PostgresConnectTarget</a>,
     pub port: <a class='type' href='http://doc.rust-lang.org/core/option/type.Option.html' title='core::option::Option'>Option</a>&lt;<a class='type' href='http://doc.rust-lang.org/std/io/net/ip/type.Port.html' title='std::io::net::ip::Port'>Port</a>&gt;,
@@ -62,7 +62,7 @@ not.</p>
 </div></td></tr><tr><td id='structfield.options'><code>options</code></td><td><div class='docblock'><p>Runtime parameters to be passed to the Postgres backend.</p>
 </div></td></tr></table><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../postgres/trait.IntoConnectParams.html' title='postgres::IntoConnectParams'>IntoConnectParams</a> for <a class='struct' href='../postgres/struct.PostgresConnectParams.html' title='postgres::PostgresConnectParams'>PostgresConnectParams</a></code></h3><div class='methods'><h4 id='method.into_connect_params' class='method'><code>fn <a href='#method.into_connect_params' class='fnname'>into_connect_params</a>(self) -&gt; <a class='type' href='http://doc.rust-lang.org/core/result/type.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../postgres/struct.PostgresConnectParams.html' title='postgres::PostgresConnectParams'>PostgresConnectParams</a>, <a class='type' href='../postgres/error/type.PostgresConnectError.html' title='postgres::error::PostgresConnectError'>PostgresConnectError</a>&gt;</code></h4>
 </div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='http://doc.rust-lang.org/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../postgres/struct.PostgresConnectParams.html' title='postgres::PostgresConnectParams'>PostgresConnectParams</a></code></h3><div class='methods'><h4 id='method.clone' class='method'><code>fn <a href='#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../postgres/struct.PostgresConnectParams.html' title='postgres::PostgresConnectParams'>PostgresConnectParams</a></code></h4>
-<h4 id='method.clone_from' class='method'><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, &amp;Self)</code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='#tymethod.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -100,11 +100,13 @@ not.</p>
     </div>
 
     <script>
-        var rootPath = "../";
-        var currentCrate = "postgres";
+        window.rootPath = "../";
+        window.currentCrate = "postgres";
+        window.playgroundUrl = "";
     </script>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
+    
     <script async src="../search-index.js"></script>
 </body>
 </html>

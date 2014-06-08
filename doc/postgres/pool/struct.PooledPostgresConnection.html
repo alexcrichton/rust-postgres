@@ -50,6 +50,8 @@ task failure.</p>
 <div class='docblock'><p>Like <code>PostgresConnection::prepare</code>.</p>
 </div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;<a href='http://doc.rust-lang.org/std/primitive.str.html'>str</a>, params: &amp;<a href='http://doc.rust-lang.org/std/primitive.slice.html'>[&amp;<a class='trait' href='../../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]</a>) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.uint.html'>uint</a>&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::execute</code>.</p>
+</div><h4 id='method.batch_execute' class='method'><code>fn <a href='#method.batch_execute' class='fnname'>batch_execute</a>(&amp;self, query: &amp;<a href='http://doc.rust-lang.org/std/primitive.str.html'>str</a>) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;()&gt;</code></h4>
+<div class='docblock'><p>Like <code>PostgresConnection::batch_execute</code>.</p>
 </div><h4 id='method.transaction' class='method'><code>fn <a href='#method.transaction' class='fnname'>transaction</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='type' href='../../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::transaction</code>.</p>
 </div><h4 id='method.notifications' class='method'><code>fn <a href='#method.notifications' class='fnname'>notifications</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../../postgres/struct.PostgresNotifications.html' title='postgres::PostgresNotifications'>PostgresNotifications</a>&lt;'a&gt;</code></h4>
@@ -96,11 +98,13 @@ task failure.</p>
     </div>
 
     <script>
-        var rootPath = "../../";
-        var currentCrate = "postgres";
+        window.rootPath = "../../";
+        window.currentCrate = "postgres";
+        window.playgroundUrl = "";
     </script>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
+    
     <script async src="../../search-index.js"></script>
 </body>
 </html>

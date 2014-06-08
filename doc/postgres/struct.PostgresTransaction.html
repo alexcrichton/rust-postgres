@@ -39,7 +39,7 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresTransaction</a><a class='source' id='src-41571' href='../src/postgres/src/lib.rs.html#934-939'>[src]</a></h1>
+<h1 class='fqn'>Struct <a href='index.html'>postgres</a>::<a class='struct' href=''>PostgresTransaction</a><a class='source' id='src-41632' href='../src/postgres/src/lib.rs.html#979-984'>[src]</a></h1>
 <pre class='rust struct'>pub struct PostgresTransaction&lt;'conn&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>Represents a transaction on a database connection.</p>
@@ -49,6 +49,8 @@
 <div class='docblock'><p>Like <code>PostgresConnection::prepare</code>.</p>
 </div><h4 id='method.execute' class='method'><code>fn <a href='#method.execute' class='fnname'>execute</a>(&amp;self, query: &amp;<a href='http://doc.rust-lang.org/std/primitive.str.html'>str</a>, params: &amp;<a href='http://doc.rust-lang.org/std/primitive.slice.html'>[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]</a>) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a href='http://doc.rust-lang.org/std/primitive.uint.html'>uint</a>&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::execute</code>.</p>
+</div><h4 id='method.batch_execute' class='method'><code>fn <a href='#method.batch_execute' class='fnname'>batch_execute</a>(&amp;self, query: &amp;<a href='http://doc.rust-lang.org/std/primitive.str.html'>str</a>) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;()&gt;</code></h4>
+<div class='docblock'><p>Like <code>PostgresConnection::batch_execute</code>.</p>
 </div><h4 id='method.transaction' class='method'><code>fn <a href='#method.transaction' class='fnname'>transaction</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'a&gt;&gt;</code></h4>
 <div class='docblock'><p>Like <code>PostgresConnection::transaction</code>.</p>
 </div><h4 id='method.will_commit' class='method'><code>fn <a href='#method.will_commit' class='fnname'>will_commit</a>(&amp;self) -&gt; <a href='http://doc.rust-lang.org/std/primitive.bool.html'>bool</a></code></h4>
@@ -62,13 +64,14 @@
 
 <p>Functionally equivalent to the <code>Drop</code> implementation of
 <code>PostgresTransaction</code> except that it returns any error to the caller.</p>
-</div><h4 id='method.lazy_query' class='method'><code>fn <a href='#method.lazy_query' class='fnname'>lazy_query</a>&lt;'trans, 'stmt&gt;(&amp;'trans self, stmt: &amp;'stmt <a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>, params: &amp;<a href='http://doc.rust-lang.org/std/primitive.slice.html'>[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]</a>, row_limit: <a href='http://doc.rust-lang.org/std/primitive.uint.html'>uint</a>) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresLazyRows.html' title='postgres::PostgresLazyRows'>PostgresLazyRows</a>&lt;'trans, 'stmt&gt;&gt;</code></h4>
+</div><h4 id='method.lazy_query' class='method'><code>fn <a href='#method.lazy_query' class='fnname'>lazy_query</a>&lt;'trans, 'stmt&gt;(&amp;'trans self, stmt: &amp;'stmt <a class='struct' href='../postgres/struct.PostgresStatement.html' title='postgres::PostgresStatement'>PostgresStatement</a>, params: &amp;<a href='http://doc.rust-lang.org/std/primitive.slice.html'>[&amp;<a class='trait' href='../postgres/types/trait.ToSql.html' title='postgres::types::ToSql'>ToSql</a>]</a>, row_limit: <a href='http://doc.rust-lang.org/std/primitive.i32.html'>i32</a>) -&gt; <a class='type' href='../postgres/type.PostgresResult.html' title='postgres::PostgresResult'>PostgresResult</a>&lt;<a class='struct' href='../postgres/struct.PostgresLazyRows.html' title='postgres::PostgresLazyRows'>PostgresLazyRows</a>&lt;'trans, 'stmt&gt;&gt;</code></h4>
 <div class='docblock'><p>Executes a prepared statement, returning a lazily loaded iterator over
 the resulting rows.</p>
 
 <p>No more than <code>row_limit</code> rows will be stored in memory at a time. Rows
 will be pulled from the database in batches of <code>row_limit</code> as needed.
-If <code>row_limit</code> is 0, <code>lazy_query</code> is equivalent to <code>query</code>.</p>
+If <code>row_limit</code> is less than or equal to 0, <code>lazy_query</code> is equivalent
+to <code>query</code>.</p>
 </div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'conn&gt; <a class='trait' href='http://doc.rust-lang.org/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../postgres/struct.PostgresTransaction.html' title='postgres::PostgresTransaction'>PostgresTransaction</a>&lt;'conn&gt;</code></h3><div class='methods'><h4 id='method.drop' class='method'><code>fn <a href='#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
@@ -107,11 +110,13 @@ If <code>row_limit</code> is 0, <code>lazy_query</code> is equivalent to <code>q
     </div>
 
     <script>
-        var rootPath = "../";
-        var currentCrate = "postgres";
+        window.rootPath = "../";
+        window.currentCrate = "postgres";
+        window.playgroundUrl = "";
     </script>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
+    
     <script async src="../search-index.js"></script>
 </body>
 </html>

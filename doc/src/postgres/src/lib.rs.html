@@ -1530,6 +1530,60 @@
 <span id='1490'>1490</span>
 <span id='1491'>1491</span>
 <span id='1492'>1492</span>
+<span id='1493'>1493</span>
+<span id='1494'>1494</span>
+<span id='1495'>1495</span>
+<span id='1496'>1496</span>
+<span id='1497'>1497</span>
+<span id='1498'>1498</span>
+<span id='1499'>1499</span>
+<span id='1500'>1500</span>
+<span id='1501'>1501</span>
+<span id='1502'>1502</span>
+<span id='1503'>1503</span>
+<span id='1504'>1504</span>
+<span id='1505'>1505</span>
+<span id='1506'>1506</span>
+<span id='1507'>1507</span>
+<span id='1508'>1508</span>
+<span id='1509'>1509</span>
+<span id='1510'>1510</span>
+<span id='1511'>1511</span>
+<span id='1512'>1512</span>
+<span id='1513'>1513</span>
+<span id='1514'>1514</span>
+<span id='1515'>1515</span>
+<span id='1516'>1516</span>
+<span id='1517'>1517</span>
+<span id='1518'>1518</span>
+<span id='1519'>1519</span>
+<span id='1520'>1520</span>
+<span id='1521'>1521</span>
+<span id='1522'>1522</span>
+<span id='1523'>1523</span>
+<span id='1524'>1524</span>
+<span id='1525'>1525</span>
+<span id='1526'>1526</span>
+<span id='1527'>1527</span>
+<span id='1528'>1528</span>
+<span id='1529'>1529</span>
+<span id='1530'>1530</span>
+<span id='1531'>1531</span>
+<span id='1532'>1532</span>
+<span id='1533'>1533</span>
+<span id='1534'>1534</span>
+<span id='1535'>1535</span>
+<span id='1536'>1536</span>
+<span id='1537'>1537</span>
+<span id='1538'>1538</span>
+<span id='1539'>1539</span>
+<span id='1540'>1540</span>
+<span id='1541'>1541</span>
+<span id='1542'>1542</span>
+<span id='1543'>1543</span>
+<span id='1544'>1544</span>
+<span id='1545'>1545</span>
+<span id='1546'>1546</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
@@ -2401,6 +2455,51 @@ fn main() {
         <span class='self'>self</span>.<span class='ident'>prepare</span>(<span class='ident'>query</span>).<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>stmt</span><span class='op'>|</span> <span class='ident'>stmt</span>.<span class='ident'>execute</span>(<span class='ident'>params</span>))
     }
 
+    <span class='doccomment'>/// Execute a sequence of SQL statements.
+</span>    <span class='doccomment'>///
+</span>    <span class='doccomment'>/// Statements should be separated by `;` characters. If an error occurs,
+</span>    <span class='doccomment'>/// execution of the sequence will stop at that point. This is intended for
+</span>    <span class='doccomment'>/// execution of batches of non-dynamic statements - for example, creation
+</span>    <span class='doccomment'>/// of a schema for a fresh database.
+</span>    <span class='doccomment'>///
+</span>    <span class='doccomment'>/// # Warning
+</span>    <span class='doccomment'>///
+</span>    <span class='doccomment'>/// Prepared statements should be used for any SQL statement which contains
+</span>    <span class='doccomment'>/// user-specified data, as it provides functionality to safely embed that
+</span>    <span class='doccomment'>/// data in the statment. Do not form statements via string concatenation
+</span>    <span class='doccomment'>/// and feed them into this method.
+</span>    <span class='doccomment'>///
+</span>    <span class='doccomment'>/// # Example
+</span>    <span class='doccomment'>///
+</span>    <span class='doccomment'>/// ```rust
+</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, PostgresResult};
+</span>    <span class='doccomment'>///
+</span>    <span class='doccomment'>/// fn init_db(conn: &amp;PostgresConnection) -&gt; PostgresResult&lt;()&gt; {
+</span>    <span class='doccomment'>///     static INIT_DB: &amp;&#39;static str = &quot;
+</span>    <span class='doccomment'>///         CREATE TABLE person (
+</span>    <span class='doccomment'>///             id SERIAL PRIMARY KEY,
+</span>    <span class='doccomment'>///             name NOT NULL
+</span>    <span class='doccomment'>///         );
+</span>    <span class='doccomment'>///
+</span>    <span class='doccomment'>///         CREATE TABLE purchase (
+</span>    <span class='doccomment'>///             id SERIAL PRIMARY KEY,
+</span>    <span class='doccomment'>///             person INT NOT NULL REFERENCES person (id),
+</span>    <span class='doccomment'>///             time TIMESTAMPTZ NOT NULL,
+</span>    <span class='doccomment'>///         );
+</span>    <span class='doccomment'>///
+</span>    <span class='doccomment'>///         CREATE INDEX ON purchase (time);
+</span>    <span class='doccomment'>///         &quot;;
+</span>    <span class='doccomment'>///     conn.batch_execute(INIT_DB)
+</span>    <span class='doccomment'>/// }
+</span>    <span class='doccomment'>/// ```
+</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>batch_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>conn</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>();
+        <span class='kw'>if</span> <span class='ident'>conn</span>.<span class='ident'>trans_depth</span> <span class='op'>!=</span> <span class='number'>0</span> {
+            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>PgWrongTransaction</span>);
+        }
+        <span class='ident'>conn</span>.<span class='ident'>quick_query</span>(<span class='ident'>query</span>).<span class='ident'>map</span>(<span class='op'>|</span>_<span class='op'>|</span> ())
+    }
+
     <span class='doccomment'>/// Returns information used to cancel pending queries.
 </span>    <span class='doccomment'>///
 </span>    <span class='doccomment'>/// Used with the `cancel_query` function. The object returned can be used
@@ -2509,6 +2608,14 @@ fn main() {
         <span class='self'>self</span>.<span class='ident'>prepare</span>(<span class='ident'>query</span>).<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>.<span class='ident'>execute</span>(<span class='ident'>params</span>))
     }
 
+    <span class='doccomment'>/// Like `PostgresConnection::batch_execute`.
+</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>batch_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+        <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>conn</span>.<span class='ident'>borrow</span>().<span class='ident'>trans_depth</span> <span class='op'>!=</span> <span class='self'>self</span>.<span class='ident'>depth</span> {
+            <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>PgWrongTransaction</span>);
+        }
+        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>batch_execute</span>(<span class='ident'>query</span>)
+    }
+
     <span class='doccomment'>/// Like `PostgresConnection::transaction`.
 </span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>transaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>)
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
@@ -2555,11 +2662,12 @@ fn main() {
 </span>    <span class='doccomment'>///
 </span>    <span class='doccomment'>/// No more than `row_limit` rows will be stored in memory at a time. Rows
 </span>    <span class='doccomment'>/// will be pulled from the database in batches of `row_limit` as needed.
-</span>    <span class='doccomment'>/// If `row_limit` is 0, `lazy_query` is equivalent to `query`.
+</span>    <span class='doccomment'>/// If `row_limit` is less than or equal to 0, `lazy_query` is equivalent
+</span>    <span class='doccomment'>/// to `query`.
 </span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>lazy_query</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;trans</span> <span class='self'>self</span>,
                                      <span class='ident'>stmt</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;stmt</span> <span class='ident'>PostgresStatement</span>,
                                      <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>],
-                                     <span class='ident'>row_limit</span>: <span class='ident'>uint</span>)
+                                     <span class='ident'>row_limit</span>: <span class='ident'>i32</span>)
                                      <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresLazyRows</span>
                                                        <span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;&gt;</span> {
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>conn</span> <span class='kw'>as</span> <span class='op'>*</span>_ <span class='op'>!=</span> <span class='ident'>stmt</span>.<span class='ident'>conn</span> <span class='kw'>as</span> <span class='op'>*</span>_ {
@@ -2616,7 +2724,7 @@ fn main() {
         <span class='prelude-val'>Ok</span>(())
     }
 
-    <span class='kw'>fn</span> <span class='ident'>inner_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>portal_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>row_limit</span>: <span class='ident'>uint</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
+    <span class='kw'>fn</span> <span class='ident'>inner_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>portal_name</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>row_limit</span>: <span class='ident'>i32</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>param_types</span>.<span class='ident'>len</span>() <span class='op'>!=</span> <span class='ident'>params</span>.<span class='ident'>len</span>() {
             <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>PgWrongParamCount</span> {
@@ -2646,7 +2754,7 @@ fn main() {
             },
             <span class='ident'>Execute</span> {
                 <span class='ident'>portal</span>: <span class='ident'>portal_name</span>,
-                <span class='ident'>max_rows</span>: <span class='ident'>row_limit</span> <span class='kw'>as</span> <span class='ident'>i32</span>
+                <span class='ident'>max_rows</span>: <span class='ident'>row_limit</span>
             },
             <span class='ident'>Sync</span>]));
 
@@ -2660,7 +2768,7 @@ fn main() {
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>lazy_query</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>row_limit</span>: <span class='ident'>uint</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
+    <span class='kw'>fn</span> <span class='ident'>lazy_query</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>row_limit</span>: <span class='ident'>i32</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>id</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>next_portal_id</span>.<span class='ident'>get</span>();
         <span class='self'>self</span>.<span class='ident'>next_portal_id</span>.<span class='ident'>set</span>(<span class='ident'>id</span> <span class='op'>+</span> <span class='number'>1</span>);
@@ -2787,7 +2895,7 @@ fn main() {
     <span class='ident'>stmt</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;stmt</span> <span class='ident'>PostgresStatement</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span>,
     <span class='ident'>name</span>: <span class='ident'>String</span>,
     <span class='ident'>data</span>: <span class='ident'>RingBuf</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;&gt;</span><span class='op'>&gt;&gt;</span>,
-    <span class='ident'>row_limit</span>: <span class='ident'>uint</span>,
+    <span class='ident'>row_limit</span>: <span class='ident'>i32</span>,
     <span class='ident'>more_rows</span>: <span class='ident'>bool</span>,
     <span class='ident'>finished</span>: <span class='ident'>bool</span>,
 }
@@ -2846,7 +2954,7 @@ fn main() {
         <span class='macro'>try_pg</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>stmt</span>.<span class='ident'>conn</span>.<span class='ident'>write_messages</span>([
             <span class='ident'>Execute</span> {
                 <span class='ident'>portal</span>: <span class='self'>self</span>.<span class='ident'>name</span>.<span class='ident'>as_slice</span>(),
-                <span class='ident'>max_rows</span>: <span class='self'>self</span>.<span class='ident'>row_limit</span> <span class='kw'>as</span> <span class='ident'>i32</span>
+                <span class='ident'>max_rows</span>: <span class='self'>self</span>.<span class='ident'>row_limit</span>
             },
             <span class='ident'>Sync</span>]));
         <span class='self'>self</span>.<span class='ident'>read_rows</span>()
@@ -3061,11 +3169,13 @@ fn main() {
     </div>
 
     <script>
-        var rootPath = "../../../";
-        var currentCrate = "postgres";
+        window.rootPath = "../../../";
+        window.currentCrate = "postgres";
+        window.playgroundUrl = "";
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
+    
     <script async src="../../../search-index.js"></script>
 </body>
 </html>
