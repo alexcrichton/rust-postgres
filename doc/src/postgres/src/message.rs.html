@@ -23,7 +23,6 @@
 
     <section class="sidebar">
         
-
         
     </section>
 
@@ -464,7 +463,7 @@
     <span class='ident'>ParseComplete</span>,
     <span class='ident'>PortalSuspended</span>,
     <span class='ident'>ReadyForQuery</span> {
-        <span class='kw'>pub</span> <span class='ident'>state</span>: <span class='ident'>u8</span>
+        <span class='kw'>pub</span> <span class='ident'>_state</span>: <span class='ident'>u8</span>
     },
     <span class='ident'>RowDescription</span> {
         <span class='kw'>pub</span> <span class='ident'>descriptions</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>RowDescriptionEntry</span><span class='op'>&gt;</span>
@@ -699,7 +698,7 @@
             },
             <span class='string'>&#39;t&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>read_parameter_description</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>buf</span>)),
             <span class='string'>&#39;T&#39;</span> <span class='op'>=&gt;</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>read_row_description</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>buf</span>)),
-            <span class='string'>&#39;Z&#39;</span> <span class='op'>=&gt;</span> <span class='ident'>ReadyForQuery</span> { <span class='ident'>state</span>: <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>buf</span>.<span class='ident'>read_u8</span>()) },
+            <span class='string'>&#39;Z&#39;</span> <span class='op'>=&gt;</span> <span class='ident'>ReadyForQuery</span> { <span class='ident'>_state</span>: <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>buf</span>.<span class='ident'>read_u8</span>()) },
             <span class='ident'>ident</span> <span class='op'>=&gt;</span> <span class='macro'>fail</span><span class='macro'>!</span>(<span class='string'>&quot;Unknown message identifier `{}`&quot;</span>, <span class='ident'>ident</span>)
         };
         <span class='prelude-val'>Ok</span>(<span class='ident'>ret</span>)

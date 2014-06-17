@@ -23,7 +23,6 @@
 
     <section class="sidebar">
         
-
         
     </section>
 
@@ -1582,7 +1581,6 @@
 <span id='1542'>1542</span>
 <span id='1543'>1543</span>
 <span id='1544'>1544</span>
-<span id='1545'>1545</span>
 </pre><pre class='rust '>
 <span class='doccomment'>/*!
 Rust-Postgres is a pure-Rust frontend for the popular PostgreSQL database. It
@@ -1653,13 +1651,12 @@ fn main() {
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>collections</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>openssl</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>serialize</span>;
-<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>sync</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>time</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>phf</span>;
-<span class='attribute'>#[<span class='ident'>phase</span>(<span class='ident'>syntax</span>)]</span>
+<span class='attribute'>#[<span class='ident'>phase</span>(<span class='ident'>plugin</span>)]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>phf_mac</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>url</span>;
-<span class='attribute'>#[<span class='ident'>phase</span>(<span class='ident'>syntax</span>, <span class='ident'>link</span>)]</span>
+<span class='attribute'>#[<span class='ident'>phase</span>(<span class='ident'>plugin</span>, <span class='ident'>link</span>)]</span>
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>log</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>uuid</span>;
 
@@ -1996,7 +1993,7 @@ fn main() {
 <span class='kw'>struct</span> <span class='ident'>InnerPostgresConnection</span> {
     <span class='ident'>stream</span>: <span class='ident'>BufferedStream</span><span class='op'>&lt;</span><span class='ident'>MaybeSslStream</span><span class='op'>&lt;</span><span class='ident'>InternalStream</span><span class='op'>&gt;&gt;</span>,
     <span class='ident'>next_stmt_id</span>: <span class='ident'>uint</span>,
-    <span class='ident'>notice_handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span>,
+    <span class='ident'>notice_handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span><span class='op'>+</span><span class='ident'>Send</span><span class='op'>&gt;</span>,
     <span class='ident'>notifications</span>: <span class='ident'>RingBuf</span><span class='op'>&lt;</span><span class='ident'>PostgresNotification</span><span class='op'>&gt;</span>,
     <span class='ident'>cancel_data</span>: <span class='ident'>PostgresCancelData</span>,
     <span class='ident'>unknown_types</span>: <span class='ident'>HashMap</span><span class='op'>&lt;</span><span class='ident'>Oid</span>, <span class='ident'>String</span><span class='op'>&gt;</span>,
@@ -2157,8 +2154,8 @@ fn main() {
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span>)
-            <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span><span class='op'>+</span><span class='ident'>Send</span><span class='op'>&gt;</span>)
+            <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span><span class='op'>+</span><span class='ident'>Send</span><span class='op'>&gt;</span> {
         <span class='ident'>mem</span>::<span class='ident'>replace</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>notice_handler</span>, <span class='ident'>handler</span>)
     }
 
@@ -2359,8 +2356,8 @@ fn main() {
     }
 
     <span class='doccomment'>/// Sets the notice handler for the connection, returning the old handler.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span>)
-            <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span>:<span class='ident'>Send</span><span class='op'>&gt;</span> {
+</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span><span class='op'>+</span><span class='ident'>Send</span><span class='op'>&gt;</span>)
+            <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span><span class='op'>+</span><span class='ident'>Send</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>().<span class='ident'>set_notice_handler</span>(<span class='ident'>handler</span>)
     }
 
@@ -2674,7 +2671,7 @@ fn main() {
         <span class='macro'>check_desync</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>conn</span>);
         <span class='ident'>stmt</span>.<span class='ident'>lazy_query</span>(<span class='ident'>row_limit</span>, <span class='ident'>params</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>result</span><span class='op'>|</span> {
             <span class='ident'>PostgresLazyRows</span> {
-                <span class='ident'>trans</span>: <span class='self'>self</span>,
+                <span class='ident'>_trans</span>: <span class='self'>self</span>,
                 <span class='ident'>result</span>: <span class='ident'>result</span>
             }
         })
@@ -3027,7 +3024,7 @@ fn main() {
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> <span class='ident'>Container</span> <span class='kw'>for</span> <span class='ident'>PostgresRow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
+<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> <span class='ident'>Collection</span> <span class='kw'>for</span> <span class='ident'>PostgresRow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
     <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>len</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>uint</span> {
         <span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>len</span>()
@@ -3106,7 +3103,7 @@ fn main() {
 <span class='doccomment'>/// A lazily-loaded iterator over the resulting rows of a query
 </span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresLazyRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
     <span class='ident'>result</span>: <span class='ident'>PostgresRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span>,
-    <span class='ident'>trans</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;trans</span> <span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span><span class='op'>&gt;</span>,
+    <span class='ident'>_trans</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;trans</span> <span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span><span class='op'>&gt;</span>,
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> <span class='ident'>PostgresLazyRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
