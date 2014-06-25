@@ -31,7 +31,7 @@
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
-                       placeholder="Search documentation..."
+                       placeholder="Click or press 'S' to search, '?' for more options..."
                        type="search">
             </div>
         </form>
@@ -146,65 +146,13 @@
 <span id='107'>107</span>
 <span id='108'>108</span>
 <span id='109'>109</span>
-<span id='110'>110</span>
-<span id='111'>111</span>
-<span id='112'>112</span>
-<span id='113'>113</span>
-<span id='114'>114</span>
-<span id='115'>115</span>
-<span id='116'>116</span>
-<span id='117'>117</span>
-<span id='118'>118</span>
-<span id='119'>119</span>
-<span id='120'>120</span>
-<span id='121'>121</span>
-<span id='122'>122</span>
-<span id='123'>123</span>
-<span id='124'>124</span>
-<span id='125'>125</span>
-<span id='126'>126</span>
-<span id='127'>127</span>
-<span id='128'>128</span>
-<span id='129'>129</span>
-<span id='130'>130</span>
-<span id='131'>131</span>
-<span id='132'>132</span>
-<span id='133'>133</span>
-<span id='134'>134</span>
-<span id='135'>135</span>
-<span id='136'>136</span>
-<span id='137'>137</span>
-<span id='138'>138</span>
-<span id='139'>139</span>
-<span id='140'>140</span>
-<span id='141'>141</span>
-<span id='142'>142</span>
-<span id='143'>143</span>
-<span id='144'>144</span>
-<span id='145'>145</span>
-<span id='146'>146</span>
-<span id='147'>147</span>
-<span id='148'>148</span>
-<span id='149'>149</span>
-<span id='150'>150</span>
-<span id='151'>151</span>
-<span id='152'>152</span>
 </pre><pre class='rust '>
-<span class='doccomment'>//! A simple connection pool
-</span>
+<span class='doccomment'>//! A simple connection pool</span>
+
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>sync</span>::{<span class='ident'>Arc</span>, <span class='ident'>Mutex</span>};
 
-<span class='kw'>use</span> {<span class='ident'>PostgresNotifications</span>,
-     <span class='ident'>PostgresConnectParams</span>,
-     <span class='ident'>IntoConnectParams</span>,
-     <span class='ident'>PostgresResult</span>,
-     <span class='ident'>PostgresCancelData</span>,
-     <span class='ident'>PostgresConnection</span>,
-     <span class='ident'>PostgresStatement</span>,
-     <span class='ident'>PostgresTransaction</span>,
-     <span class='ident'>SslMode</span>};
+<span class='kw'>use</span> {<span class='ident'>PostgresConnectParams</span>, <span class='ident'>IntoConnectParams</span>, <span class='ident'>PostgresConnection</span>, <span class='ident'>SslMode</span>};
 <span class='kw'>use</span> <span class='ident'>error</span>::<span class='ident'>PostgresConnectError</span>;
-<span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>ToSql</span>;
 
 <span class='kw'>struct</span> <span class='ident'>InnerConnectionPool</span> {
     <span class='ident'>params</span>: <span class='ident'>PostgresConnectParams</span>,
@@ -219,36 +167,36 @@
     }
 }
 
-<span class='doccomment'>/// A simple fixed-size Postgres connection pool.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// It can be shared across tasks.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// # Example
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// ```rust,no_run
-</span><span class='doccomment'>/// # use postgres::NoSsl;
-</span><span class='doccomment'>/// # use postgres::pool::PostgresConnectionPool;
-</span><span class='doccomment'>/// let pool = PostgresConnectionPool::new(&quot;postgres://postgres@localhost&quot;,
-</span><span class='doccomment'>///                                        NoSsl, 5).unwrap();
-</span><span class='doccomment'>/// for _ in range(0, 10) {
-</span><span class='doccomment'>///     let pool = pool.clone();
-</span><span class='doccomment'>///     spawn(proc() {
-</span><span class='doccomment'>///         let conn = pool.get_connection();
-</span><span class='doccomment'>///         conn.execute(&quot;UPDATE foo SET bar = 1&quot;, []).unwrap();
-</span><span class='doccomment'>///     });
-</span><span class='doccomment'>/// }
-</span><span class='doccomment'>/// ```
-</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
+<span class='doccomment'>/// A simple fixed-size Postgres connection pool.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// It can be shared across tasks.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Example</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```rust,no_run</span>
+<span class='doccomment'>/// # use postgres::NoSsl;</span>
+<span class='doccomment'>/// # use postgres::pool::PostgresConnectionPool;</span>
+<span class='doccomment'>/// let pool = PostgresConnectionPool::new(&quot;postgres://postgres@localhost&quot;,</span>
+<span class='doccomment'>///                                        NoSsl, 5).unwrap();</span>
+<span class='doccomment'>/// for _ in range(0, 10) {</span>
+<span class='doccomment'>///     let pool = pool.clone();</span>
+<span class='doccomment'>///     spawn(proc() {</span>
+<span class='doccomment'>///         let conn = pool.get_connection();</span>
+<span class='doccomment'>///         conn.execute(&quot;UPDATE foo SET bar = 1&quot;, []).unwrap();</span>
+<span class='doccomment'>///     });</span>
+<span class='doccomment'>/// }</span>
+<span class='doccomment'>/// ```</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresConnectionPool</span> {
     <span class='ident'>pool</span>: <span class='ident'>Arc</span><span class='op'>&lt;</span><span class='ident'>Mutex</span><span class='op'>&lt;</span><span class='ident'>InnerConnectionPool</span><span class='op'>&gt;&gt;</span>
 }
 
 <span class='kw'>impl</span> <span class='ident'>PostgresConnectionPool</span> {
-    <span class='doccomment'>/// Creates a new pool with the specified number of connections.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Returns an error if the specified number of connections cannot be
-</span>    <span class='doccomment'>/// created.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>IntoConnectParams</span><span class='op'>&gt;</span>(<span class='ident'>params</span>: <span class='ident'>T</span>, <span class='ident'>ssl</span>: <span class='ident'>SslMode</span>, <span class='ident'>pool_size</span>: <span class='ident'>uint</span>)
+    <span class='doccomment'>/// Creates a new pool with the specified number of connections.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Returns an error if the specified number of connections cannot be</span>
+    <span class='doccomment'>/// created.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>IntoConnectParams</span><span class='op'>&gt;</span>(<span class='ident'>params</span>: <span class='ident'>T</span>, <span class='ident'>ssl</span>: <span class='ident'>SslMode</span>, <span class='ident'>pool_size</span>: <span class='ident'>uint</span>)
             <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>PostgresConnectionPool</span>, <span class='ident'>PostgresConnectError</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>pool</span> <span class='op'>=</span> <span class='ident'>InnerConnectionPool</span> {
             <span class='ident'>params</span>: <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>params</span>.<span class='ident'>into_connect_params</span>()),
@@ -265,10 +213,10 @@
         })
     }
 
-    <span class='doccomment'>/// Retrieves a connection from the pool.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// If all connections are in use, blocks until one becomes available.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_connection</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PooledPostgresConnection</span> {
+    <span class='doccomment'>/// Retrieves a connection from the pool.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If all connections are in use, blocks until one becomes available.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_connection</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PooledPostgresConnection</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>pool</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>pool</span>.<span class='ident'>lock</span>();
 
         <span class='kw'>loop</span> {
@@ -285,11 +233,11 @@
     }
 }
 
-<span class='doccomment'>/// A Postgres connection pulled from a connection pool.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// It will be returned to the pool when it falls out of scope, even due to
-</span><span class='doccomment'>/// task failure.
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PooledPostgresConnection</span> {
+<span class='doccomment'>/// A Postgres connection pulled from a connection pool.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// It will be returned to the pool when it falls out of scope, even due to</span>
+<span class='doccomment'>/// task failure.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PooledPostgresConnection</span> {
     <span class='ident'>pool</span>: <span class='ident'>PostgresConnectionPool</span>,<span class='comment'>
     // TODO remove the Option wrapper when drop takes self by value
     </span><span class='ident'>conn</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>PostgresConnection</span><span class='op'>&gt;</span>
@@ -303,43 +251,9 @@
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>PooledPostgresConnection</span> {
-    <span class='doccomment'>/// Like `PostgresConnection::prepare`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>prepare</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>)
-            <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresStatement</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>get_ref</span>().<span class='ident'>prepare</span>(<span class='ident'>query</span>)
-    }
-
-    <span class='doccomment'>/// Like `PostgresConnection::execute`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
-            <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>get_ref</span>().<span class='ident'>execute</span>(<span class='ident'>query</span>, <span class='ident'>params</span>)
-    }
-
-    <span class='doccomment'>/// Like `PostgresConnection::batch_execute`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>batch_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>get_ref</span>().<span class='ident'>batch_execute</span>(<span class='ident'>query</span>)
-    }
-
-    <span class='doccomment'>/// Like `PostgresConnection::transaction`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>transaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>)
-            <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>get_ref</span>().<span class='ident'>transaction</span>()
-    }
-
-    <span class='doccomment'>/// Like `PostgresConnection::notifications`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>notifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresNotifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>get_ref</span>().<span class='ident'>notifications</span>()
-    }
-
-    <span class='doccomment'>/// Like `PostgresConnection::cancel_data`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cancel_data</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresCancelData</span> {
-        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>get_ref</span>().<span class='ident'>cancel_data</span>()
-    }
-
-    <span class='doccomment'>/// Like `PostgresConnection::is_desynchronized`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_desynchronized</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
-        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>get_ref</span>().<span class='ident'>is_desynchronized</span>()
+<span class='kw'>impl</span> <span class='ident'>Deref</span><span class='op'>&lt;</span><span class='ident'>PostgresConnection</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>PooledPostgresConnection</span> {
+    <span class='kw'>fn</span> <span class='ident'>deref</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>PostgresConnection</span> {
+        <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>get_ref</span>()
     }
 }
 </pre>
@@ -356,9 +270,9 @@
                 <dd>Show this help dialog</dd>
                 <dt>S</dt>
                 <dd>Focus the search field</dd>
-                <dt>&uarr;</dt>
+                <dt>&larrb;</dt>
                 <dd>Move up in search results</dd>
-                <dt>&darr;</dt>
+                <dt>&rarrb;</dt>
                 <dd>Move down in search results</dd>
                 <dt>&#9166;</dt>
                 <dd>Go to active search result</dd>

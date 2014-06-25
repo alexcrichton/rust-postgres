@@ -31,7 +31,7 @@
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
-                       placeholder="Search documentation..."
+                       placeholder="Click or press 'S' to search, '?' for more options..."
                        type="search">
             </div>
         </form>
@@ -1637,8 +1637,8 @@ fn main() {
     }
 }
 ```
- */
-</span>
+ */</span>
+
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_id</span><span class='op'>=</span><span class='string'>&quot;github.com/sfackler/rust-postgres#postgres:0.0&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span><span class='op'>=</span><span class='string'>&quot;rlib&quot;</span>]</span>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>crate_type</span><span class='op'>=</span><span class='string'>&quot;dylib&quot;</span>]</span>
@@ -1646,7 +1646,7 @@ fn main() {
 
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>warn</span>(<span class='ident'>missing_doc</span>)]</span>
 
-<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>macro_rules</span>, <span class='ident'>struct_variant</span>, <span class='ident'>phase</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>macro_rules</span>, <span class='ident'>struct_variant</span>, <span class='ident'>phase</span>, <span class='ident'>unsafe_destructor</span>)]</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>collections</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>openssl</span>;
@@ -1781,45 +1781,45 @@ fn main() {
 
 <span class='kw'>static</span> <span class='ident'>CANARY</span>: <span class='ident'>u32</span> <span class='op'>=</span> <span class='number'>0xdeadbeef</span>;
 
-<span class='doccomment'>/// A typedef of the result returned by many methods.
-</span><span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>PostgresError</span><span class='op'>&gt;</span>;
+<span class='doccomment'>/// A typedef of the result returned by many methods.</span>
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>PostgresError</span><span class='op'>&gt;</span>;
 
-<span class='doccomment'>/// Specifies the target server to connect to.
-</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
+<span class='doccomment'>/// Specifies the target server to connect to.</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>PostgresConnectTarget</span> {
-    <span class='doccomment'>/// Connect via TCP to the specified host.
-</span>    <span class='ident'>TargetTcp</span>(<span class='ident'>String</span>),
-    <span class='doccomment'>/// Connect via a Unix domain socket in the specified directory.
-</span>    <span class='ident'>TargetUnix</span>(<span class='ident'>Path</span>)
+    <span class='doccomment'>/// Connect via TCP to the specified host.</span>
+    <span class='ident'>TargetTcp</span>(<span class='ident'>String</span>),
+    <span class='doccomment'>/// Connect via a Unix domain socket in the specified directory.</span>
+    <span class='ident'>TargetUnix</span>(<span class='ident'>Path</span>)
 }
 
-<span class='doccomment'>/// Information necessary to open a new connection to a Postgres server.
-</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
+<span class='doccomment'>/// Information necessary to open a new connection to a Postgres server.</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresConnectParams</span> {
-    <span class='doccomment'>/// The target server
-</span>    <span class='kw'>pub</span> <span class='ident'>target</span>: <span class='ident'>PostgresConnectTarget</span>,
-    <span class='doccomment'>/// The target port.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Defaults to 5432 if not specified.
-</span>    <span class='kw'>pub</span> <span class='ident'>port</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Port</span><span class='op'>&gt;</span>,
-    <span class='doccomment'>/// The user to login as.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// `PostgresConnection::connect` requires a user but `cancel_query` does
-</span>    <span class='doccomment'>/// not.
-</span>    <span class='kw'>pub</span> <span class='ident'>user</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
-    <span class='doccomment'>/// An optional password used for authentication
-</span>    <span class='kw'>pub</span> <span class='ident'>password</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
-    <span class='doccomment'>/// The database to connect to. Defaults the value of `user`.
-</span>    <span class='kw'>pub</span> <span class='ident'>database</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
-    <span class='doccomment'>/// Runtime parameters to be passed to the Postgres backend.
-</span>    <span class='kw'>pub</span> <span class='ident'>options</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>(<span class='ident'>String</span>, <span class='ident'>String</span>)<span class='op'>&gt;</span>,
+    <span class='doccomment'>/// The target server</span>
+    <span class='kw'>pub</span> <span class='ident'>target</span>: <span class='ident'>PostgresConnectTarget</span>,
+    <span class='doccomment'>/// The target port.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Defaults to 5432 if not specified.</span>
+    <span class='kw'>pub</span> <span class='ident'>port</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Port</span><span class='op'>&gt;</span>,
+    <span class='doccomment'>/// The user to login as.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// `PostgresConnection::connect` requires a user but `cancel_query` does</span>
+    <span class='doccomment'>/// not.</span>
+    <span class='kw'>pub</span> <span class='ident'>user</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
+    <span class='doccomment'>/// An optional password used for authentication</span>
+    <span class='kw'>pub</span> <span class='ident'>password</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
+    <span class='doccomment'>/// The database to connect to. Defaults the value of `user`.</span>
+    <span class='kw'>pub</span> <span class='ident'>database</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span>,
+    <span class='doccomment'>/// Runtime parameters to be passed to the Postgres backend.</span>
+    <span class='kw'>pub</span> <span class='ident'>options</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>(<span class='ident'>String</span>, <span class='ident'>String</span>)<span class='op'>&gt;</span>,
 }
 
-<span class='doccomment'>/// A trait implemented by types that can be converted into a
-</span><span class='doccomment'>/// `PostgresConnectParams`.
-</span><span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>IntoConnectParams</span> {
-    <span class='doccomment'>/// Converts the value of `self` into a `PostgresConnectParams`.
-</span>    <span class='kw'>fn</span> <span class='ident'>into_connect_params</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>PostgresConnectParams</span>,
+<span class='doccomment'>/// A trait implemented by types that can be converted into a</span>
+<span class='doccomment'>/// `PostgresConnectParams`.</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>IntoConnectParams</span> {
+    <span class='doccomment'>/// Converts the value of `self` into a `PostgresConnectParams`.</span>
+    <span class='kw'>fn</span> <span class='ident'>into_connect_params</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>PostgresConnectParams</span>,
                                            <span class='ident'>PostgresConnectError</span><span class='op'>&gt;</span>;
 }
 
@@ -1891,16 +1891,16 @@ fn main() {
     }
 }
 
-<span class='doccomment'>/// Trait for types that can handle Postgres notice messages
-</span><span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>PostgresNoticeHandler</span> {
-    <span class='doccomment'>/// Handle a Postgres notice message
-</span>    <span class='kw'>fn</span> <span class='ident'>handle</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>notice</span>: <span class='ident'>PostgresDbError</span>);
+<span class='doccomment'>/// Trait for types that can handle Postgres notice messages</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>PostgresNoticeHandler</span> {
+    <span class='doccomment'>/// Handle a Postgres notice message</span>
+    <span class='kw'>fn</span> <span class='ident'>handle</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>notice</span>: <span class='ident'>PostgresDbError</span>);
 }
 
-<span class='doccomment'>/// A notice handler which logs at the `info` level.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// This is the default handler used by a `PostgresConnection`.
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DefaultNoticeHandler</span>;
+<span class='doccomment'>/// A notice handler which logs at the `info` level.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// This is the default handler used by a `PostgresConnection`.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DefaultNoticeHandler</span>;
 
 <span class='kw'>impl</span> <span class='ident'>PostgresNoticeHandler</span> <span class='kw'>for</span> <span class='ident'>DefaultNoticeHandler</span> {
     <span class='kw'>fn</span> <span class='ident'>handle</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>notice</span>: <span class='ident'>PostgresDbError</span>) {
@@ -1908,69 +1908,69 @@ fn main() {
     }
 }
 
-<span class='doccomment'>/// An asynchronous notification
-</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Show</span>)]</span>
+<span class='doccomment'>/// An asynchronous notification</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>Show</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresNotification</span> {
-    <span class='doccomment'>/// The process ID of the notifying backend process
-</span>    <span class='kw'>pub</span> <span class='ident'>pid</span>: <span class='ident'>i32</span>,
-    <span class='doccomment'>/// The name of the channel that the notify has been raised on
-</span>    <span class='kw'>pub</span> <span class='ident'>channel</span>: <span class='ident'>String</span>,
-    <span class='doccomment'>/// The &quot;payload&quot; string passed from the notifying process
-</span>    <span class='kw'>pub</span> <span class='ident'>payload</span>: <span class='ident'>String</span>,
+    <span class='doccomment'>/// The process ID of the notifying backend process</span>
+    <span class='kw'>pub</span> <span class='ident'>pid</span>: <span class='ident'>i32</span>,
+    <span class='doccomment'>/// The name of the channel that the notify has been raised on</span>
+    <span class='kw'>pub</span> <span class='ident'>channel</span>: <span class='ident'>String</span>,
+    <span class='doccomment'>/// The &quot;payload&quot; string passed from the notifying process</span>
+    <span class='kw'>pub</span> <span class='ident'>payload</span>: <span class='ident'>String</span>,
 }
 
-<span class='doccomment'>/// An iterator over asynchronous notifications
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresNotifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> {
+<span class='doccomment'>/// An iterator over asynchronous notifications</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresNotifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> {
     <span class='ident'>conn</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;conn</span> <span class='ident'>PostgresConnection</span>
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> <span class='ident'>Iterator</span><span class='op'>&lt;</span><span class='ident'>PostgresNotification</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>PostgresNotifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Returns the oldest pending notification or `None` if there are none.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Note
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// `next` may return `Some` notification after returning `None` if a new
-</span>    <span class='doccomment'>/// notification was received.
-</span>    <span class='kw'>fn</span> <span class='ident'>next</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>PostgresNotification</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Returns the oldest pending notification or `None` if there are none.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Note</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// `next` may return `Some` notification after returning `None` if a new</span>
+    <span class='doccomment'>/// notification was received.</span>
+    <span class='kw'>fn</span> <span class='ident'>next</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>PostgresNotification</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>().<span class='ident'>notifications</span>.<span class='ident'>pop_front</span>()
     }
 }
 
-<span class='doccomment'>/// Contains information necessary to cancel queries for a session
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresCancelData</span> {
-    <span class='doccomment'>/// The process ID of the session
-</span>    <span class='kw'>pub</span> <span class='ident'>process_id</span>: <span class='ident'>i32</span>,
-    <span class='doccomment'>/// The secret key for the session
-</span>    <span class='kw'>pub</span> <span class='ident'>secret_key</span>: <span class='ident'>i32</span>,
+<span class='doccomment'>/// Contains information necessary to cancel queries for a session</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresCancelData</span> {
+    <span class='doccomment'>/// The process ID of the session</span>
+    <span class='kw'>pub</span> <span class='ident'>process_id</span>: <span class='ident'>i32</span>,
+    <span class='doccomment'>/// The secret key for the session</span>
+    <span class='kw'>pub</span> <span class='ident'>secret_key</span>: <span class='ident'>i32</span>,
 }
 
-<span class='doccomment'>/// Attempts to cancel an in-progress query.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// The backend provides no information about whether a cancellation attempt
-</span><span class='doccomment'>/// was successful or not. An error will only be returned if the driver was
-</span><span class='doccomment'>/// unable to connect to the database.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// A `PostgresCancelData` object can be created via
-</span><span class='doccomment'>/// `PostgresConnection::cancel_data`. The object can cancel any query made on
-</span><span class='doccomment'>/// that connection.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// Only the host and port of the connetion info are used. See
-</span><span class='doccomment'>/// `PostgresConnection::connect` for details of the `params` argument.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// # Example
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// ```rust,no_run
-</span><span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};
-</span><span class='doccomment'>/// # let url = &quot;&quot;;
-</span><span class='doccomment'>/// let conn = PostgresConnection::connect(url, &amp;NoSsl).unwrap();
-</span><span class='doccomment'>/// let cancel_data = conn.cancel_data();
-</span><span class='doccomment'>/// spawn(proc() {
-</span><span class='doccomment'>///     conn.execute(&quot;SOME EXPENSIVE QUERY&quot;, []).unwrap();
-</span><span class='doccomment'>/// });
-</span><span class='doccomment'>/// # let _ =
-</span><span class='doccomment'>/// postgres::cancel_query(url, &amp;NoSsl, cancel_data);
-</span><span class='doccomment'>/// ```
-</span><span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cancel_query</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>IntoConnectParams</span><span class='op'>&gt;</span>(<span class='ident'>params</span>: <span class='ident'>T</span>, <span class='ident'>ssl</span>: <span class='kw-2'>&amp;</span><span class='ident'>SslMode</span>,
+<span class='doccomment'>/// Attempts to cancel an in-progress query.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// The backend provides no information about whether a cancellation attempt</span>
+<span class='doccomment'>/// was successful or not. An error will only be returned if the driver was</span>
+<span class='doccomment'>/// unable to connect to the database.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// A `PostgresCancelData` object can be created via</span>
+<span class='doccomment'>/// `PostgresConnection::cancel_data`. The object can cancel any query made on</span>
+<span class='doccomment'>/// that connection.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// Only the host and port of the connetion info are used. See</span>
+<span class='doccomment'>/// `PostgresConnection::connect` for details of the `params` argument.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// # Example</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// ```rust,no_run</span>
+<span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};</span>
+<span class='doccomment'>/// # let url = &quot;&quot;;</span>
+<span class='doccomment'>/// let conn = PostgresConnection::connect(url, &amp;NoSsl).unwrap();</span>
+<span class='doccomment'>/// let cancel_data = conn.cancel_data();</span>
+<span class='doccomment'>/// spawn(proc() {</span>
+<span class='doccomment'>///     conn.execute(&quot;SOME EXPENSIVE QUERY&quot;, []).unwrap();</span>
+<span class='doccomment'>/// });</span>
+<span class='doccomment'>/// # let _ =</span>
+<span class='doccomment'>/// postgres::cancel_query(url, &amp;NoSsl, cancel_data);</span>
+<span class='doccomment'>/// ```</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cancel_query</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>IntoConnectParams</span><span class='op'>&gt;</span>(<span class='ident'>params</span>: <span class='ident'>T</span>, <span class='ident'>ssl</span>: <span class='kw-2'>&amp;</span><span class='ident'>SslMode</span>,
                                           <span class='ident'>data</span>: <span class='ident'>PostgresCancelData</span>)
                                           <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>PostgresConnectError</span><span class='op'>&gt;</span> {
     <span class='kw'>let</span> <span class='ident'>params</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>params</span>.<span class='ident'>into_connect_params</span>());
@@ -2291,63 +2291,63 @@ fn main() {
     }
 }
 
-<span class='doccomment'>/// A connection to a Postgres database.
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresConnection</span> {
+<span class='doccomment'>/// A connection to a Postgres database.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresConnection</span> {
     <span class='ident'>conn</span>: <span class='ident'>RefCell</span><span class='op'>&lt;</span><span class='ident'>InnerPostgresConnection</span><span class='op'>&gt;</span>
 }
 
 <span class='kw'>impl</span> <span class='ident'>PostgresConnection</span> {
-    <span class='doccomment'>/// Creates a new connection to a Postgres database.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Most applications can use a URL string in the normal format:
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```notrust
-</span>    <span class='doccomment'>/// postgresql://user[:password]@host[:port][/database][?param1=val1[[&amp;param2=val2]...]]
-</span>    <span class='doccomment'>/// ```
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// The password may be omitted if not required. The default Postgres port
-</span>    <span class='doccomment'>/// (5432) is used if none is specified. The database name defaults to the
-</span>    <span class='doccomment'>/// username if not specified.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// To connect to the server via Unix sockets, `host` should be set to the
-</span>    <span class='doccomment'>/// absolute path of the directory containing the socket file. Since `/` is
-</span>    <span class='doccomment'>/// a reserved character in URLs, the path should be URL encoded.  If the
-</span>    <span class='doccomment'>/// path contains non-UTF 8 characters, a `PostgresConnectParams` struct
-</span>    <span class='doccomment'>/// should be created manually and passed in. Note that Postgres does not
-</span>    <span class='doccomment'>/// support SSL over Unix sockets.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Examples
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};
-</span>    <span class='doccomment'>/// let url = &quot;postgresql://postgres:hunter2@localhost:2994/foodb&quot;;
-</span>    <span class='doccomment'>/// let maybe_conn = PostgresConnection::connect(url, &amp;NoSsl);
-</span>    <span class='doccomment'>/// let conn = match maybe_conn {
-</span>    <span class='doccomment'>///     Ok(conn) =&gt; conn,
-</span>    <span class='doccomment'>///     Err(err) =&gt; fail!(&quot;Error connecting: {}&quot;, err)
-</span>    <span class='doccomment'>/// };
-</span>    <span class='doccomment'>/// ```
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};
-</span>    <span class='doccomment'>/// let url = &quot;postgresql://postgres@%2Frun%2Fpostgres&quot;;
-</span>    <span class='doccomment'>/// let maybe_conn = PostgresConnection::connect(url, &amp;NoSsl);
-</span>    <span class='doccomment'>/// ```
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, PostgresConnectParams, NoSsl, TargetUnix};
-</span>    <span class='doccomment'>/// # let some_crazy_path = Path::new(&quot;&quot;);
-</span>    <span class='doccomment'>/// let params = PostgresConnectParams {
-</span>    <span class='doccomment'>///     target: TargetUnix(some_crazy_path),
-</span>    <span class='doccomment'>///     port: None,
-</span>    <span class='doccomment'>///     user: Some(&quot;postgres&quot;.to_str()),
-</span>    <span class='doccomment'>///     password: None,
-</span>    <span class='doccomment'>///     database: None,
-</span>    <span class='doccomment'>///     options: vec![],
-</span>    <span class='doccomment'>/// };
-</span>    <span class='doccomment'>/// let maybe_conn = PostgresConnection::connect(params, &amp;NoSsl);
-</span>    <span class='doccomment'>/// ```
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>connect</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>IntoConnectParams</span><span class='op'>&gt;</span>(<span class='ident'>params</span>: <span class='ident'>T</span>, <span class='ident'>ssl</span>: <span class='kw-2'>&amp;</span><span class='ident'>SslMode</span>)
+    <span class='doccomment'>/// Creates a new connection to a Postgres database.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Most applications can use a URL string in the normal format:</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```notrust</span>
+    <span class='doccomment'>/// postgresql://user[:password]@host[:port][/database][?param1=val1[[&amp;param2=val2]...]]</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The password may be omitted if not required. The default Postgres port</span>
+    <span class='doccomment'>/// (5432) is used if none is specified. The database name defaults to the</span>
+    <span class='doccomment'>/// username if not specified.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// To connect to the server via Unix sockets, `host` should be set to the</span>
+    <span class='doccomment'>/// absolute path of the directory containing the socket file. Since `/` is</span>
+    <span class='doccomment'>/// a reserved character in URLs, the path should be URL encoded.  If the</span>
+    <span class='doccomment'>/// path contains non-UTF 8 characters, a `PostgresConnectParams` struct</span>
+    <span class='doccomment'>/// should be created manually and passed in. Note that Postgres does not</span>
+    <span class='doccomment'>/// support SSL over Unix sockets.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Examples</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};</span>
+    <span class='doccomment'>/// let url = &quot;postgresql://postgres:hunter2@localhost:2994/foodb&quot;;</span>
+    <span class='doccomment'>/// let maybe_conn = PostgresConnection::connect(url, &amp;NoSsl);</span>
+    <span class='doccomment'>/// let conn = match maybe_conn {</span>
+    <span class='doccomment'>///     Ok(conn) =&gt; conn,</span>
+    <span class='doccomment'>///     Err(err) =&gt; fail!(&quot;Error connecting: {}&quot;, err)</span>
+    <span class='doccomment'>/// };</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};</span>
+    <span class='doccomment'>/// let url = &quot;postgresql://postgres@%2Frun%2Fpostgres&quot;;</span>
+    <span class='doccomment'>/// let maybe_conn = PostgresConnection::connect(url, &amp;NoSsl);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, PostgresConnectParams, NoSsl, TargetUnix};</span>
+    <span class='doccomment'>/// # let some_crazy_path = Path::new(&quot;&quot;);</span>
+    <span class='doccomment'>/// let params = PostgresConnectParams {</span>
+    <span class='doccomment'>///     target: TargetUnix(some_crazy_path),</span>
+    <span class='doccomment'>///     port: None,</span>
+    <span class='doccomment'>///     user: Some(&quot;postgres&quot;.to_str()),</span>
+    <span class='doccomment'>///     password: None,</span>
+    <span class='doccomment'>///     database: None,</span>
+    <span class='doccomment'>///     options: vec![],</span>
+    <span class='doccomment'>/// };</span>
+    <span class='doccomment'>/// let maybe_conn = PostgresConnection::connect(params, &amp;NoSsl);</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>connect</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>IntoConnectParams</span><span class='op'>&gt;</span>(<span class='ident'>params</span>: <span class='ident'>T</span>, <span class='ident'>ssl</span>: <span class='kw-2'>&amp;</span><span class='ident'>SslMode</span>)
                                          <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>PostgresConnection</span>,
                                                    <span class='ident'>PostgresConnectError</span><span class='op'>&gt;</span> {
         <span class='ident'>InnerPostgresConnection</span>::<span class='ident'>connect</span>(<span class='ident'>params</span>, <span class='ident'>ssl</span>).<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>conn</span><span class='op'>|</span> {
@@ -2355,41 +2355,41 @@ fn main() {
         })
     }
 
-    <span class='doccomment'>/// Sets the notice handler for the connection, returning the old handler.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span><span class='op'>+</span><span class='ident'>Send</span><span class='op'>&gt;</span>)
+    <span class='doccomment'>/// Sets the notice handler for the connection, returning the old handler.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_notice_handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>handler</span>: <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span><span class='op'>+</span><span class='ident'>Send</span><span class='op'>&gt;</span>)
             <span class='op'>-&gt;</span> <span class='ident'>Box</span><span class='op'>&lt;</span><span class='ident'>PostgresNoticeHandler</span><span class='op'>+</span><span class='ident'>Send</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>().<span class='ident'>set_notice_handler</span>(<span class='ident'>handler</span>)
     }
 
-    <span class='doccomment'>/// Returns an iterator over asynchronous notification messages.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Use the `LISTEN` command to register this connection for notifications.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>notifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresNotifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Returns an iterator over asynchronous notification messages.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Use the `LISTEN` command to register this connection for notifications.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>notifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresNotifications</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
         <span class='ident'>PostgresNotifications</span> {
             <span class='ident'>conn</span>: <span class='self'>self</span>
         }
     }
 
-    <span class='doccomment'>/// Creates a new prepared statement.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// A statement may contain parameters, specified by `$n` where `n` is the
-</span>    <span class='doccomment'>/// index of the parameter in the list provided at execution time,
-</span>    <span class='doccomment'>/// 1-indexed.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// The statement is associated with the connection that created it and may
-</span>    <span class='doccomment'>/// not outlive that connection.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Example
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};
-</span>    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();
-</span>    <span class='doccomment'>/// let maybe_stmt = conn.prepare(&quot;SELECT foo FROM bar WHERE baz = $1&quot;);
-</span>    <span class='doccomment'>/// let stmt = match maybe_stmt {
-</span>    <span class='doccomment'>///     Ok(stmt) =&gt; stmt,
-</span>    <span class='doccomment'>///     Err(err) =&gt; fail!(&quot;Error preparing statement: {}&quot;, err)
-</span>    <span class='doccomment'>/// };
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>prepare</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>)
+    <span class='doccomment'>/// Creates a new prepared statement.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// A statement may contain parameters, specified by `$n` where `n` is the</span>
+    <span class='doccomment'>/// index of the parameter in the list provided at execution time,</span>
+    <span class='doccomment'>/// 1-indexed.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The statement is associated with the connection that created it and may</span>
+    <span class='doccomment'>/// not outlive that connection.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Example</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};</span>
+    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();</span>
+    <span class='doccomment'>/// let maybe_stmt = conn.prepare(&quot;SELECT foo FROM bar WHERE baz = $1&quot;);</span>
+    <span class='doccomment'>/// let stmt = match maybe_stmt {</span>
+    <span class='doccomment'>///     Ok(stmt) =&gt; stmt,</span>
+    <span class='doccomment'>///     Err(err) =&gt; fail!(&quot;Error preparing statement: {}&quot;, err)</span>
+    <span class='doccomment'>/// };</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>prepare</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>)
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresStatement</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>conn</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>();
         <span class='kw'>if</span> <span class='ident'>conn</span>.<span class='ident'>trans_depth</span> <span class='op'>!=</span> <span class='number'>0</span> {
@@ -2398,33 +2398,33 @@ fn main() {
         <span class='ident'>conn</span>.<span class='ident'>prepare</span>(<span class='ident'>query</span>, <span class='self'>self</span>)
     }
 
-    <span class='doccomment'>/// Begins a new transaction.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Returns a `PostgresTransaction` object which should be used instead of
-</span>    <span class='doccomment'>/// the connection for the duration of the transaction. The transaction
-</span>    <span class='doccomment'>/// is active until the `PostgresTransaction` object falls out of scope.
-</span>    <span class='doccomment'>/// A transaction will commit by default unless the task fails or the
-</span>    <span class='doccomment'>/// transaction is set to roll back.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Example
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};
-</span>    <span class='doccomment'>/// # fn foo() -&gt; Result&lt;(), postgres::error::PostgresError&gt; {
-</span>    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();
-</span>    <span class='doccomment'>/// let trans = try!(conn.transaction());
-</span>    <span class='doccomment'>/// try!(trans.execute(&quot;UPDATE foo SET bar = 10&quot;, []));
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # let something_bad_happened = true;
-</span>    <span class='doccomment'>/// if something_bad_happened {
-</span>    <span class='doccomment'>///     trans.set_rollback();
-</span>    <span class='doccomment'>/// }
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// drop(trans);
-</span>    <span class='doccomment'>/// # Ok(())
-</span>    <span class='doccomment'>/// # }
-</span>    <span class='doccomment'>/// ```
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>transaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>)
+    <span class='doccomment'>/// Begins a new transaction.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Returns a `PostgresTransaction` object which should be used instead of</span>
+    <span class='doccomment'>/// the connection for the duration of the transaction. The transaction</span>
+    <span class='doccomment'>/// is active until the `PostgresTransaction` object falls out of scope.</span>
+    <span class='doccomment'>/// A transaction will commit by default unless the task fails or the</span>
+    <span class='doccomment'>/// transaction is set to roll back.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Example</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};</span>
+    <span class='doccomment'>/// # fn foo() -&gt; Result&lt;(), postgres::error::PostgresError&gt; {</span>
+    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();</span>
+    <span class='doccomment'>/// let trans = try!(conn.transaction());</span>
+    <span class='doccomment'>/// try!(trans.execute(&quot;UPDATE foo SET bar = 10&quot;, []));</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # let something_bad_happened = true;</span>
+    <span class='doccomment'>/// if something_bad_happened {</span>
+    <span class='doccomment'>///     trans.set_rollback();</span>
+    <span class='doccomment'>/// }</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// drop(trans);</span>
+    <span class='doccomment'>/// # Ok(())</span>
+    <span class='doccomment'>/// # }</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>transaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>)
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
         <span class='macro'>check_desync</span><span class='macro'>!</span>(<span class='self'>self</span>);
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow</span>().<span class='ident'>trans_depth</span> <span class='op'>!=</span> <span class='number'>0</span> {
@@ -2440,54 +2440,54 @@ fn main() {
         })
     }
 
-    <span class='doccomment'>/// A convenience function for queries that are only run once.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// If an error is returned, it could have come from either the preparation
-</span>    <span class='doccomment'>/// or execution of the statement.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// On success, returns the number of rows modified or 0 if not applicable.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
+    <span class='doccomment'>/// A convenience function for queries that are only run once.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If an error is returned, it could have come from either the preparation</span>
+    <span class='doccomment'>/// or execution of the statement.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// On success, returns the number of rows modified or 0 if not applicable.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>prepare</span>(<span class='ident'>query</span>).<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>stmt</span><span class='op'>|</span> <span class='ident'>stmt</span>.<span class='ident'>execute</span>(<span class='ident'>params</span>))
     }
 
-    <span class='doccomment'>/// Execute a sequence of SQL statements.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Statements should be separated by `;` characters. If an error occurs,
-</span>    <span class='doccomment'>/// execution of the sequence will stop at that point. This is intended for
-</span>    <span class='doccomment'>/// execution of batches of non-dynamic statements - for example, creation
-</span>    <span class='doccomment'>/// of a schema for a fresh database.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Warning
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Prepared statements should be used for any SQL statement which contains
-</span>    <span class='doccomment'>/// user-specified data, as it provides functionality to safely embed that
-</span>    <span class='doccomment'>/// data in the statment. Do not form statements via string concatenation
-</span>    <span class='doccomment'>/// and feed them into this method.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Example
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, PostgresResult};
-</span>    <span class='doccomment'>/// fn init_db(conn: &amp;PostgresConnection) -&gt; PostgresResult&lt;()&gt; {
-</span>    <span class='doccomment'>///     static INIT_DB: &amp;&#39;static str = &quot;
-</span>    <span class='doccomment'>///         CREATE TABLE person (
-</span>    <span class='doccomment'>///             id SERIAL PRIMARY KEY,
-</span>    <span class='doccomment'>///             name NOT NULL
-</span>    <span class='doccomment'>///         );
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>///         CREATE TABLE purchase (
-</span>    <span class='doccomment'>///             id SERIAL PRIMARY KEY,
-</span>    <span class='doccomment'>///             person INT NOT NULL REFERENCES person (id),
-</span>    <span class='doccomment'>///             time TIMESTAMPTZ NOT NULL,
-</span>    <span class='doccomment'>///         );
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>///         CREATE INDEX ON purchase (time);
-</span>    <span class='doccomment'>///         &quot;;
-</span>    <span class='doccomment'>///     conn.batch_execute(INIT_DB)
-</span>    <span class='doccomment'>/// }
-</span>    <span class='doccomment'>/// ```
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>batch_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Execute a sequence of SQL statements.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Statements should be separated by `;` characters. If an error occurs,</span>
+    <span class='doccomment'>/// execution of the sequence will stop at that point. This is intended for</span>
+    <span class='doccomment'>/// execution of batches of non-dynamic statements - for example, creation</span>
+    <span class='doccomment'>/// of a schema for a fresh database.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Warning</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Prepared statements should be used for any SQL statement which contains</span>
+    <span class='doccomment'>/// user-specified data, as it provides functionality to safely embed that</span>
+    <span class='doccomment'>/// data in the statment. Do not form statements via string concatenation</span>
+    <span class='doccomment'>/// and feed them into this method.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Example</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, PostgresResult};</span>
+    <span class='doccomment'>/// fn init_db(conn: &amp;PostgresConnection) -&gt; PostgresResult&lt;()&gt; {</span>
+    <span class='doccomment'>///     static INIT_DB: &amp;&#39;static str = &quot;</span>
+    <span class='doccomment'>///         CREATE TABLE person (</span>
+    <span class='doccomment'>///             id SERIAL PRIMARY KEY,</span>
+    <span class='doccomment'>///             name NOT NULL</span>
+    <span class='doccomment'>///         );</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>///         CREATE TABLE purchase (</span>
+    <span class='doccomment'>///             id SERIAL PRIMARY KEY,</span>
+    <span class='doccomment'>///             person INT NOT NULL REFERENCES person (id),</span>
+    <span class='doccomment'>///             time TIMESTAMPTZ NOT NULL,</span>
+    <span class='doccomment'>///         );</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>///         CREATE INDEX ON purchase (time);</span>
+    <span class='doccomment'>///         &quot;;</span>
+    <span class='doccomment'>///     conn.batch_execute(INIT_DB)</span>
+    <span class='doccomment'>/// }</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>batch_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>conn</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>();
         <span class='kw'>if</span> <span class='ident'>conn</span>.<span class='ident'>trans_depth</span> <span class='op'>!=</span> <span class='number'>0</span> {
             <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>PgWrongTransaction</span>);
@@ -2495,29 +2495,29 @@ fn main() {
         <span class='ident'>conn</span>.<span class='ident'>quick_query</span>(<span class='ident'>query</span>).<span class='ident'>map</span>(<span class='op'>|</span>_<span class='op'>|</span> ())
     }
 
-    <span class='doccomment'>/// Returns information used to cancel pending queries.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Used with the `cancel_query` function. The object returned can be used
-</span>    <span class='doccomment'>/// to cancel any query executed by the connection it was created from.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cancel_data</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresCancelData</span> {
+    <span class='doccomment'>/// Returns information used to cancel pending queries.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Used with the `cancel_query` function. The object returned can be used</span>
+    <span class='doccomment'>/// to cancel any query executed by the connection it was created from.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>cancel_data</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresCancelData</span> {
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow</span>().<span class='ident'>cancel_data</span>
     }
 
-    <span class='doccomment'>/// Returns whether or not the stream has been desynchronized due to an
-</span>    <span class='doccomment'>/// error in the communication channel with the server.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// If this has occurred, all further queries will immediately return an
-</span>    <span class='doccomment'>/// error.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_desynchronized</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+    <span class='doccomment'>/// Returns whether or not the stream has been desynchronized due to an</span>
+    <span class='doccomment'>/// error in the communication channel with the server.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If this has occurred, all further queries will immediately return an</span>
+    <span class='doccomment'>/// error.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>is_desynchronized</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow</span>().<span class='ident'>is_desynchronized</span>()
     }
 
-    <span class='doccomment'>/// Consumes the connection, closing it.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Functionally equivalent to the `Drop` implementation for
-</span>    <span class='doccomment'>/// `PostgresConnection` except that it returns any error encountered to
-</span>    <span class='doccomment'>/// the caller.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Consumes the connection, closing it.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Functionally equivalent to the `Drop` implementation for</span>
+    <span class='doccomment'>/// `PostgresConnection` except that it returns any error encountered to</span>
+    <span class='doccomment'>/// the caller.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>conn</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>();
         <span class='ident'>conn</span>.<span class='ident'>finished</span> <span class='op'>=</span> <span class='boolval'>true</span>;
         <span class='ident'>conn</span>.<span class='ident'>finish_inner</span>()
@@ -2545,20 +2545,20 @@ fn main() {
     }
 }
 
-<span class='doccomment'>/// Specifies the SSL support requested for a new connection
-</span><span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>SslMode</span> {
-    <span class='doccomment'>/// The connection will not use SSL
-</span>    <span class='ident'>NoSsl</span>,
-    <span class='doccomment'>/// The connection will use SSL if the backend supports it
-</span>    <span class='ident'>PreferSsl</span>(<span class='ident'>SslContext</span>),
-    <span class='doccomment'>/// The connection must use SSL
-</span>    <span class='ident'>RequireSsl</span>(<span class='ident'>SslContext</span>)
+<span class='doccomment'>/// Specifies the SSL support requested for a new connection</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>SslMode</span> {
+    <span class='doccomment'>/// The connection will not use SSL</span>
+    <span class='ident'>NoSsl</span>,
+    <span class='doccomment'>/// The connection will use SSL if the backend supports it</span>
+    <span class='ident'>PreferSsl</span>(<span class='ident'>SslContext</span>),
+    <span class='doccomment'>/// The connection must use SSL</span>
+    <span class='ident'>RequireSsl</span>(<span class='ident'>SslContext</span>)
 }
 
-<span class='doccomment'>/// Represents a transaction on a database connection.
-</span><span class='doccomment'>///
-</span><span class='doccomment'>/// The transaction will commit by default.
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> {
+<span class='doccomment'>/// Represents a transaction on a database connection.</span>
+<span class='doccomment'>///</span>
+<span class='doccomment'>/// The transaction will commit by default.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> {
     <span class='ident'>conn</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;conn</span> <span class='ident'>PostgresConnection</span>,
     <span class='ident'>commit</span>: <span class='ident'>Cell</span><span class='op'>&lt;</span><span class='ident'>bool</span><span class='op'>&gt;</span>,
     <span class='ident'>depth</span>: <span class='ident'>u32</span>,
@@ -2588,8 +2588,8 @@ fn main() {
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>quick_query</span>(<span class='ident'>query</span>).<span class='ident'>map</span>(<span class='op'>|</span>_<span class='op'>|</span> ())
     }
 
-    <span class='doccomment'>/// Like `PostgresConnection::prepare`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>prepare</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>)
+    <span class='doccomment'>/// Like `PostgresConnection::prepare`.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>prepare</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>)
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresStatement</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>conn</span>.<span class='ident'>borrow</span>().<span class='ident'>trans_depth</span> <span class='op'>!=</span> <span class='self'>self</span>.<span class='ident'>depth</span> {
             <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>PgWrongTransaction</span>);
@@ -2597,22 +2597,22 @@ fn main() {
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>conn</span>.<span class='ident'>borrow_mut</span>().<span class='ident'>prepare</span>(<span class='ident'>query</span>, <span class='self'>self</span>.<span class='ident'>conn</span>)
     }
 
-    <span class='doccomment'>/// Like `PostgresConnection::execute`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
+    <span class='doccomment'>/// Like `PostgresConnection::execute`.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>prepare</span>(<span class='ident'>query</span>).<span class='ident'>and_then</span>(<span class='op'>|</span><span class='ident'>s</span><span class='op'>|</span> <span class='ident'>s</span>.<span class='ident'>execute</span>(<span class='ident'>params</span>))
     }
 
-    <span class='doccomment'>/// Like `PostgresConnection::batch_execute`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>batch_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Like `PostgresConnection::batch_execute`.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>batch_execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>query</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>conn</span>.<span class='ident'>borrow</span>().<span class='ident'>trans_depth</span> <span class='op'>!=</span> <span class='self'>self</span>.<span class='ident'>depth</span> {
             <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>PgWrongTransaction</span>);
         }
         <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>batch_execute</span>(<span class='ident'>query</span>)
     }
 
-    <span class='doccomment'>/// Like `PostgresConnection::transaction`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>transaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>)
+    <span class='doccomment'>/// Like `PostgresConnection::transaction`.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>transaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>)
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
         <span class='macro'>check_desync</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>conn</span>);
         <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>conn</span>.<span class='ident'>conn</span>.<span class='ident'>borrow</span>().<span class='ident'>trans_depth</span> <span class='op'>!=</span> <span class='self'>self</span>.<span class='ident'>depth</span> {
@@ -2628,38 +2628,38 @@ fn main() {
         })
     }
 
-    <span class='doccomment'>/// Determines if the transaction is currently set to commit or roll back.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>will_commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
+    <span class='doccomment'>/// Determines if the transaction is currently set to commit or roll back.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>will_commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>bool</span> {
         <span class='self'>self</span>.<span class='ident'>commit</span>.<span class='ident'>get</span>()
     }
 
-    <span class='doccomment'>/// Sets the transaction to commit at its completion.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
+    <span class='doccomment'>/// Sets the transaction to commit at its completion.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_commit</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
         <span class='self'>self</span>.<span class='ident'>commit</span>.<span class='ident'>set</span>(<span class='boolval'>true</span>);
     }
 
-    <span class='doccomment'>/// Sets the transaction to roll back at its completion.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_rollback</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
+    <span class='doccomment'>/// Sets the transaction to roll back at its completion.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>set_rollback</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) {
         <span class='self'>self</span>.<span class='ident'>commit</span>.<span class='ident'>set</span>(<span class='boolval'>false</span>);
     }
 
-    <span class='doccomment'>/// Consumes the transaction, commiting or rolling it back as appropriate.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Functionally equivalent to the `Drop` implementation of
-</span>    <span class='doccomment'>/// `PostgresTransaction` except that it returns any error to the caller.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Consumes the transaction, commiting or rolling it back as appropriate.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Functionally equivalent to the `Drop` implementation of</span>
+    <span class='doccomment'>/// `PostgresTransaction` except that it returns any error to the caller.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>finished</span> <span class='op'>=</span> <span class='boolval'>true</span>;
         <span class='self'>self</span>.<span class='ident'>finish_inner</span>()
     }
 
-    <span class='doccomment'>/// Executes a prepared statement, returning a lazily loaded iterator over
-</span>    <span class='doccomment'>/// the resulting rows.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// No more than `row_limit` rows will be stored in memory at a time. Rows
-</span>    <span class='doccomment'>/// will be pulled from the database in batches of `row_limit` as needed.
-</span>    <span class='doccomment'>/// If `row_limit` is less than or equal to 0, `lazy_query` is equivalent
-</span>    <span class='doccomment'>/// to `query`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>lazy_query</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;trans</span> <span class='self'>self</span>,
+    <span class='doccomment'>/// Executes a prepared statement, returning a lazily loaded iterator over</span>
+    <span class='doccomment'>/// the resulting rows.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// No more than `row_limit` rows will be stored in memory at a time. Rows</span>
+    <span class='doccomment'>/// will be pulled from the database in batches of `row_limit` as needed.</span>
+    <span class='doccomment'>/// If `row_limit` is less than or equal to 0, `lazy_query` is equivalent</span>
+    <span class='doccomment'>/// to `query`.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>lazy_query</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;trans</span> <span class='self'>self</span>,
                                      <span class='ident'>stmt</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;stmt</span> <span class='ident'>PostgresStatement</span>,
                                      <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>],
                                      <span class='ident'>row_limit</span>: <span class='ident'>i32</span>)
@@ -2678,8 +2678,8 @@ fn main() {
     }
 }
 
-<span class='doccomment'>/// A prepared statement
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresStatement</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> {
+<span class='doccomment'>/// A prepared statement</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresStatement</span><span class='op'>&lt;</span><span class='lifetime'>&#39;conn</span><span class='op'>&gt;</span> {
     <span class='ident'>conn</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;conn</span> <span class='ident'>PostgresConnection</span>,
     <span class='ident'>name</span>: <span class='ident'>String</span>,
     <span class='ident'>param_types</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>PostgresType</span><span class='op'>&gt;</span>,
@@ -2729,7 +2729,7 @@ fn main() {
         }
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>formats</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>values</span> <span class='op'>=</span> <span class='macro'>vec</span><span class='macro'>!</span>[];
-        <span class='kw'>for</span> (<span class='kw-2'>&amp;</span><span class='ident'>param</span>, <span class='ident'>ty</span>) <span class='kw'>in</span> <span class='ident'>params</span>.<span class='ident'>iter</span>().<span class='ident'>zip</span>(<span class='self'>self</span>.<span class='ident'>param_types</span>.<span class='ident'>iter</span>()) {
+        <span class='kw'>for</span> (<span class='ident'>param</span>, <span class='ident'>ty</span>) <span class='kw'>in</span> <span class='ident'>params</span>.<span class='ident'>iter</span>().<span class='ident'>zip</span>(<span class='self'>self</span>.<span class='ident'>param_types</span>.<span class='ident'>iter</span>()) {
             <span class='kw'>let</span> (<span class='ident'>format</span>, <span class='ident'>value</span>) <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>param</span>.<span class='ident'>to_sql</span>(<span class='ident'>ty</span>));
             <span class='ident'>formats</span>.<span class='ident'>push</span>(<span class='ident'>format</span> <span class='kw'>as</span> <span class='ident'>i16</span>);
             <span class='ident'>values</span>.<span class='ident'>push</span>(<span class='ident'>value</span>);
@@ -2784,34 +2784,34 @@ fn main() {
         <span class='prelude-val'>Ok</span>(<span class='ident'>result</span>)
     }
 
-    <span class='doccomment'>/// Returns a slice containing the expected parameter types.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>param_types</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>PostgresType</span>] {
+    <span class='doccomment'>/// Returns a slice containing the expected parameter types.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>param_types</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>PostgresType</span>] {
         <span class='self'>self</span>.<span class='ident'>param_types</span>.<span class='ident'>as_slice</span>()
     }
 
-    <span class='doccomment'>/// Returns a slice describing the columns of the result of the query.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>result_descriptions</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>ResultDescription</span>] {
+    <span class='doccomment'>/// Returns a slice describing the columns of the result of the query.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>result_descriptions</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>ResultDescription</span>] {
         <span class='self'>self</span>.<span class='ident'>result_desc</span>.<span class='ident'>as_slice</span>()
     }
 
-    <span class='doccomment'>/// Executes the prepared statement, returning the number of rows modified.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// If the statement does not modify any rows (e.g. SELECT), 0 is returned.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Example
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};
-</span>    <span class='doccomment'>/// # use postgres::types::ToSql;
-</span>    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();
-</span>    <span class='doccomment'>/// # let bar = 1i32;
-</span>    <span class='doccomment'>/// # let baz = true;
-</span>    <span class='doccomment'>/// let stmt = conn.prepare(&quot;UPDATE foo SET bar = $1 WHERE baz = $2&quot;).unwrap();
-</span>    <span class='doccomment'>/// match stmt.execute([&amp;bar as &amp;ToSql, &amp;baz as &amp;ToSql]) {
-</span>    <span class='doccomment'>///     Ok(count) =&gt; println!(&quot;{} row(s) updated&quot;, count),
-</span>    <span class='doccomment'>///     Err(err) =&gt; println!(&quot;Error executing query: {}&quot;, err)
-</span>    <span class='doccomment'>/// }
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>]) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Executes the prepared statement, returning the number of rows modified.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If the statement does not modify any rows (e.g. SELECT), 0 is returned.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Example</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};</span>
+    <span class='doccomment'>/// # use postgres::types::ToSql;</span>
+    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();</span>
+    <span class='doccomment'>/// # let bar = 1i32;</span>
+    <span class='doccomment'>/// # let baz = true;</span>
+    <span class='doccomment'>/// let stmt = conn.prepare(&quot;UPDATE foo SET bar = $1 WHERE baz = $2&quot;).unwrap();</span>
+    <span class='doccomment'>/// match stmt.execute([&amp;bar as &amp;ToSql, &amp;baz as &amp;ToSql]) {</span>
+    <span class='doccomment'>///     Ok(count) =&gt; println!(&quot;{} row(s) updated&quot;, count),</span>
+    <span class='doccomment'>///     Err(err) =&gt; println!(&quot;Error executing query: {}&quot;, err)</span>
+    <span class='doccomment'>/// }</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>execute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>]) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span> {
         <span class='macro'>check_desync</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>conn</span>);
         <span class='macro'>try</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>inner_execute</span>(<span class='string'>&quot;&quot;</span>, <span class='number'>0</span>, <span class='ident'>params</span>));
 
@@ -2840,53 +2840,53 @@ fn main() {
         <span class='prelude-val'>Ok</span>(<span class='ident'>num</span>)
     }
 
-    <span class='doccomment'>/// Executes the prepared statement, returning an iterator over the
-</span>    <span class='doccomment'>/// resulting rows.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Example
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};
-</span>    <span class='doccomment'>/// # use postgres::types::ToSql;
-</span>    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();
-</span>    <span class='doccomment'>/// let stmt = conn.prepare(&quot;SELECT foo FROM bar WHERE baz = $1&quot;).unwrap();
-</span>    <span class='doccomment'>/// # let baz = true;
-</span>    <span class='doccomment'>/// let mut rows = match stmt.query([&amp;baz as &amp;ToSql]) {
-</span>    <span class='doccomment'>///     Ok(rows) =&gt; rows,
-</span>    <span class='doccomment'>///     Err(err) =&gt; fail!(&quot;Error running query: {}&quot;, err)
-</span>    <span class='doccomment'>/// };
-</span>    <span class='doccomment'>/// for row in rows {
-</span>    <span class='doccomment'>///     let foo: i32 = row[&quot;foo&quot;];
-</span>    <span class='doccomment'>///     println!(&quot;foo: {}&quot;, foo);
-</span>    <span class='doccomment'>/// }
-</span>    <span class='doccomment'>/// ```
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>query</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
+    <span class='doccomment'>/// Executes the prepared statement, returning an iterator over the</span>
+    <span class='doccomment'>/// resulting rows.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Example</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};</span>
+    <span class='doccomment'>/// # use postgres::types::ToSql;</span>
+    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();</span>
+    <span class='doccomment'>/// let stmt = conn.prepare(&quot;SELECT foo FROM bar WHERE baz = $1&quot;).unwrap();</span>
+    <span class='doccomment'>/// # let baz = true;</span>
+    <span class='doccomment'>/// let mut rows = match stmt.query([&amp;baz as &amp;ToSql]) {</span>
+    <span class='doccomment'>///     Ok(rows) =&gt; rows,</span>
+    <span class='doccomment'>///     Err(err) =&gt; fail!(&quot;Error running query: {}&quot;, err)</span>
+    <span class='doccomment'>/// };</span>
+    <span class='doccomment'>/// for row in rows {</span>
+    <span class='doccomment'>///     let foo: i32 = row[&quot;foo&quot;];</span>
+    <span class='doccomment'>///     println!(&quot;foo: {}&quot;, foo);</span>
+    <span class='doccomment'>/// }</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>query</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>params</span>: <span class='kw-2'>&amp;</span>[<span class='kw-2'>&amp;</span><span class='ident'>ToSql</span>])
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>PostgresRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;&gt;</span> {
         <span class='macro'>check_desync</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>conn</span>);
         <span class='self'>self</span>.<span class='ident'>lazy_query</span>(<span class='number'>0</span>, <span class='ident'>params</span>)
     }
 
-    <span class='doccomment'>/// Consumes the statement, clearing it from the Postgres session.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Functionally identical to the `Drop` implementation of the
-</span>    <span class='doccomment'>/// `PostgresStatement` except that it returns any error to the caller.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Consumes the statement, clearing it from the Postgres session.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Functionally identical to the `Drop` implementation of the</span>
+    <span class='doccomment'>/// `PostgresStatement` except that it returns any error to the caller.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>finished</span> <span class='op'>=</span> <span class='boolval'>true</span>;
         <span class='self'>self</span>.<span class='ident'>finish_inner</span>()
     }
 }
 
-<span class='doccomment'>/// Information about a column of the result of a query.
-</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>)]</span>
+<span class='doccomment'>/// Information about a column of the result of a query.</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ResultDescription</span> {
-    <span class='doccomment'>/// The name of the column
-</span>    <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>String</span>,
-    <span class='doccomment'>/// The type of the data in the column
-</span>    <span class='kw'>pub</span> <span class='ident'>ty</span>: <span class='ident'>PostgresType</span>
+    <span class='doccomment'>/// The name of the column</span>
+    <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>String</span>,
+    <span class='doccomment'>/// The type of the data in the column</span>
+    <span class='kw'>pub</span> <span class='ident'>ty</span>: <span class='ident'>PostgresType</span>
 }
 
-<span class='doccomment'>/// An iterator over the resulting rows of a query.
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
+<span class='doccomment'>/// An iterator over the resulting rows of a query.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
     <span class='ident'>stmt</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;stmt</span> <span class='ident'>PostgresStatement</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span>,
     <span class='ident'>name</span>: <span class='ident'>String</span>,
     <span class='ident'>data</span>: <span class='ident'>RingBuf</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;&gt;</span><span class='op'>&gt;&gt;</span>,
@@ -2955,11 +2955,11 @@ fn main() {
         <span class='self'>self</span>.<span class='ident'>read_rows</span>()
     }
 
-    <span class='doccomment'>/// Consumes the `PostgresRows`, cleaning up associated state.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Functionally identical to the `Drop` implementation on `PostgresRows`
-</span>    <span class='doccomment'>/// except that it returns any error to the caller.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Consumes the `PostgresRows`, cleaning up associated state.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Functionally identical to the `Drop` implementation on `PostgresRows`</span>
+    <span class='doccomment'>/// except that it returns any error to the caller.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>finished</span> <span class='op'>=</span> <span class='boolval'>true</span>;
         <span class='self'>self</span>.<span class='ident'>finish_inner</span>()
     }
@@ -3000,21 +3000,21 @@ fn main() {
     }
 }
 
-<span class='doccomment'>/// A single result row of a query.
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresRow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
+<span class='doccomment'>/// A single result row of a query.</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresRow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
     <span class='ident'>stmt</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;stmt</span> <span class='ident'>PostgresStatement</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span>,
     <span class='ident'>data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;&gt;</span><span class='op'>&gt;</span>
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> <span class='ident'>PostgresRow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Retrieves the contents of a field of the row.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// A field can be accessed by the name or index of its column, though
-</span>    <span class='doccomment'>/// access by index is more efficient. Rows are 1-indexed.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Returns an `Error` value if the index does not reference a column or
-</span>    <span class='doccomment'>/// the return type is not compatible with the Postgres type.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get</span><span class='op'>&lt;</span><span class='ident'>I</span>: <span class='ident'>RowIndex</span>, <span class='ident'>T</span>: <span class='ident'>FromSql</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>I</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Retrieves the contents of a field of the row.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// A field can be accessed by the name or index of its column, though</span>
+    <span class='doccomment'>/// access by index is more efficient. Rows are 1-indexed.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Returns an `Error` value if the index does not reference a column or</span>
+    <span class='doccomment'>/// the return type is not compatible with the Postgres type.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get</span><span class='op'>&lt;</span><span class='ident'>I</span>: <span class='ident'>RowIndex</span>, <span class='ident'>T</span>: <span class='ident'>FromSql</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>I</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>idx</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='ident'>idx</span>.<span class='ident'>idx</span>(<span class='self'>self</span>.<span class='ident'>stmt</span>) {
             <span class='prelude-val'>Some</span>(<span class='ident'>idx</span>) <span class='op'>=&gt;</span> <span class='ident'>idx</span>,
             <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>PgInvalidColumn</span>)
@@ -3033,28 +3033,28 @@ fn main() {
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span>, <span class='ident'>I</span>: <span class='ident'>RowIndex</span><span class='op'>+</span><span class='ident'>Clone</span><span class='op'>+</span><span class='ident'>fmt</span>::<span class='ident'>Show</span>, <span class='ident'>T</span>: <span class='ident'>FromSql</span><span class='op'>&gt;</span> <span class='ident'>Index</span><span class='op'>&lt;</span><span class='ident'>I</span>, <span class='ident'>T</span><span class='op'>&gt;</span>
         <span class='kw'>for</span> <span class='ident'>PostgresRow</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Retreives the contents of a field of the row.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// A field can be accessed by the name or index of its column, though
-</span>    <span class='doccomment'>/// access by index is more efficient. Rows are 1-indexed.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Failure
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Fails if the index does not reference a column or the return type is
-</span>    <span class='doccomment'>/// not compatible with the Postgres type.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Example
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// ```rust,no_run
-</span>    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};
-</span>    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();
-</span>    <span class='doccomment'>/// # let stmt = conn.prepare(&quot;&quot;).unwrap();
-</span>    <span class='doccomment'>/// # let mut result = stmt.query([]).unwrap();
-</span>    <span class='doccomment'>/// # let row = result.next().unwrap();
-</span>    <span class='doccomment'>/// let foo: i32 = row[1];
-</span>    <span class='doccomment'>/// let bar: String = row[&quot;bar&quot;];
-</span>    <span class='doccomment'>/// ```
-</span>    <span class='kw'>fn</span> <span class='ident'>index</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='kw-2'>&amp;</span><span class='ident'>I</span>) <span class='op'>-&gt;</span> <span class='ident'>T</span> {
+    <span class='doccomment'>/// Retreives the contents of a field of the row.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// A field can be accessed by the name or index of its column, though</span>
+    <span class='doccomment'>/// access by index is more efficient. Rows are 1-indexed.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Failure</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Fails if the index does not reference a column or the return type is</span>
+    <span class='doccomment'>/// not compatible with the Postgres type.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Example</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// ```rust,no_run</span>
+    <span class='doccomment'>/// # use postgres::{PostgresConnection, NoSsl};</span>
+    <span class='doccomment'>/// # let conn = PostgresConnection::connect(&quot;&quot;, &amp;NoSsl).unwrap();</span>
+    <span class='doccomment'>/// # let stmt = conn.prepare(&quot;&quot;).unwrap();</span>
+    <span class='doccomment'>/// # let mut result = stmt.query([]).unwrap();</span>
+    <span class='doccomment'>/// # let row = result.next().unwrap();</span>
+    <span class='doccomment'>/// let foo: i32 = row[1];</span>
+    <span class='doccomment'>/// let bar: String = row[&quot;bar&quot;];</span>
+    <span class='doccomment'>/// ```</span>
+    <span class='kw'>fn</span> <span class='ident'>index</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>idx</span>: <span class='kw-2'>&amp;</span><span class='ident'>I</span>) <span class='op'>-&gt;</span> <span class='ident'>T</span> {
         <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>get</span>(<span class='ident'>idx</span>.<span class='ident'>clone</span>()) {
             <span class='prelude-val'>Ok</span>(<span class='ident'>ok</span>) <span class='op'>=&gt;</span> <span class='ident'>ok</span>,
             <span class='prelude-val'>Err</span>(<span class='ident'>err</span>) <span class='op'>=&gt;</span> <span class='macro'>fail</span><span class='macro'>!</span>(<span class='string'>&quot;error retrieving column {}: {}&quot;</span>, <span class='ident'>idx</span>, <span class='ident'>err</span>)
@@ -3062,11 +3062,11 @@ fn main() {
     }
 }
 
-<span class='doccomment'>/// A trait implemented by types that can index into columns of a row.
-</span><span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>RowIndex</span> {
-    <span class='doccomment'>/// Returns the index of the appropriate column, or `None` if no such
-</span>    <span class='doccomment'>/// column exists.
-</span>    <span class='kw'>fn</span> <span class='ident'>idx</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>stmt</span>: <span class='kw-2'>&amp;</span><span class='ident'>PostgresStatement</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span>;
+<span class='doccomment'>/// A trait implemented by types that can index into columns of a row.</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>RowIndex</span> {
+    <span class='doccomment'>/// Returns the index of the appropriate column, or `None` if no such</span>
+    <span class='doccomment'>/// column exists.</span>
+    <span class='kw'>fn</span> <span class='ident'>idx</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>stmt</span>: <span class='kw-2'>&amp;</span><span class='ident'>PostgresStatement</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>uint</span><span class='op'>&gt;</span>;
 }
 
 <span class='kw'>impl</span> <span class='ident'>RowIndex</span> <span class='kw'>for</span> <span class='ident'>uint</span> {
@@ -3100,15 +3100,15 @@ fn main() {
     }
 }
 
-<span class='doccomment'>/// A lazily-loaded iterator over the resulting rows of a query
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresLazyRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
+<span class='doccomment'>/// A lazily-loaded iterator over the resulting rows of a query</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>PostgresLazyRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
     <span class='ident'>result</span>: <span class='ident'>PostgresRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span>,
     <span class='ident'>_trans</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;trans</span> <span class='ident'>PostgresTransaction</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span><span class='op'>&gt;</span>,
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> <span class='ident'>PostgresLazyRows</span><span class='op'>&lt;</span><span class='lifetime'>&#39;trans</span>, <span class='lifetime'>&#39;stmt</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Like `PostgresRows::finish`.
-</span>    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
+    <span class='doccomment'>/// Like `PostgresRows::finish`.</span>
+    <span class='attribute'>#[<span class='ident'>inline</span>]</span>
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>finish</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>()<span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>result</span>.<span class='ident'>finish</span>()
     }
@@ -3140,9 +3140,9 @@ fn main() {
                 <dd>Show this help dialog</dd>
                 <dt>S</dt>
                 <dd>Focus the search field</dd>
-                <dt>&uarr;</dt>
+                <dt>&larrb;</dt>
                 <dd>Move up in search results</dd>
-                <dt>&darr;</dt>
+                <dt>&rarrb;</dt>
                 <dd>Move down in search results</dd>
                 <dt>&#9166;</dt>
                 <dd>Go to active search result</dd>

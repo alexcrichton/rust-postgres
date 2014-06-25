@@ -31,7 +31,7 @@
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
-                       placeholder="Search documentation..."
+                       placeholder="Click or press 'S' to search, '?' for more options..."
                        type="search">
             </div>
         </form>
@@ -866,8 +866,8 @@
 <span id='827'>827</span>
 <span id='828'>828</span>
 </pre><pre class='rust '>
-<span class='doccomment'>//! Traits dealing with Postgres data types
-</span><span class='attribute'>#<span class='op'>!</span>[<span class='ident'>macro_escape</span>]</span>
+<span class='doccomment'>//! Traits dealing with Postgres data types</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>macro_escape</span>]</span>
 
 <span class='kw'>use</span> <span class='ident'>uuid</span>::<span class='ident'>Uuid</span>;
 <span class='kw'>use</span> <span class='ident'>serialize</span>::<span class='ident'>json</span>;
@@ -885,8 +885,8 @@
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>array</span>;
 <span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>range</span>;
 
-<span class='doccomment'>/// A Postgres OID
-</span><span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Oid</span> <span class='op'>=</span> <span class='ident'>u32</span>;<span class='comment'>
+<span class='doccomment'>/// A Postgres OID</span>
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Oid</span> <span class='op'>=</span> <span class='ident'>u32</span>;<span class='comment'>
 
 // Values from pg_type.h
 </span><span class='kw'>static</span> <span class='ident'>BOOLOID</span>: <span class='ident'>Oid</span> <span class='op'>=</span> <span class='number'>16</span>;
@@ -944,19 +944,19 @@
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>make_postgres_type</span>(
     ($(<span class='attribute'>#[<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>doc</span>:<span class='ident'>meta</span>]</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>oid</span>:<span class='ident'>ident</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>variant</span>:<span class='ident'>ident</span> $(<span class='ident'>member</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>member</span>:<span class='ident'>ident</span>)<span class='op'>*</span>),<span class='op'>+</span>) <span class='op'>=&gt;</span> (
-        <span class='doccomment'>/// A Postgres type
-</span>        <span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Clone</span>, <span class='ident'>Show</span>)]</span>
+        <span class='doccomment'>/// A Postgres type</span>
+        <span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Clone</span>, <span class='ident'>Show</span>)]</span>
         <span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>PostgresType</span> {
             $(
                 <span class='attribute'>#[<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>doc</span>]</span>
                 <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>variant</span>,
             )<span class='op'>+</span>
-            <span class='doccomment'>/// An unknown type
-</span>            <span class='ident'>PgUnknownType</span> {
-                <span class='doccomment'>/// The name of the type
-</span>                <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>String</span>,
-                <span class='doccomment'>/// The OID of the type
-</span>                <span class='kw'>pub</span> <span class='ident'>oid</span>: <span class='ident'>Oid</span>
+            <span class='doccomment'>/// An unknown type</span>
+            <span class='ident'>PgUnknownType</span> {
+                <span class='doccomment'>/// The name of the type</span>
+                <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>String</span>,
+                <span class='doccomment'>/// The OID of the type</span>
+                <span class='kw'>pub</span> <span class='ident'>oid</span>: <span class='ident'>Oid</span>
             }
         }
 
@@ -987,8 +987,8 @@
                 }
             }
 
-            <span class='doccomment'>/// Returns the wire format needed for the value of `self`.
-</span>            <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>result_format</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Format</span> {
+            <span class='doccomment'>/// Returns the wire format needed for the value of `self`.</span>
+            <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>result_format</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Format</span> {
                 <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
                     <span class='ident'>PgUnknownType</span> { <span class='ident'>name</span>: <span class='kw-2'>ref</span> <span class='ident'>name</span>, .. }
                         <span class='kw'>if</span> <span class='string'>&quot;hstore&quot;</span> <span class='op'>==</span> <span class='ident'>name</span>.<span class='ident'>as_slice</span>() <span class='op'>=&gt;</span> <span class='ident'>Binary</span>,
@@ -1083,12 +1083,12 @@
     <span class='ident'>INT8RANGEARRAYOID</span> <span class='op'>=&gt;</span> <span class='ident'>PgInt8RangeArray</span> <span class='ident'>member</span> <span class='ident'>PgInt8Range</span>
 )
 
-<span class='doccomment'>/// The wire format of a Postgres value
-</span><span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>Format</span> {
-    <span class='doccomment'>/// A user-readable string format
-</span>    <span class='ident'>Text</span> <span class='op'>=</span> <span class='number'>0</span>,
-    <span class='doccomment'>/// A machine-readable binary format
-</span>    <span class='ident'>Binary</span> <span class='op'>=</span> <span class='number'>1</span>
+<span class='doccomment'>/// The wire format of a Postgres value</span>
+<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>Format</span> {
+    <span class='doccomment'>/// A user-readable string format</span>
+    <span class='ident'>Text</span> <span class='op'>=</span> <span class='number'>0</span>,
+    <span class='doccomment'>/// A machine-readable binary format</span>
+    <span class='ident'>Binary</span> <span class='op'>=</span> <span class='number'>1</span>
 }
 
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>check_types</span>(
@@ -1100,12 +1100,12 @@
     )
 )
 
-<span class='doccomment'>/// A trait for types that can be created from a Postgres value
-</span><span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FromSql</span> {
-    <span class='doccomment'>/// Creates a new value of this type from a buffer of Postgres data.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// If the value was `NULL`, the buffer will be `None`.
-</span>    <span class='kw'>fn</span> <span class='ident'>from_sql</span>(<span class='ident'>ty</span>: <span class='kw-2'>&amp;</span><span class='ident'>PostgresType</span>, <span class='ident'>raw</span>: <span class='kw-2'>&amp;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;&gt;</span>)
+<span class='doccomment'>/// A trait for types that can be created from a Postgres value</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>FromSql</span> {
+    <span class='doccomment'>/// Creates a new value of this type from a buffer of Postgres data.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// If the value was `NULL`, the buffer will be `None`.</span>
+    <span class='kw'>fn</span> <span class='ident'>from_sql</span>(<span class='ident'>ty</span>: <span class='kw-2'>&amp;</span><span class='ident'>PostgresType</span>, <span class='ident'>raw</span>: <span class='kw-2'>&amp;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;&gt;</span>)
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span><span class='ident'>Self</span><span class='op'>&gt;</span>;
 }
 
@@ -1385,11 +1385,11 @@
     }
 }
 
-<span class='doccomment'>/// A trait for types that can be converted into Postgres values
-</span><span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ToSql</span> {
-    <span class='doccomment'>/// Converts the value of `self` into a format appropriate for the Postgres
-</span>    <span class='doccomment'>/// backend.
-</span>    <span class='kw'>fn</span> <span class='ident'>to_sql</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ty</span>: <span class='kw-2'>&amp;</span><span class='ident'>PostgresType</span>)
+<span class='doccomment'>/// A trait for types that can be converted into Postgres values</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ToSql</span> {
+    <span class='doccomment'>/// Converts the value of `self` into a format appropriate for the Postgres</span>
+    <span class='doccomment'>/// backend.</span>
+    <span class='kw'>fn</span> <span class='ident'>to_sql</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>ty</span>: <span class='kw-2'>&amp;</span><span class='ident'>PostgresType</span>)
             <span class='op'>-&gt;</span> <span class='ident'>PostgresResult</span><span class='op'>&lt;</span>(<span class='ident'>Format</span>, <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;&gt;</span>)<span class='op'>&gt;</span>;
 }
 
@@ -1708,9 +1708,9 @@
                 <dd>Show this help dialog</dd>
                 <dt>S</dt>
                 <dd>Focus the search field</dd>
-                <dt>&uarr;</dt>
+                <dt>&larrb;</dt>
                 <dd>Move up in search results</dd>
-                <dt>&darr;</dt>
+                <dt>&rarrb;</dt>
                 <dd>Move down in search results</dd>
                 <dt>&#9166;</dt>
                 <dd>Go to active search result</dd>

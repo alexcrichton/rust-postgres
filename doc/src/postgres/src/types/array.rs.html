@@ -31,7 +31,7 @@
             <div class="search-container">
                 <input class="search-input" name="search"
                        autocomplete="off"
-                       placeholder="Search documentation..."
+                       placeholder="Click or press 'S' to search, '?' for more options..."
                        type="search">
             </div>
         </form>
@@ -519,57 +519,57 @@
 <span id='480'>480</span>
 <span id='481'>481</span>
 </pre><pre class='rust '>
-<span class='doccomment'>//! Multi-dimensional arrays with per-dimension specifiable lower bounds
-</span>
+<span class='doccomment'>//! Multi-dimensional arrays with per-dimension specifiable lower bounds</span>
+
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
 
-<span class='doccomment'>/// Information about a dimension of an array
-</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Clone</span>, <span class='ident'>Show</span>)]</span>
+<span class='doccomment'>/// Information about a dimension of an array</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Clone</span>, <span class='ident'>Show</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>DimensionInfo</span> {
-    <span class='doccomment'>/// The size of the dimension
-</span>    <span class='kw'>pub</span> <span class='ident'>len</span>: <span class='ident'>uint</span>,
-    <span class='doccomment'>/// The index of the first element of the dimension
-</span>    <span class='kw'>pub</span> <span class='ident'>lower_bound</span>: <span class='ident'>int</span>,
+    <span class='doccomment'>/// The size of the dimension</span>
+    <span class='kw'>pub</span> <span class='ident'>len</span>: <span class='ident'>uint</span>,
+    <span class='doccomment'>/// The index of the first element of the dimension</span>
+    <span class='kw'>pub</span> <span class='ident'>lower_bound</span>: <span class='ident'>int</span>,
 }
 
-<span class='doccomment'>/// Specifies methods that can be performed on multi-dimensional arrays
-</span><span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Returns information about the dimensions of this array
-</span>    <span class='kw'>fn</span> <span class='ident'>dimension_info</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>DimensionInfo</span>];
+<span class='doccomment'>/// Specifies methods that can be performed on multi-dimensional arrays</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Returns information about the dimensions of this array</span>
+    <span class='kw'>fn</span> <span class='ident'>dimension_info</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> [<span class='ident'>DimensionInfo</span>];
 
-    <span class='doccomment'>/// Slices into this array, returning an immutable view of a subarray.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Failure
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Fails if the array is one-dimensional or the index is out of bounds.
-</span>    <span class='kw'>fn</span> <span class='ident'>slice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='ident'>ArraySlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span>;
+    <span class='doccomment'>/// Slices into this array, returning an immutable view of a subarray.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Failure</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Fails if the array is one-dimensional or the index is out of bounds.</span>
+    <span class='kw'>fn</span> <span class='ident'>slice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='ident'>ArraySlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span>;
 
-    <span class='doccomment'>/// Retrieves an immutable reference to a value in this array.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Failure
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Fails if the array is multi-dimensional or the index is out of bounds.
-</span>    <span class='kw'>fn</span> <span class='ident'>get</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>T</span>;
+    <span class='doccomment'>/// Retrieves an immutable reference to a value in this array.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Failure</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Fails if the array is multi-dimensional or the index is out of bounds.</span>
+    <span class='kw'>fn</span> <span class='ident'>get</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>T</span>;
 }
 
-<span class='doccomment'>/// Specifies methods that can be performed on mutable multi-dimensional arrays
-</span><span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MutableArray</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> : <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Slices into this array, returning a mutable view of a subarray.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Failure
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Fails if the array is one-dimensional or the index is out of bounds.
-</span>    <span class='kw'>fn</span> <span class='ident'>slice_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='ident'>MutArraySlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span>;
+<span class='doccomment'>/// Specifies methods that can be performed on mutable multi-dimensional arrays</span>
+<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>MutableArray</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> : <span class='ident'>Array</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Slices into this array, returning a mutable view of a subarray.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Failure</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Fails if the array is one-dimensional or the index is out of bounds.</span>
+    <span class='kw'>fn</span> <span class='ident'>slice_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='ident'>MutArraySlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span>;
 
-    <span class='doccomment'>/// Retrieves a mutable reference to a value in this array.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Failure
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Fails if the array is multi-dimensional or the index is out of bounds.
-</span>    <span class='kw'>fn</span> <span class='ident'>get_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>T</span>;
+    <span class='doccomment'>/// Retrieves a mutable reference to a value in this array.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Failure</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Fails if the array is multi-dimensional or the index is out of bounds.</span>
+    <span class='kw'>fn</span> <span class='ident'>get_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>T</span>;
 }
 
 <span class='attribute'>#[<span class='ident'>doc</span>(<span class='ident'>hidden</span>)]</span>
@@ -590,24 +590,24 @@
     <span class='kw'>fn</span> <span class='ident'>raw_get_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>idx</span>: <span class='ident'>uint</span>, <span class='ident'>size</span>: <span class='ident'>uint</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>T</span>;
 }
 
-<span class='doccomment'>/// A multi-dimensional array
-</span><span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Clone</span>)]</span>
+<span class='doccomment'>/// A multi-dimensional array</span>
+<span class='attribute'>#[<span class='ident'>deriving</span>(<span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
     <span class='ident'>info</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>DimensionInfo</span><span class='op'>&gt;</span>,
     <span class='ident'>data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>,
 }
 
 <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Creates a new multi-dimensional array from its underlying components.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// The data array should be provided in the higher-dimensional equivalent
-</span>    <span class='doccomment'>/// of row-major order.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Failure
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Fails if there are 0 dimensions or the number of elements provided does
-</span>    <span class='doccomment'>/// not match the number of elements specified.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_raw</span>(<span class='ident'>data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>info</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>DimensionInfo</span><span class='op'>&gt;</span>)
+    <span class='doccomment'>/// Creates a new multi-dimensional array from its underlying components.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The data array should be provided in the higher-dimensional equivalent</span>
+    <span class='doccomment'>/// of row-major order.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Failure</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Fails if there are 0 dimensions or the number of elements provided does</span>
+    <span class='doccomment'>/// not match the number of elements specified.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_raw</span>(<span class='ident'>data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>info</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>DimensionInfo</span><span class='op'>&gt;</span>)
             <span class='op'>-&gt;</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>info</span>.<span class='ident'>is_empty</span>(), <span class='string'>&quot;Cannot create a 0x0 array&quot;</span>);
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>data</span>.<span class='ident'>len</span>() <span class='op'>==</span> <span class='ident'>info</span>.<span class='ident'>iter</span>().<span class='ident'>fold</span>(<span class='number'>1</span>, <span class='op'>|</span><span class='ident'>acc</span>, <span class='ident'>i</span><span class='op'>|</span> <span class='ident'>acc</span> <span class='op'>*</span> <span class='ident'>i</span>.<span class='ident'>len</span>),
@@ -618,8 +618,8 @@
         }
     }
 
-    <span class='doccomment'>/// Creates a new one-dimensional array from a vector.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_vec</span>(<span class='ident'>data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>lower_bound</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Creates a new one-dimensional array from a vector.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>from_vec</span>(<span class='ident'>data</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>, <span class='ident'>lower_bound</span>: <span class='ident'>int</span>) <span class='op'>-&gt;</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
         <span class='ident'>ArrayBase</span> {
             <span class='ident'>info</span>: <span class='macro'>vec</span><span class='macro'>!</span>(<span class='ident'>DimensionInfo</span> {
                 <span class='ident'>len</span>: <span class='ident'>data</span>.<span class='ident'>len</span>(),
@@ -629,32 +629,32 @@
         }
     }
 
-    <span class='doccomment'>/// Wraps this array in a new dimension of size 1.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// For example the one-dimensional array `[1,2]` would turn into
-</span>    <span class='doccomment'>/// the two-dimensional array `[[1,2]]`.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>wrap</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>lower_bound</span>: <span class='ident'>int</span>) {
+    <span class='doccomment'>/// Wraps this array in a new dimension of size 1.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// For example the one-dimensional array `[1,2]` would turn into</span>
+    <span class='doccomment'>/// the two-dimensional array `[[1,2]]`.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>wrap</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>lower_bound</span>: <span class='ident'>int</span>) {
         <span class='self'>self</span>.<span class='ident'>info</span>.<span class='ident'>unshift</span>(<span class='ident'>DimensionInfo</span> {
             <span class='ident'>len</span>: <span class='number'>1</span>,
             <span class='ident'>lower_bound</span>: <span class='ident'>lower_bound</span>
         })
     }
 
-    <span class='doccomment'>/// Takes ownership of another array, appending it to the top-level
-</span>    <span class='doccomment'>/// dimension of this array.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// The dimensions of the other array must have an identical shape to the
-</span>    <span class='doccomment'>/// dimensions of a slice of this array. This includes both the sizes of
-</span>    <span class='doccomment'>/// the dimensions as well as their lower bounds.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// For example, if `[3,4]` is pushed onto `[[1,2]]`, the result is
-</span>    <span class='doccomment'>/// `[[1,2],[3,4]]`.
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// # Failure
-</span>    <span class='doccomment'>///
-</span>    <span class='doccomment'>/// Fails if the other array does not have dimensions identical to the
-</span>    <span class='doccomment'>/// dimensions of a slice of this array.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_move</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>other</span>: <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>) {
+    <span class='doccomment'>/// Takes ownership of another array, appending it to the top-level</span>
+    <span class='doccomment'>/// dimension of this array.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// The dimensions of the other array must have an identical shape to the</span>
+    <span class='doccomment'>/// dimensions of a slice of this array. This includes both the sizes of</span>
+    <span class='doccomment'>/// the dimensions as well as their lower bounds.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// For example, if `[3,4]` is pushed onto `[[1,2]]`, the result is</span>
+    <span class='doccomment'>/// `[[1,2],[3,4]]`.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # Failure</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Fails if the other array does not have dimensions identical to the</span>
+    <span class='doccomment'>/// dimensions of a slice of this array.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>push_move</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>other</span>: <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>) {
         <span class='macro'>assert</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>info</span>.<span class='ident'>len</span>() <span class='op'>-</span> <span class='number'>1</span> <span class='op'>==</span> <span class='ident'>other</span>.<span class='ident'>info</span>.<span class='ident'>len</span>(),
                 <span class='string'>&quot;Cannot append differently shaped arrays&quot;</span>);
         <span class='kw'>for</span> (<span class='ident'>info1</span>, <span class='ident'>info2</span>) <span class='kw'>in</span> <span class='self'>self</span>.<span class='ident'>info</span>.<span class='ident'>iter</span>().<span class='ident'>skip</span>(<span class='number'>1</span>).<span class='ident'>zip</span>(<span class='ident'>other</span>.<span class='ident'>info</span>.<span class='ident'>iter</span>()) {
@@ -664,9 +664,9 @@
         <span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>push_all_move</span>(<span class='ident'>other</span>.<span class='ident'>data</span>);
     }
 
-    <span class='doccomment'>/// Returns an iterator over the values in this array, in the
-</span>    <span class='doccomment'>/// higher-dimensional equivalent of row-major order.
-</span>    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>values</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>slice</span>::<span class='ident'>Items</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
+    <span class='doccomment'>/// Returns an iterator over the values in this array, in the</span>
+    <span class='doccomment'>/// higher-dimensional equivalent of row-major order.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>values</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>slice</span>::<span class='ident'>Items</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>data</span>.<span class='ident'>iter</span>()
     }
 }
@@ -728,8 +728,8 @@
     <span class='ident'>BaseParent</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;parent</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>),
 }
 
-<span class='doccomment'>/// An immutable slice of a multi-dimensional array
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ArraySlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;parent</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
+<span class='doccomment'>/// An immutable slice of a multi-dimensional array</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ArraySlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;parent</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
     <span class='ident'>parent</span>: <span class='ident'>ArrayParent</span><span class='op'>&lt;</span><span class='lifetime'>&#39;parent</span>, <span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='ident'>idx</span>: <span class='ident'>uint</span>,
 }
@@ -779,8 +779,8 @@
     <span class='ident'>MutBaseParent</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;parent</span> <span class='kw-2'>mut</span> <span class='ident'>ArrayBase</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>),
 }
 
-<span class='doccomment'>/// A mutable slice of a multi-dimensional array
-</span><span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MutArraySlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;parent</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
+<span class='doccomment'>/// A mutable slice of a multi-dimensional array</span>
+<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>MutArraySlice</span><span class='op'>&lt;</span><span class='lifetime'>&#39;parent</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
     <span class='ident'>parent</span>: <span class='ident'>MutArrayParent</span><span class='op'>&lt;</span><span class='lifetime'>&#39;parent</span>, <span class='ident'>T</span><span class='op'>&gt;</span>,
     <span class='ident'>idx</span>: <span class='ident'>uint</span>,
 }
@@ -1014,9 +1014,9 @@
                 <dd>Show this help dialog</dd>
                 <dt>S</dt>
                 <dd>Focus the search field</dd>
-                <dt>&uarr;</dt>
+                <dt>&larrb;</dt>
                 <dd>Move up in search results</dd>
-                <dt>&darr;</dt>
+                <dt>&rarrb;</dt>
                 <dd>Move down in search results</dd>
                 <dt>&#9166;</dt>
                 <dd>Go to active search result</dd>
