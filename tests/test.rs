@@ -10,6 +10,7 @@ extern crate openssl;
 use openssl::ssl::{SslContext, Sslv3};
 use std::io::timer;
 use std::time::Duration;
+use url::Url;
 
 use postgres::{PostgresNoticeHandler,
                PostgresNotification,
