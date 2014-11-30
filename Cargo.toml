@@ -22,15 +22,21 @@ path = "tests/test.rs"
 [features]
 default = ["uuid"]
 
-[dependencies]
-phf = "0.2"
-phf_mac = "0.2"
-openssl = "0.2.1"
-time = "0.1"
+[dependencies.phf]
+git = "https://github.com/sfackler/rust-phf"
+[dependencies.phf_mac]
+git = "https://github.com/sfackler/rust-phf"
+[dependencies.openssl]
+git = "https://github.com/sfackler/rust-openssl"
 
 [dependencies.uuid]
 optional = true
 version = "0.1"
+git = "https://github.com/rust-lang/uuid"
+
+[dependencies.time]
+version = "0.1"
+git = "https://github.com/rust-lang/time"
 
 [dev-dependencies]
 url = "0.2"
